@@ -32,7 +32,6 @@ public class ThreadStudy extends AppCompatActivity implements View.OnClickListen
         initView();
 
 //        thirdKinds();
-
     }
 
     private void initView() {

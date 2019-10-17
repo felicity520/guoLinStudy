@@ -21,7 +21,6 @@
         android:layout_height="wrap_content"
         android:text="还没开始加载!" />
 
-
     <ProgressBar
         android:layout_below="@+id/text"
         android:id="@+id/progress_bar"

@@ -31,9 +31,6 @@ public class AsyncTaskStudy extends AppCompatActivity implements View.OnClickLis
         setContentView(R.layout.activity_synctask);
 
         initView();
-
-
-
     }
 
     private void initView() {
