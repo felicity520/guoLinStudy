@@ -33,6 +33,7 @@ public class AsyncTaskStudy extends AppCompatActivity implements View.OnClickLis
         initView();
 
 
+
     }
 
     private void initView() {
