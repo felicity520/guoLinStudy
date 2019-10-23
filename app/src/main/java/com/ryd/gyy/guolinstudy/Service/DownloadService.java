@@ -11,6 +11,7 @@ import android.os.Binder;
 import android.os.Build;
 import android.os.Environment;
 import android.os.IBinder;
+import android.util.Log;
 import android.widget.Toast;
 
 import androidx.core.app.NotificationCompat;
@@ -24,12 +25,17 @@ import java.io.File;
 
 public class DownloadService extends Service {
 
-    String CHANNEL_ID = "com.example.recyclerviewtest.N1";
+    private static final String TAG = "DownloadService";
 
     public DownloadTask downloadTask;
     public String downloadUrl;
 
     public DownloadListener listener = new DownloadListener() {
+
+        /**
+         * @param progress 这里每下载完成1%都会弹窗通知（getNotification）用户，开始下载的时候也弹窗提醒，因为用的是
+         *  同一个Notification，实际中最好不要用弹窗，所以改用了IMPORTANCE_DEFAULT，并且关闭声音(setSound)。
+         */
         @Override
         public void onProgress(int progress) {
             getNotificationManager().notify(1, getNotification("Downloading...", progress));
@@ -74,7 +80,6 @@ public class DownloadService extends Service {
         }
     };
 
-
     public DownloadService() {
     }
 
@@ -86,29 +91,37 @@ public class DownloadService extends Service {
     }
 
     public NotificationManager getNotificationManager() {
-        String CHANNEL_NAME = "TEST";
-        NotificationChannel notificationChannel = null;
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            notificationChannel = new NotificationChannel(CHANNEL_ID, CHANNEL_NAME, NotificationManager.IMPORTANCE_HIGH);
-            NotificationManager notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
-            notificationManager.createNotificationChannel(notificationChannel);
-            return notificationManager;
-        }else{
-            return (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
-        }
+        return (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
     }
 
     public Notification getNotification(String title, int progress) {
+        //注意：8.0产生Notification之前需要先设置Notification的channel_ID,否则报错invalid channel for service notification
+        String CHANNEL_ID = "download";
+        String CHANNEL_NAME = "下载通知";
+        NotificationChannel notificationChannel = null;
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            notificationChannel = new NotificationChannel(CHANNEL_ID, CHANNEL_NAME, NotificationManager.IMPORTANCE_DEFAULT);
+            notificationChannel.setSound(null, null);
+            NotificationManager notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+            notificationManager.createNotificationChannel(notificationChannel);
+        }
+
         Intent intent = new Intent(this, DownLoadActivity.class);
         PendingIntent pi = PendingIntent.getActivity(this, 0, intent, 0);
-        NotificationCompat.Builder builder = new NotificationCompat.Builder(this,CHANNEL_ID);
-
+        NotificationCompat.Builder builder;
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            //因为channelId是8.0之后才有的，所以这里要判断
+            builder = new NotificationCompat.Builder(this, CHANNEL_ID);
+        } else {
+            builder = new NotificationCompat.Builder(this);
+        }
         builder.setSmallIcon(R.mipmap.ic_launcher);
         builder.setLargeIcon(BitmapFactory.decodeResource(getResources(), R.mipmap.ic_launcher));
         builder.setContentIntent(pi);
+        builder.setSound(null);
         builder.setContentTitle(title);
         if (progress >= 0) {
-            //当progress大于或者等于0时才需显示下载进度
+            //当progress大于或者等于0时才需显示下载进度,100是总进度
             builder.setContentText(progress + "%");
             builder.setProgress(100, progress, false);
         }
@@ -124,10 +137,11 @@ public class DownloadService extends Service {
         public void startDownload(String url) {
             if (downloadTask == null) {
             }
-
             downloadUrl = url;
             downloadTask = new DownloadTask(listener);
             downloadTask.execute(downloadUrl);
+
+            //startForeground是开启前台服务。
             startForeground(1, getNotification("Downloading...", 0));
             Toast.makeText(DownloadService.this, "Download ...", Toast.LENGTH_SHORT).show();
         }
