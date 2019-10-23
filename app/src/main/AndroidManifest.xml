@@ -8,7 +8,7 @@
     <!-- 访问服务器要联网 -->
     <uses-permission android:name="android.permission.INTERNET" />
 
-    <!--9.0需要添加的-->
+    <!--9.0之后申请前台服务需要静态注册权限-->
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
 
     <application
@@ -18,13 +18,14 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".Activity.DownLoadActivity">
+        <activity android:name=".Activity.NotificationTest">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
 
         <activity android:name=".Activity.MainActivity" />
         <activity android:name=".Thread.ThreadStudy" />
@@ -33,6 +34,7 @@
             android:name=".Service.DownloadService"
             android:enabled="true"
             android:exported="true"></service>
+
     </application>
 
 </manifest>

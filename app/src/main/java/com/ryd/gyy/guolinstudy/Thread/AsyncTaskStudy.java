@@ -2,11 +2,12 @@ package com.ryd.gyy.guolinstudy.Thread;
 
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.ryd.gyy.guolinstudy.R;
 
@@ -67,7 +68,7 @@ public class AsyncTaskStudy extends AppCompatActivity implements View.OnClickLis
      * 此处指定为：输入参数 = String类型、执行进度 = Integer类型、执行结果 = String类型
      * c. 根据需求，在AsyncTask子类内实现核心方法
      */
-    private class  MyTask extends AsyncTask<String, Integer, String> {
+    private class MyTask extends AsyncTask<String, Integer, String> {
 
         // 方法1：onPreExecute（）
         // 作用：执行 线程任务前的操作

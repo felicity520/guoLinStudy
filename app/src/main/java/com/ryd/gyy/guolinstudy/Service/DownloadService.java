@@ -1,16 +1,19 @@
 package com.ryd.gyy.guolinstudy.Service;
 
 import android.app.Notification;
+import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.app.Service;
 import android.content.Intent;
 import android.graphics.BitmapFactory;
 import android.os.Binder;
+import android.os.Build;
 import android.os.Environment;
 import android.os.IBinder;
-import android.support.v4.app.NotificationCompat;
 import android.widget.Toast;
+
+import androidx.core.app.NotificationCompat;
 
 import com.ryd.gyy.guolinstudy.Activity.DownLoadActivity;
 import com.ryd.gyy.guolinstudy.Interface.DownloadListener;
@@ -20,6 +23,8 @@ import com.ryd.gyy.guolinstudy.Thread.DownloadTask;
 import java.io.File;
 
 public class DownloadService extends Service {
+
+    String CHANNEL_ID = "com.example.recyclerviewtest.N1";
 
     public DownloadTask downloadTask;
     public String downloadUrl;
@@ -81,13 +86,23 @@ public class DownloadService extends Service {
     }
 
     public NotificationManager getNotificationManager() {
-        return (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+        String CHANNEL_NAME = "TEST";
+        NotificationChannel notificationChannel = null;
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            notificationChannel = new NotificationChannel(CHANNEL_ID, CHANNEL_NAME, NotificationManager.IMPORTANCE_HIGH);
+            NotificationManager notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+            notificationManager.createNotificationChannel(notificationChannel);
+            return notificationManager;
+        }else{
+            return (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+        }
     }
 
     public Notification getNotification(String title, int progress) {
         Intent intent = new Intent(this, DownLoadActivity.class);
         PendingIntent pi = PendingIntent.getActivity(this, 0, intent, 0);
-        NotificationCompat.Builder builder = new NotificationCompat.Builder(this);
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(this,CHANNEL_ID);
+
         builder.setSmallIcon(R.mipmap.ic_launcher);
         builder.setLargeIcon(BitmapFactory.decodeResource(getResources(), R.mipmap.ic_launcher));
         builder.setContentIntent(pi);
