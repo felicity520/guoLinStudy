@@ -1,8 +1,10 @@
-package com.ryd.gyy.guolinstudy;
+package com.ryd.gyy.guolinstudy.Activity;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.TextView;
+
+import com.ryd.gyy.guolinstudy.R;
 
 public class MainActivity extends AppCompatActivity {
 
