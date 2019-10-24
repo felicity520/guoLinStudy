@@ -65,6 +65,7 @@ public class NotificationTest extends AppCompatActivity {
             Toast.makeText(this, "请手动将通知打开", Toast.LENGTH_SHORT).show();
         }
         //这里的channelId和上面的保持一致
+        //SmallIcon指在状态栏显示的图，LargeIcon是右侧显示的大图
         Notification notification = new NotificationCompat.Builder(this, "chat")
                 .setContentTitle("收到一条聊天消息")
                 .setContentText("今天中午吃什么？")
@@ -109,7 +110,7 @@ public class NotificationTest extends AppCompatActivity {
      * 保证在通知弹出之前调用
      */
     @TargetApi(Build.VERSION_CODES.O)
-    private void createNotificationChannel(String channelId, String channelName, int importance) {
+    public void createNotificationChannel(String channelId, String channelName, int importance) {
         NotificationChannel channel = new NotificationChannel(channelId, channelName, importance);
         channel.setShowBadge(true);//允许这个渠道下的通知显示角标，默认打开的不设置也行
         NotificationManager notificationManager = (NotificationManager) getSystemService(
