@@ -4,7 +4,7 @@ android {
     compileSdkVersion 28
     defaultConfig {
         applicationId "com.ryd.gyy.guolinstudy"
-        minSdkVersion 26
+        minSdkVersion 22
         targetSdkVersion 28
         versionCode 1
         versionName "1.0"
@@ -39,5 +39,7 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.0-alpha4'
 
     compile 'com.squareup.okhttp3:okhttp:3.11.0'
+//    使用Snackbar要添加的依赖
+    compile 'com.android.support:design:23.4.0'
 
 }
