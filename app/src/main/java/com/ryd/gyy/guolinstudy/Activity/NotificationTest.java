@@ -7,6 +7,7 @@ import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.content.Intent;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.Settings;
@@ -28,7 +29,6 @@ public class NotificationTest extends AppCompatActivity {
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
 
-
             String channelId = "chat";
             String channelName = "聊天消息";
             int importance = NotificationManager.IMPORTANCE_HIGH;
@@ -43,7 +43,6 @@ public class NotificationTest extends AppCompatActivity {
             // 重要等级的不同则会决定通知的不同行为，当然这里只是初始状态下的重要等级，用户可以随时手动更改某个渠道的重要等级，App是无法干预的。
             //IMPORTANCE_HIGH/IMPORTANCE_DEFAULT/IMPORTANCE_LOW/IMPORTANCE_MIN ----用户可以在设置中更改----
             createNotificationChannel(channelId, channelName, importance);
-
         }
 
 
@@ -79,8 +78,18 @@ public class NotificationTest extends AppCompatActivity {
 
 
     /**
+     * NotificationCompat是适配7.1以下的，之前是Notification.Builder(this)
+     *
      * @param view 发布一个订阅的通知
      *             长按显示2条未读数量
+     *             <p>
+     *             大图小图说明：
+     *             Android从5.0系统开始，对于通知栏图标的设计进行了修改。现在Google要求，所有应用程序的通知栏图标(小图)，应该只使用alpha图层（不要带颜色）来进行绘制，而不应该包括RGB图层。
+     *             系统给右下角的这个小圆圈默认是设置成灰色的，使用setColor设置成和大图标一个颜色，整体就好看了。
+     *
+     *             8.0:
+     *             小图还是要用（不带颜色的），然后设置颜色
+     *
      */
     public void sendSubscribeMsg(View view) {
         NotificationManager manager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
@@ -88,9 +97,10 @@ public class NotificationTest extends AppCompatActivity {
                 .setContentTitle("收到一条订阅消息")
                 .setContentText("地铁沿线30万商铺抢购中！")
                 .setWhen(System.currentTimeMillis())
-                .setSmallIcon(R.drawable.red01)
+                .setSmallIcon(R.drawable.ryd2)
+                .setColor(Color.parseColor("#7CB342"))
                 .setNumber(2)
-                .setLargeIcon(BitmapFactory.decodeResource(getResources(), R.drawable.google01))
+                .setLargeIcon(BitmapFactory.decodeResource(getResources(), R.drawable.ryd))
                 .setAutoCancel(true)
                 .build();
         manager.notify(2, notification);
