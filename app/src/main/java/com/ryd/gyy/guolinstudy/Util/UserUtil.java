@@ -3,6 +3,7 @@ package com.ryd.gyy.guolinstudy.Util;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.os.Build;
 import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
@@ -20,7 +21,7 @@ public class UserUtil {
 
     private static final String TAG = "UserUtil";
 
-    private static Toast toast;
+    private static Toast mToast;
 
     public static void dialog(String title, String str, Context context) {
         AlertDialog.Builder builder = new AlertDialog.Builder(context);  //先得到构造器
@@ -43,18 +44,27 @@ public class UserUtil {
     }
 
     /**
-     * 优点：防止用户多次点击一直弹出toast。这里toast只会持续一次Toast显示的时长
+     * 显示一个toast提示
+     * <p>
+     * 9.0以下：防止用户多次点击一直弹出toast。这里toast只会持续一次Toast显示的时长（倒计时配合toast显示倒计时长，用toast不合适，适合用TextView做倒计时）
+     * 9.0以上google源码有变，参考https://blog.csdn.net/qq_36486247/article/details/102753801
      *
-     * @param context 注意：这里要使用全局的context，否则可能会内存泄漏
-     * @param content
+     * @param context  注意：这里要使用全局的context，否则可能会内存泄漏
+     * @param text     toast字符串
+     * @param duration toast显示时间
      */
-    public static void showToast(Context context, String content) {
-        if (toast == null) {
-            toast = Toast.makeText(context, content, Toast.LENGTH_SHORT);
+    public static void showToast(Context context, String text, int duration) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
+            Toast.makeText(context, text, duration).show();
         } else {
-            toast.setText(content);
+            if (mToast == null) {
+                mToast = Toast.makeText(context, text, duration);
+            } else {
+                mToast.setText(text);
+                mToast.setDuration(duration);
+            }
+            mToast.show();
         }
-        toast.show();
     }
 
 
@@ -68,7 +78,7 @@ public class UserUtil {
                 .setAction("Undo", new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        Log.e(TAG, "onClick: 用户点击了撤销" );
+                        Log.e(TAG, "onClick: 用户点击了撤销");
                     }
                 })
                 .show();
