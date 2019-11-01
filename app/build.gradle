@@ -39,4 +39,8 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.0-alpha4'
     compile 'com.squareup.okhttp3:okhttp:3.11.0'
     implementation files('libs/BaiduLBS_Android.jar')
+//    使用Snackbar要添加的依赖
+    compile 'com.android.support:design:23.4.0'
+    implementation 'com.google.android.material:material:1.0.0'
+
 }

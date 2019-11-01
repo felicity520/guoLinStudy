@@ -9,23 +9,34 @@ import android.widget.Toast;
 
 import com.baidu.location.BDAbstractLocationListener;
 import com.baidu.location.BDLocation;
-import com.baidu.location.BDLocationListener;
 import com.baidu.location.LocationClient;
 import com.baidu.location.LocationClientOption;
+import com.baidu.mapapi.SDKInitializer;
+import com.baidu.mapapi.map.BaiduMap;
+import com.baidu.mapapi.map.BitmapDescriptorFactory;
+import com.baidu.mapapi.map.MapStatusUpdate;
+import com.baidu.mapapi.map.MapStatusUpdateFactory;
+import com.baidu.mapapi.map.MapView;
+import com.baidu.mapapi.map.MyLocationConfiguration;
+import com.baidu.mapapi.map.MyLocationData;
+import com.baidu.mapapi.model.LatLng;
 import com.ryd.gyy.guolinstudy.R;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.security.auth.login.LoginException;
-
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
+/**
+ * 注意：手机的GPS功能必须要用户主动去开启（设置里）
+ */
 public class LocationActivity extends AppCompatActivity {
 
     private static final String TAG = "LocationActivity";
+
+    private boolean isFirstLocate = true;
 
     public LocationClient mLocationClient = null;
     private MyLocationListener myListener = new MyLocationListener();
@@ -33,12 +44,15 @@ public class LocationActivity extends AppCompatActivity {
     //原有BDLocationListener接口暂时同步保留。具体介绍请参考后文第四步的说明
 
     private TextView positionText;
+    private MapView mapView;
+    private BaiduMap baiduMap;//将地图显示出来
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mLocationClient = new LocationClient(getApplicationContext()); //声明LocationClient类
         mLocationClient.registerLocationListener(myListener);//注册监听函数。Android定位SDK自V7.2版本起，对外提供了Abstract类型的监听接口BDAbstractLocationListener，用于实现定位监听。原有BDLocationListener暂时保留，推荐开发者升级到Abstract类型的新监听接口使用，该接口会异步获取定位结果
+        SDKInitializer.initialize(getApplicationContext());//最好用全局的
         //上面的代码必须写在setContentView之前
         setContentView(R.layout.activity_location);
 
@@ -71,7 +85,46 @@ public class LocationActivity extends AppCompatActivity {
     }
 
     private void requestLocation() {
+        initLocation();
         mLocationClient.start();
+    }
+
+    private void initLocation() {
+        LocationClientOption option = new LocationClientOption();
+        option.setScanSpan(2000);
+        //可选，设置定位模式，默认高精度
+        //LocationMode.Hight_Accuracy：高精度；
+        //LocationMode. Battery_Saving：低功耗；
+        //LocationMode. Device_Sensors：仅使用设备；
+        option.setLocationMode(LocationClientOption.LocationMode.Hight_Accuracy);
+        option.setOpenGps(true);//可选，设置是否使用gps，默认false。使用高精度和仅用设备两种定位模式的，参数必须设置为true
+        option.setIsNeedAddress(true);//需要获取位置地址的时候，必须加上这句，否则无法获取
+        option.setIsNeedLocationDescribe(true);//如果开发者需要获得当前点的位置信息描述，此处必须为true
+        mLocationClient.setLocOption(option);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        //在activity执行onResume时必须调用mMapView. onResume ()
+        mapView.onResume();
+    }
+
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        //在activity执行onPause时必须调用mMapView. onPause ()
+        mapView.onPause();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        mapView.onDestroy();//在activity执行onDestroy时必须调用mMapView.onDestroy()
+        mLocationClient.stop();//在程序stop的时候停止定位，否则会在后台不停的定位，消耗电量
+        mLocationClient.stopIndoorMode();//关闭室内定位模式
+        baiduMap.setMyLocationEnabled(false);//关闭地图的定位
     }
 
     @Override
@@ -98,11 +151,46 @@ public class LocationActivity extends AppCompatActivity {
 
     private void initView() {
         positionText = (TextView) findViewById(R.id.positionText);
+        mapView = (MapView) findViewById(R.id.bmapView);
+        baiduMap = mapView.getMap();
+        baiduMap.setMyLocationEnabled(true);//开启地图的定位图层,定位的时候要用
     }
 
 
+    /**
+     * 将地图移动到我的位置
+     *
+     * @param location 当前的位置
+     */
+    private void navigateTo(BDLocation location) {
+        if (isFirstLocate) {
+            //移动到我的位置只需要在第一次定位的时候调用，所以用isFirstLocate做退出
+            Toast.makeText(this, "nav to " + location.getAddrStr(), Toast.LENGTH_SHORT).show();
+            LatLng ll = new LatLng(location.getLatitude(), location.getLongitude());
+            MapStatusUpdate update = MapStatusUpdateFactory.newLatLng(ll);
+            baiduMap.animateMapStatus(update);
+            update = MapStatusUpdateFactory.zoomTo(21f);
+            baiduMap.animateMapStatus(update);
+            isFirstLocate = false;
+        }
+        //在地图上需要实时显示我的位置光标。所以要写在if外面
+        MyLocationData.Builder locationBuilder = new MyLocationData.Builder();
+        locationBuilder.accuracy(location.getRadius());
+        locationBuilder.direction(location.getDirection());
+        locationBuilder.latitude(location.getLatitude());
+        locationBuilder.longitude(location.getLongitude());
+        MyLocationData locationData = locationBuilder.build();
+        baiduMap.setMyLocationData(locationData);
+
+
+        //自定义内容：方向箭头的自定义，可有可无
+        MyLocationConfiguration mLocationConfiguration = new MyLocationConfiguration(MyLocationConfiguration.LocationMode.FOLLOWING, true,
+                BitmapDescriptorFactory.fromResource(R.drawable.red01), 0xAAFFFF88, 0xAA00FF00);
+        baiduMap.setMyLocationConfiguration(mLocationConfiguration);
+    }
+
     /*
-    之前的监听方式
+    之前的监听方式：百度现在已经不推荐使用了
     private class MyLocationListener implements BDLocationListener {
         @Override
         public void onReceiveLocation(BDLocation bdLocation) {
@@ -114,9 +202,30 @@ public class LocationActivity extends AppCompatActivity {
     public class MyLocationListener extends BDAbstractLocationListener {
         @Override
         public void onReceiveLocation(BDLocation location) {
+            /*
             StringBuilder currentPosition = new StringBuilder();
             currentPosition.append("纬度:").append(location.getLatitude()).append("\n");
             currentPosition.append("经度:").append(location.getLongitude()).append("\n");
+            //获取地址信息一定要用到网络
+            currentPosition.append("国家:").append(location.getCountry()).append("\n");
+            currentPosition.append("省:").append(location.getProvince()).append("\n");
+            currentPosition.append("市:").append(location.getCity()).append("\n");
+            currentPosition.append("区:").append(location.getDistrict()).append("\n");
+            currentPosition.append("街:").append(location.getStreet()).append("\n");
+            currentPosition.append("位置信息描述:").append(location.getLocationDescribe()).append("\n");
+
+            //此处的BDLocation为定位结果信息类，通过它的各种get方法可获取定位相关的全部结果
+            Log.i(TAG, "location.getFloor(): " + location.getFloor());
+            if (location.getFloor() != null) {
+                // 当前支持高精度室内定位
+                String buildingID = location.getBuildingID();// 百度内部建筑物ID
+                String buildingName = location.getBuildingName();// 百度内部建筑物缩写
+                String floor = location.getFloor();// 室内定位的楼层信息，如 f1,f2,b1,b2
+                currentPosition.append("buildingID:").append(buildingID).append("\n");
+                currentPosition.append("buildingName:").append(buildingName).append("\n");
+                currentPosition.append("floor:").append(floor).append("\n");
+                mLocationClient.startIndoorMode();// 开启室内定位模式（重复调用也没问题），开启后，定位SDK会融合各种定位信息（GPS,WI-FI，蓝牙，传感器等）连续平滑的输出定位结果；
+            }
 
             double latitude = location.getLatitude();    //获取纬度信息
             double longitude = location.getLongitude();    //获取经度信息
@@ -125,13 +234,20 @@ public class LocationActivity extends AppCompatActivity {
 
             currentPosition.append("定位方式:");
             int errorCode = location.getLocType(); //获取定位类型、定位错误返回码，具体信息可参照类参考中BDLocation类中的说明
-            Log.e(TAG, "onReceiveLocation: errorCode" + errorCode );
-            if (errorCode == BDLocation.TypeGpsLocation) {
+            Log.e(TAG, "onReceiveLocation: errorCode：" + errorCode);
+            if (errorCode == 61) {
                 currentPosition.append("GPS");
-            } else {
+            } else if (errorCode == 161) {
                 currentPosition.append("网络");
             }
             positionText.setText(currentPosition);
+            */
+
+
+            if (location.getLocType() == BDLocation.TypeGpsLocation || location.getLocType() == BDLocation.TypeNetWorkLocation) {
+                navigateTo(location);
+            }
+
         }
     }
 
