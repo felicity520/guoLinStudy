@@ -7,12 +7,43 @@
     android:orientation="vertical"
     tools:context=".Activity.MainActivity">
 
+    <!--    <HorizontalScrollView-->
+    <!--        android:layout_width="150dp"-->
+    <!--        android:layout_height="20dp"-->
+    <!--        android:layout_gravity="center">-->
+
+    <!--    </HorizontalScrollView>-->
+
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:text="测试代码测试代码测试代码测试代码测试代码测试代码测试代码测试代码测试代码" />
+
+    <!--水平滚动的TextView-->
     <TextView
         android:id="@+id/sample_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:ellipsize="marquee"
+        android:fadeScrollbars="false"
+        android:focusable="true"
+        android:letterSpacing="-0.15"
+        android:singleLine="true"
+        android:text="消息:爱车的小伙伴们注意啦！这次活动马上消息:爱车的小伙伴们注意啦！测试代码测试代码测试代码测试代码测试代码测试代码测试代码测试代码测试代码这次活动马上消息:爱车的小伙伴们注意啦！这次活动马上" />
+
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:text="Hello World!" />
+        android:letterSpacing="-0.15"
+        android:text="测试代码测试代码测试代码测试代码测试代码测试代码测试代码测试代码测试代码"
+        android:visibility="gone" />
+
 
     <Button
         android:id="@+id/btn_demo"

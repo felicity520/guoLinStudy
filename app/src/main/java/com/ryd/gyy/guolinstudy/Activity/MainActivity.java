@@ -43,6 +43,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         tv = findViewById(R.id.sample_text);
 //        tv.setText(stringFromJNI());
 
+
         btn_demo = (Button) findViewById(R.id.btn_demo);
         btn_demo.setOnClickListener(this);
     }
