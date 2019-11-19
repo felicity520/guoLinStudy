@@ -1,24 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.ryd.gyy.guolinstudy">
-
-    <!--9.0之后申请前台服务需要静态注册权限-->
+    <!-- 9.0之后申请前台服务需要静态注册权限 -->
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
-
-
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
-
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-    <!-- 访问服务器要联网 -->
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" /> <!-- 访问服务器要联网 -->
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS" />
     <uses-permission android:name="android.permission.WAKE_LOCK" />
-
 
     <application
         android:name=".Util.MainApplication"
@@ -29,7 +23,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
 
-        <!--android:name必须填写这个，value是API Key-->
+        <!-- android:name必须填写这个，value是API Key -->
         <meta-data
             android:name="com.baidu.lbsapi.API_KEY"
             android:value="0ntqYn8yFYNhOYwnXKzzXOEvyewNhcup" />
@@ -43,23 +37,19 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity android:name=".Activity.LocationActivity" />
         <activity android:name=".Activity.DownLoadActivity" />
         <activity android:name=".Activity.NotificationTest" />
-        <!--<activity android:name=".Activity.MainActivity" />-->
+<!--        <activity android:name=".Activity.MainActivity" />-->
         <activity android:name=".Thread.ThreadStudy" />
-
         <service
             android:name=".Service.DownloadService"
             android:enabled="true"
-            android:exported="true"></service>
-
-        <!--使用百度定位的SDK必须要添加的-->
+            android:exported="true" /> <!-- 使用百度定位的SDK必须要添加的 -->
         <service
             android:name="com.baidu.location.f"
             android:enabled="true"
-            android:process=":remote"></service>
+            android:process=":remote" />
     </application>
 
 </manifest>
