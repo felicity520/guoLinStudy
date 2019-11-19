@@ -35,8 +35,8 @@
             android:value="0ntqYn8yFYNhOYwnXKzzXOEvyewNhcup" />
 
         <activity
-            android:theme="@style/AppTheme.NoActionBar"
-            android:name=".Activity.MainActivity">
+            android:name=".Activity.MainActivity"
+            android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -47,7 +47,7 @@
         <activity android:name=".Activity.LocationActivity" />
         <activity android:name=".Activity.DownLoadActivity" />
         <activity android:name=".Activity.NotificationTest" />
-<!--        <activity android:name=".Activity.MainActivity" />-->
+        <!--<activity android:name=".Activity.MainActivity" />-->
         <activity android:name=".Thread.ThreadStudy" />
 
         <service
