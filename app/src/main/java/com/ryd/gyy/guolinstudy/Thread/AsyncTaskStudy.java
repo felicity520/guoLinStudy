@@ -147,7 +147,6 @@ public class AsyncTaskStudy extends AppCompatActivity implements View.OnClickLis
         // 作用：将异步任务设置为：取消状态
         @Override
         protected void onCancelled() {
-
             text.setText("已取消");
             progressBar.setProgress(0);
 

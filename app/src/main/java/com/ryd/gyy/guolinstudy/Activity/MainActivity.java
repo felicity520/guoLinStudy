@@ -1,21 +1,28 @@
 package com.ryd.gyy.guolinstudy.Activity;
 
+import android.app.AlertDialog;
 import android.os.Bundle;
-import android.util.Log;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.ryd.gyy.guolinstudy.R;
 import com.ryd.gyy.guolinstudy.Util.UserUtil;
 
+import static com.ryd.gyy.guolinstudy.Util.MainApplication.getGlobalContext;
+
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
     private static final String TAG = "MainActivity";
 
     private Button btn_demo;
+    private TextView tv;
 
     // Used to load the 'native-lib' library on application startup.
     static {
@@ -29,12 +36,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
 
         initView();
-        // Example of a call to a native method
-        TextView tv = findViewById(R.id.sample_text);
-        tv.setText(stringFromJNI());
     }
 
+
     private void initView() {
+        // Example of a call to a native method
+        tv = findViewById(R.id.sample_text);
+//        tv.setText(stringFromJNI());
+
         btn_demo = (Button) findViewById(R.id.btn_demo);
         btn_demo.setOnClickListener(this);
     }
@@ -49,11 +58,23 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.btn_demo:
-                UserUtil.dialog("title","content",MainActivity.this);
-                UserUtil.showSnackbar(getWindow().getDecorView());
-                Log.e(TAG, "验证dialog的阻断---------------: ");
-//                UserUtil.showToast(getGlobalContext(),"我是toast");
+//                Toast toast = Toast.makeText(MainActivity.this, "提示用户，Toast一下", Toast.LENGTH_SHORT);
+//                LinearLayout toastView = (LinearLayout) toast.getView();//获取Toast的LinearLayout，注意需要是线性布局
+//                ImageView image = new ImageView(MainActivity.this);
+//                image.setImageResource(R.drawable.ryd2);//生成一个现实Logo的ImageView
+//                toastView.addView(image);//将ImageView加载到LinearLayout上面
+//                toast.setGravity(Gravity.CENTER_VERTICAL, 0, -50);
+//                toast.show();
+//                UserUtil.dialog("title","content",MainActivity.this);
+//                UserUtil.showSnackbar(getWindow().getDecorView());
+//                Log.e(TAG, "验证dialog的阻断---------------: ");
+                UserUtil.showToast(getGlobalContext(),"我是toast",Toast.LENGTH_SHORT);
                 break;
         }
     }
+
+
+
+
+
 }

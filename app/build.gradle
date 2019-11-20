@@ -4,7 +4,7 @@ android {
     compileSdkVersion 28
     defaultConfig {
         applicationId "com.ryd.gyy.guolinstudy"
-        minSdkVersion 22
+        minSdkVersion 26
         targetSdkVersion 28
         versionCode 1
         versionName "1.0"
@@ -28,21 +28,30 @@ android {
             version "3.10.2"
         }
     }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
 }
 
 dependencies {
-    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
     implementation 'androidx.appcompat:appcompat:1.0.0-beta01'
     implementation 'androidx.constraintlayout:constraintlayout:1.1.2'
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test:runner:1.1.0-alpha4'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.0-alpha4'
-
-    compile 'com.squareup.okhttp3:okhttp:3.11.0'
+    implementation 'com.squareup.okhttp3:okhttp:3.11.0'
+    implementation files('libs/BaiduLBS_Android.jar')
 //    使用Snackbar要添加的依赖
-    compile 'com.android.support:design:23.4.0'
+    implementation 'com.android.support:design:23.4.0'
+    implementation 'com.google.android.material:material:1.0.0'
 
-
+//    butterknife注入:8.1.1的不能用，需要更新到10.0.0
     implementation 'com.jakewharton:butterknife:10.2.0'
     annotationProcessor 'com.jakewharton:butterknife-compiler:10.2.0'
+
+//    PercentFrameLayout用到的闭包:google已经弃用了PercentFrameLayout
+    //implementation 'com.android.support:percent:28.0.0'
+
 }

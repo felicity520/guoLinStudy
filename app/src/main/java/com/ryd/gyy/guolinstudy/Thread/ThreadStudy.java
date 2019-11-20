@@ -1,6 +1,5 @@
 package com.ryd.gyy.guolinstudy.Thread;
 
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
