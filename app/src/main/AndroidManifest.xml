@@ -41,7 +41,7 @@
         <activity android:name=".Activity.LocationActivity" />
         <activity android:name=".Activity.DownLoadActivity" />
         <activity android:name=".Activity.NotificationTest" />
-        <activity android:name=".Activity.MainActivity" />
+<!--        <activity android:name=".Activity.MainActivity" />-->
         <activity android:name=".Thread.ThreadStudy" />
         <service
             android:name=".Service.DownloadService"
