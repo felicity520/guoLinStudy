@@ -4,7 +4,7 @@ android {
     compileSdkVersion 28
     defaultConfig {
         applicationId "com.ryd.gyy.guolinstudy"
-        minSdkVersion 26
+        minSdkVersion 25
         targetSdkVersion 28
         versionCode 1
         versionName "1.0"
@@ -53,5 +53,9 @@ dependencies {
 
 //    PercentFrameLayout用到的闭包:google已经弃用了PercentFrameLayout
     //implementation 'com.android.support:percent:28.0.0'
+
+
+    implementation 'com.github.bumptech.glide:glide:4.9.0'
+    annotationProcessor 'com.github.bumptech.glide:compiler:4.9.0'
 
 }

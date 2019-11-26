@@ -32,6 +32,14 @@ public class DownLoadActivity extends AppCompatActivity implements View.OnClickL
         @Override
         public void onServiceConnected(ComponentName name, IBinder service) {
             downloadBinder = (DownloadService.DownloadBinder) service;
+            Log.e(TAG, "connection downloadBinder: " + downloadBinder.toString() );
+            //这里测试一下。8802一上电就开始下载大的文件，看会不会出现系统时间改变的情况
+            if (downloadBinder == null) {
+                Log.e(TAG, "downloadBinder is null ");
+                return;
+            }
+            String url = "http://xmryd.imwork.net:5000/sharing/DyYBHHT0h";
+            downloadBinder.startDownload(url);
         }
 
         @Override

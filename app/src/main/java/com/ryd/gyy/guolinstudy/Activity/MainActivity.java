@@ -33,7 +33,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 //        setContentView(R.layout.activity_main);
-        setContentView(R.layout.activity_constraint_guoshen);
+        setContentView(R.layout.activity_test);
 
 
 //        initView();
@@ -62,7 +62,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 //                Toast toast = Toast.makeText(MainActivity.this, "提示用户，Toast一下", Toast.LENGTH_SHORT);
 //                LinearLayout toastView = (LinearLayout) toast.getView();//获取Toast的LinearLayout，注意需要是线性布局
 //                ImageView image = new ImageView(MainActivity.this);
-//                image.setImageResource(R.drawable.ryd2);//生成一个现实Logo的ImageView
+//                image.setImageResource(R.loading.ryd2);//生成一个现实Logo的ImageView
 //                toastView.addView(image);//将ImageView加载到LinearLayout上面
 //                toast.setGravity(Gravity.CENTER_VERTICAL, 0, -50);
 //                toast.show();

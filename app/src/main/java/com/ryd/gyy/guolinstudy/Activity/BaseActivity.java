@@ -91,7 +91,7 @@ public abstract class BaseActivity extends AppCompatActivity {
 
     //设置左上角back按钮
 //    public void setBackArrow() {
-//        final Drawable upArrow = getResources().getDrawable(R.drawable.back);
+//        final Drawable upArrow = getResources().getDrawable(R.loading.back);
 //        //给Toolbar设置左侧的图标
 //        getSupportActionBar().setHomeAsUpIndicator(upArrow);
 //        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
