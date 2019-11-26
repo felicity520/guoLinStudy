@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.ryd.gyy.guolinstudy">
+
     <!-- 9.0之后申请前台服务需要静态注册权限 -->
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
@@ -9,12 +10,18 @@
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" /> <!-- 访问服务器要联网 -->
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+
+    <!-- 访问服务器要联网 -->
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS" />
     <uses-permission android:name="android.permission.WAKE_LOCK" />
 
+    <!--接收开机广播-->
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+
     <application
+        android:usesCleartextTraffic="true"
         android:name=".Util.MainApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -22,27 +29,28 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-
-        <!-- android:name必须填写这个，value是API Key -->
-        <meta-data
-            android:name="com.baidu.lbsapi.API_KEY"
-            android:value="0ntqYn8yFYNhOYwnXKzzXOEvyewNhcup" />
-
         <activity
-            android:name=".Activity.MainActivity"
+            android:name=".Activity.GlideActivity"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-        </activity>
+        </activity> <!-- android:name必须填写这个，value是API Key -->
+        <meta-data
+            android:name="com.baidu.lbsapi.API_KEY"
+            android:value="0ntqYn8yFYNhOYwnXKzzXOEvyewNhcup" />
 
-        <activity android:name=".Activity.LocationActivity" />
-        <activity android:name=".Activity.DownLoadActivity" />
+        <activity android:name=".Activity.LocationActivity" /> <!-- <activity android:name=".Activity.DownLoadActivity" /> -->
+        <activity android:name=".Activity.MyActivity" />
+        <activity android:name=".Activity.BaseActivity" />
         <activity android:name=".Activity.NotificationTest" />
-<!--        <activity android:name=".Activity.MainActivity" />-->
+        <activity android:name=".Activity.MainActivity" />
+        <activity android:name=".Activity.DisplayCutoutActivity" />
         <activity android:name=".Thread.ThreadStudy" />
+        <activity android:name=".Thread.AsyncTaskStudy" />
+
         <service
             android:name=".Service.DownloadService"
             android:enabled="true"
@@ -51,6 +59,18 @@
             android:name="com.baidu.location.f"
             android:enabled="true"
             android:process=":remote" />
+
+        <!-- 接收开机广播 -->
+        <receiver
+            android:name=".Broadcast.BootUpReceiver"
+            android:enabled="true"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </receiver>
     </application>
 
 </manifest>

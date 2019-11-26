@@ -78,7 +78,8 @@ public class ThreadStudy extends AppCompatActivity implements View.OnClickListen
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.threadStart:
-                firstKind();
+//                firstKind();
+                secondKind();
                 break;
             case R.id.threadStop:
                 stopThread();
@@ -91,8 +92,8 @@ public class ThreadStudy extends AppCompatActivity implements View.OnClickListen
      * interrupt()中断线程
      */
     private void stopThread() {
-        Log.e(TAG, "mMyThread: " + mMyThread );
-        Log.e(TAG, "mMyThread.isAlive(): " + mMyThread.isAlive() );
+        Log.e(TAG, "mMyThread: " + mMyThread);
+        Log.e(TAG, "mMyThread.isAlive(): " + mMyThread.isAlive());
         if (null != mMyThread && mMyThread.isAlive()) {
             Log.e(TAG, "stopThread: -----");
             mMyThread.interrupt();
@@ -134,14 +135,14 @@ public class ThreadStudy extends AppCompatActivity implements View.OnClickListen
 
             //终极方法
             int i = 0;
-            while(!isInterrupted()){  // 判断线程是否被打断
+            while (!isInterrupted()) {  // 判断线程是否被打断
                 try {
                     i++;
                     Thread.sleep(1000);
-                    Log.i("thread",Thread.currentThread().getName()+":Running()_Count:"+i);
+                    Log.i("thread", Thread.currentThread().getName() + ":Running()_Count:" + i);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
-                    Log.i("thread",Thread.currentThread().getName()+"异常抛出，停止线程");
+                    Log.i("thread", Thread.currentThread().getName() + "异常抛出，停止线程");
                     break;// 抛出异常跳出循环
                 }
             }
@@ -152,16 +153,18 @@ public class ThreadStudy extends AppCompatActivity implements View.OnClickListen
 
 
     /**
-     * 第二种：实现Runnable
+     * 第二种：实现Runnable,确认是在子线程Thread.currentThread().getId()
      */
     public class MyRunnable implements Runnable {
 
         @Override
         public void run() {
             // do something
+            Log.i(TAG, "onCreate4: " + Thread.currentThread().getId());
+            Log.i(TAG, "onCreate5: " + getMainLooper().getThread().getId());
+            Log.e(TAG, "run: -------------");
         }
     }
-
 
 
 }
