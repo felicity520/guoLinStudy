@@ -33,15 +33,19 @@ public class GlideActivity extends AppCompatActivity {
     }
 
     private void initData() {
+        //每个应用程序最高可用内存----262144KB = 256MS
         int maxMemory = (int) (Runtime.getRuntime().maxMemory() / 1024);
         Log.d("TAG", "Max memory is " + maxMemory + "KB");
 
+        //以下代码可以获取到图片实际的大小和类型，注意是id是资源的id，drawable是图片的资源！
         BitmapFactory.Options options = new BitmapFactory.Options();
         options.inJustDecodeBounds = true;
-        BitmapFactory.decodeResource(getResources(), R.id.start_download, options);
+        BitmapFactory.decodeResource(GlideActivity.this.getResources(), R.drawable.test01, options);
         int imageHeight = options.outHeight;
         int imageWidth = options.outWidth;
         String imageType = options.outMimeType;
+        //imageHeight: 1080 imageWidth:1920 imageType:image/jpeg
+        Log.e(TAG, "imageHeight: " + imageHeight + "imageWidth:" + imageWidth + "imageType:" + imageType);
 
     }
 
@@ -98,6 +102,11 @@ public class GlideActivity extends AppCompatActivity {
 
 
 }
+
+
+
+
+
 
 
 

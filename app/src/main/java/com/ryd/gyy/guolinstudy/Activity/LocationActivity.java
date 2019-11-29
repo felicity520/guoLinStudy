@@ -19,6 +19,10 @@ import com.baidu.mapapi.map.MapStatusUpdateFactory;
 import com.baidu.mapapi.map.MapView;
 import com.baidu.mapapi.map.MyLocationConfiguration;
 import com.baidu.mapapi.map.MyLocationData;
+import com.baidu.mapapi.map.Overlay;
+import com.baidu.mapapi.map.OverlayOptions;
+import com.baidu.mapapi.map.PolylineDottedLineType;
+import com.baidu.mapapi.map.PolylineOptions;
 import com.baidu.mapapi.model.LatLng;
 import com.ryd.gyy.guolinstudy.R;
 
@@ -87,7 +91,38 @@ public class LocationActivity extends AppCompatActivity {
     private void requestLocation() {
         initLocation();
         mLocationClient.start();
+        drawPolyline();
     }
+
+    /**
+     * 绘制折线，为了验证可以虚线绘制，也可以实线绘制
+     */
+    private void drawPolyline() {
+        //构建折线点坐标
+        LatLng p1 = new LatLng(39.97923, 116.357428);
+        LatLng p2 = new LatLng(39.7, 116.5);
+//        LatLng p3 = new LatLng(39.97923, 116.437428);
+        List<LatLng> points = new ArrayList<LatLng>();
+        points.add(p1);
+        points.add(p2);
+//        points.add(p3);
+
+        //设置折线的属性
+        OverlayOptions mOverlayOptions = new PolylineOptions()
+                .width(30)
+                .focus(true)
+                .keepScale(false)
+                .visible(true)
+                .zIndex(0)
+                .dottedLineType(PolylineDottedLineType.DOTTED_LINE_SQUARE)
+                .customTexture(BitmapDescriptorFactory.fromResourceWithDpi(R.drawable.black,100))
+                .color(0xAAFF0000)
+                .points(points);
+        //在地图上绘制折线
+        //mPloyline 折线对象
+        Overlay mPolyline = baiduMap.addOverlay(mOverlayOptions);
+    }
+
 
     private void initLocation() {
         LocationClientOption option = new LocationClientOption();
@@ -169,7 +204,7 @@ public class LocationActivity extends AppCompatActivity {
             LatLng ll = new LatLng(location.getLatitude(), location.getLongitude());
             MapStatusUpdate update = MapStatusUpdateFactory.newLatLng(ll);
             baiduMap.animateMapStatus(update);
-            update = MapStatusUpdateFactory.zoomTo(21f);
+            update = MapStatusUpdateFactory.zoomTo(18f);
             baiduMap.animateMapStatus(update);
             isFirstLocate = false;
         }
@@ -184,9 +219,9 @@ public class LocationActivity extends AppCompatActivity {
 
 
         //自定义内容：方向箭头的自定义，可有可无
-        MyLocationConfiguration mLocationConfiguration = new MyLocationConfiguration(MyLocationConfiguration.LocationMode.FOLLOWING, true,
-                BitmapDescriptorFactory.fromResource(R.drawable.red01), 0xAAFFFF88, 0xAA00FF00);
-        baiduMap.setMyLocationConfiguration(mLocationConfiguration);
+//        MyLocationConfiguration mLocationConfiguration = new MyLocationConfiguration(MyLocationConfiguration.LocationMode.FOLLOWING, true,
+//                BitmapDescriptorFactory.fromResource(R.drawable.red01), 0xAAFFFF88, 0xAA00FF00);
+//        baiduMap.setMyLocationConfiguration(mLocationConfiguration);
     }
 
     /*
@@ -244,9 +279,10 @@ public class LocationActivity extends AppCompatActivity {
             */
 
 
-            if (location.getLocType() == BDLocation.TypeGpsLocation || location.getLocType() == BDLocation.TypeNetWorkLocation) {
-                navigateTo(location);
-            }
+            //为了测试折线，暂时先不移动到我的位置
+//            if (location.getLocType() == BDLocation.TypeGpsLocation || location.getLocType() == BDLocation.TypeNetWorkLocation) {
+//                navigateTo(location);
+//            }
 
         }
     }
