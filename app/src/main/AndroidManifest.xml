@@ -30,7 +30,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".Activity.GlideActivity"
+            android:name=".Activity.LocationActivity"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -42,7 +42,9 @@
             android:name="com.baidu.lbsapi.API_KEY"
             android:value="0ntqYn8yFYNhOYwnXKzzXOEvyewNhcup" />
 
-        <activity android:name=".Activity.LocationActivity" /> <!-- <activity android:name=".Activity.DownLoadActivity" /> -->
+<!--        <activity android:name=".Activity.LocationActivity" /> -->
+        <!-- <activity android:name=".Activity.DownLoadActivity" /> -->
+        <activity android:name=".Activity.GlideActivity" />
         <activity android:name=".Activity.MyActivity" />
         <activity android:name=".Activity.BaseActivity" />
         <activity android:name=".Activity.NotificationTest" />
