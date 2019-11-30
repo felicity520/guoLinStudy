@@ -13,6 +13,7 @@ import com.baidu.location.LocationClient;
 import com.baidu.location.LocationClientOption;
 import com.baidu.mapapi.SDKInitializer;
 import com.baidu.mapapi.map.BaiduMap;
+import com.baidu.mapapi.map.BitmapDescriptor;
 import com.baidu.mapapi.map.BitmapDescriptorFactory;
 import com.baidu.mapapi.map.MapStatusUpdate;
 import com.baidu.mapapi.map.MapStatusUpdateFactory;
@@ -50,6 +51,8 @@ public class LocationActivity extends AppCompatActivity {
     private TextView positionText;
     private MapView mapView;
     private BaiduMap baiduMap;//将地图显示出来
+
+    private BitmapDescriptor mGreenTexture = BitmapDescriptorFactory.fromAsset("Icon_road_green_arrow.png");//纹理样式
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -99,24 +102,20 @@ public class LocationActivity extends AppCompatActivity {
      */
     private void drawPolyline() {
         //构建折线点坐标
-        LatLng p1 = new LatLng(39.97923, 116.357428);
-        LatLng p2 = new LatLng(39.7, 116.5);
-//        LatLng p3 = new LatLng(39.97923, 116.437428);
         List<LatLng> points = new ArrayList<LatLng>();
-        points.add(p1);
-        points.add(p2);
-//        points.add(p3);
+        points.add(new LatLng(39.965,116.404));
+        points.add(new LatLng(39.925,116.454));
+        points.add(new LatLng(39.955,116.494));
+        points.add(new LatLng(39.905,116.554));
+        points.add(new LatLng(39.965,116.604));
+        points.add(new LatLng(39.925,116.645));
+        points.add(new LatLng(39.955,116.704));
 
         //设置折线的属性
         OverlayOptions mOverlayOptions = new PolylineOptions()
                 .width(30)
-                .focus(true)
-                .keepScale(false)
                 .visible(true)
-                .zIndex(0)
-                .dottedLineType(PolylineDottedLineType.DOTTED_LINE_SQUARE)
-                .customTexture(BitmapDescriptorFactory.fromResourceWithDpi(R.drawable.black,100))
-                .color(0xAAFF0000)
+                .customTexture(BitmapDescriptorFactory.fromResourceWithDpi(R.drawable.icon_road_green_arrow, 480))
                 .points(points);
         //在地图上绘制折线
         //mPloyline 折线对象
