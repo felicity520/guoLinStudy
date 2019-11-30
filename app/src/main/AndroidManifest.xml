@@ -2,8 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.ryd.gyy.guolinstudy">
 
-    <!-- 9.0之后申请前台服务需要静态注册权限 -->
-    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" /><!-- 9.0之后申请前台服务需要静态注册权限 -->
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
@@ -11,58 +10,55 @@
     <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-
-    <!-- 访问服务器要联网 -->
-    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.INTERNET" /><!-- 访问服务器要联网 -->
     <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS" />
     <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" /><!-- 接收开机广播 -->
 
-    <!--接收开机广播-->
-    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+    <uses-permission android:name="android.permission.CAMERA"/><!--测试权限用到的相机和录音-->
+    <uses-permission android:name="android.permission.RECORD_AUDIO"/>
 
     <application
-        android:usesCleartextTraffic="true"
         android:name=".Util.MainApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
+        android:theme="@style/AppTheme"
+        android:usesCleartextTraffic="true">
         <activity
-            android:name=".Activity.LocationActivity"
+            android:name=".Activity.MainActivity"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-        </activity> <!-- android:name必须填写这个，value是API Key -->
+        </activity>
+
         <meta-data
             android:name="com.baidu.lbsapi.API_KEY"
-            android:value="0ntqYn8yFYNhOYwnXKzzXOEvyewNhcup" />
+            android:value="0ntqYn8yFYNhOYwnXKzzXOEvyewNhcup" /><!-- android:name必须填写这个，value是API Key -->
 
-<!--        <activity android:name=".Activity.LocationActivity" /> -->
-        <!-- <activity android:name=".Activity.DownLoadActivity" /> -->
         <activity android:name=".Activity.GlideActivity" />
         <activity android:name=".Activity.MyActivity" />
         <activity android:name=".Activity.BaseActivity" />
         <activity android:name=".Activity.NotificationTest" />
-        <activity android:name=".Activity.MainActivity" />
+        <activity android:name=".Activity.PermissionsActivity" />
         <activity android:name=".Activity.DisplayCutoutActivity" />
         <activity android:name=".Thread.ThreadStudy" />
         <activity android:name=".Thread.AsyncTaskStudy" />
-
+        <!-- <activity android:name=".Activity.LocationActivity" /> -->
+        <!-- <activity android:name=".Activity.DownLoadActivity" /> -->
         <service
             android:name=".Service.DownloadService"
             android:enabled="true"
-            android:exported="true" /> <!-- 使用百度定位的SDK必须要添加的 -->
+            android:exported="true" />
         <service
             android:name="com.baidu.location.f"
             android:enabled="true"
-            android:process=":remote" />
-
-        <!-- 接收开机广播 -->
+            android:process=":remote" /> <!-- 使用百度定位的SDK必须要添加的 -->
         <receiver
             android:name=".Broadcast.BootUpReceiver"
             android:enabled="true"
@@ -72,7 +68,7 @@
 
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
-        </receiver>
+        </receiver><!-- 接收开机广播 -->
     </application>
 
 </manifest>
