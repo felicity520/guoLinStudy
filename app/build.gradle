@@ -36,11 +36,11 @@ android {
 
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
-    implementation 'androidx.appcompat:appcompat:1.0.0-beta01'
-    implementation 'androidx.constraintlayout:constraintlayout:1.1.2'
+    implementation 'androidx.appcompat:appcompat:1.1.0'
+    implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
     testImplementation 'junit:junit:4.12'
-    androidTestImplementation 'androidx.test:runner:1.1.0-alpha4'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.0-alpha4'
+    androidTestImplementation 'androidx.test:runner:1.3.0-alpha02'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0-alpha02'
     implementation 'com.squareup.okhttp3:okhttp:3.11.0'
     implementation files('libs/BaiduLBS_Android.jar')
 //    使用Snackbar要添加的依赖
@@ -54,8 +54,11 @@ dependencies {
 //    PercentFrameLayout用到的闭包:google已经弃用了PercentFrameLayout
     //implementation 'com.android.support:percent:28.0.0'
 
-
+    //注入Glide
     implementation 'com.github.bumptech.glide:glide:4.9.0'
     annotationProcessor 'com.github.bumptech.glide:compiler:4.9.0'
 
+    //导入permissionsdispatcher框架，最新的是4.6.0
+    implementation "org.permissionsdispatcher:permissionsdispatcher:4.6.0"
+    annotationProcessor "org.permissionsdispatcher:permissionsdispatcher-processor:4.6.0"
 }

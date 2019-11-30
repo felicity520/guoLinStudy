@@ -33,7 +33,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 //        setContentView(R.layout.activity_main);
-        setContentView(R.layout.activity_test);
+//        setContentView(R.layout.activity_test);
+        setContentView(R.layout.activity_constraint_guoshen);
 
 
 //        initView();

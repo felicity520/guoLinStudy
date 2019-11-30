@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">guoLinStudy</string>
+    <string name="permission_camera_rationale">应用需要获取你的相机权限和录音权限</string>
+    <string name="permission_camera_neverask">请在设置中手动打开权限</string>
+    <string name="permission_camera_denied">拒绝权限后部分功能将不可用</string>
+    <string name="button_allow">允许</string>
+    <string name="button_deny">拒绝</string>
 </resources>
