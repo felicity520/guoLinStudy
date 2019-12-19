@@ -61,4 +61,10 @@ dependencies {
     //导入permissionsdispatcher框架，最新的是4.6.0
     implementation "org.permissionsdispatcher:permissionsdispatcher:4.6.0"
     annotationProcessor "org.permissionsdispatcher:permissionsdispatcher-processor:4.6.0"
+
+//    导入litepal依赖
+    implementation 'org.litepal.android:java:3.0.0'
+
+//    调试数据库的工具Android-Debug-Database
+    debugImplementation 'com.amitshekhar.android:debug-db:1.0.3'
 }
