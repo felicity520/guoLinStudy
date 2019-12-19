@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<litepal>
+
+    <!--数据库名称-->
+    <dbname value="demo" />
+    <!--数据库版本号-->
+    <version value="5" />
+    <!--数据库映射表-->
+    <list>
+        <mapping class="com.ryd.gyy.guolinstudy.Model.News"></mapping>
+        <!--LitePal升级方式：确定好最新的Model结构，然后将litepal.xml中的版本号加1。是自动控制升级-->
+        <mapping class="com.ryd.gyy.guolinstudy.Model.Comment"></mapping>
+        <mapping class="com.ryd.gyy.guolinstudy.Model.Category"></mapping>
+        <mapping class="com.ryd.gyy.guolinstudy.Model.Introduction"></mapping>
+    </list>
+
+</litepal>
