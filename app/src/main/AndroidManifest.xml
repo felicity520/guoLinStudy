@@ -18,6 +18,9 @@
     <uses-permission android:name="android.permission.CAMERA" /> <!-- 测试权限用到的相机和录音 -->
     <uses-permission android:name="android.permission.RECORD_AUDIO" />
 
+    <uses-permission android:name="android.permission.CALL_PHONE" />
+    <!--打电话用到的权限-->
+
     <application
         android:name=".Util.MainApplication"
         android:allowBackup="true"
@@ -28,7 +31,7 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
         <activity
-            android:name=".Activity.DataSaveActivity"
+            android:name=".Activity.PermissionsActivity"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -39,13 +42,14 @@
         <meta-data
             android:name="com.baidu.lbsapi.API_KEY"
             android:value="0ntqYn8yFYNhOYwnXKzzXOEvyewNhcup" /> <!-- android:name必须填写这个，value是API Key -->
-        <activity android:name=".Activity.MainActivity" />
+        <activity android:name=".Activity.DataSaveActivity" />
         <activity android:name=".Activity.GlideActivity" />
         <activity android:name=".Activity.MyActivity" />
         <activity android:name=".Activity.BaseActivity" />
         <activity android:name=".Activity.NotificationTest" />
-        <activity android:name=".Activity.PermissionsActivity" />
+        <activity android:name=".Activity.SendbrocastActivity" />
         <activity android:name=".Activity.DisplayCutoutActivity" />
+        <activity android:name=".Activity.MainActivity"></activity>
         <activity android:name=".Thread.ThreadStudy" />
         <activity android:name=".Thread.AsyncTaskStudy" /> <!-- <activity android:name=".Activity.LocationActivity" /> -->
         <!-- <activity android:name=".Activity.DownLoadActivity" /> -->
@@ -67,6 +71,15 @@
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </receiver>
+        <receiver
+            android:name=".Broadcast.CustomizeReceiver"
+            android:enabled="true"
+            android:exported="true">
+            <intent-filter android:priority="100">
+                <action android:name="com.gyy.broadcast.customize" />
+            </intent-filter>
+        </receiver>
+        <!--android:priority执行优先级，默认为0，值越大优先级越高-->
     </application>
 
 </manifest>

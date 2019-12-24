@@ -35,7 +35,6 @@
         android:text="消息:爱车的小伙伴们注意啦！这次活动马上消息:爱车的小伙伴们注意啦！测试代码测试代码测试代码测试代码测试代码测试代码测试代码测试代码测试代码这次活动马上消息:爱车的小伙伴们注意啦！这次活动马上" />
 
 
-
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -50,7 +49,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="和用户交互" />
-
 
 </LinearLayout>
 

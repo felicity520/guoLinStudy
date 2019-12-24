@@ -1,6 +1,8 @@
 package com.ryd.gyy.guolinstudy.Activity;
 
+import android.annotation.SuppressLint;
 import android.app.AlertDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.view.View;
@@ -32,17 +34,16 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-//        setContentView(R.layout.activity_main);
-//        setContentView(R.layout.activity_test);
-        setContentView(R.layout.activity_constraint_guoshen);
+        setContentView(R.layout.activity_main);
+//        setContentView(R.layout.activity_test);//学习ConstraintLayout的布局
+//        setContentView(R.layout.activity_constraint_guoshen);//仿照郭神用拖动的方法制作的布局
 
 
-//        initView();
+        initView();
     }
 
 
     private void initView() {
-        // Example of a call to a native method
         tv = findViewById(R.id.sample_text);
 //        tv.setText(stringFromJNI());
 
@@ -56,6 +57,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
      */
     public native String stringFromJNI();
 
+    @SuppressLint("WrongConstant")
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
@@ -70,13 +72,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 //                UserUtil.dialog("title","content",MainActivity.this);
 //                UserUtil.showSnackbar(getWindow().getDecorView());
 //                Log.e(TAG, "验证dialog的阻断---------------: ");
-                UserUtil.showToast(getGlobalContext(),"我是toast",Toast.LENGTH_SHORT);
+                UserUtil.showToast(getGlobalContext(), "我是toast", Toast.LENGTH_SHORT);
                 break;
         }
     }
-
-
-
 
 
 }
