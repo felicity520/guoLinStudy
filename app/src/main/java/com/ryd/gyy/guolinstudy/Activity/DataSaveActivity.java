@@ -108,7 +108,7 @@ public class DataSaveActivity extends BaseActivity {
      * 插入数据的方法汇总
      */
     private void insertData() {
-        //        验证插入数据---------------------------
+//        验证插入数据---------------------------
 //        News news = new News();
 //        news.setTitle("这是一条新闻标题");
 //        news.setContent("这是一条新闻内容");
@@ -165,7 +165,7 @@ public class DataSaveActivity extends BaseActivity {
 //        values.put("title", "今日iPhone6发布");
 //        LitePal.update(News.class, values, 13);
 
-//      修改数据：(运行无效)把news表中标题为“今日iPhone6发布”且评论数量大于0的所有新闻的标题改成“今日iPhone6 Plus发布”
+//      修改数据：把news表中标题为“今日iPhone6发布”且评论数量大于0的所有新闻的标题改成“今日iPhone6 Plus发布”
 //      注意：之前运行无效的原因是commentCount的判断条件是>0,应该写成>=0,因为评论数都是0根本没有符合大于0的数据
 //        ContentValues values1 = new ContentValues();
 //        values1.put("title", "今日iPhone6 Plus发布");
@@ -228,7 +228,7 @@ public class DataSaveActivity extends BaseActivity {
         News news = LitePal.find(News.class, 88);
         Log.e(TAG, "queryData第一行: " + news.getTitle());
         List<Comment> listcomment = news.getComments();
-        Log.e(TAG, "放弃使用激进查询: " + listcomment.size());
+        Log.e(TAG, "放弃使用激进查询,而使用连缀查询: " + listcomment.size());
         for (int i = 0; i < listcomment.size(); i++) {
             Log.e(TAG, "放弃使用激进查询:   " + i + "  " + listcomment.get(i).getContent());
             Log.e(TAG, "放弃使用激进查询:   " + i + "  " + listcomment.get(i).getId());

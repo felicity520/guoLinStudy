@@ -3,6 +3,10 @@ package com.ryd.gyy.guolinstudy.Activity;
 import android.Manifest;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
+import android.content.pm.ActivityInfo;
+import android.content.res.Configuration;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -13,6 +17,10 @@ import androidx.annotation.NonNull;
 
 import com.ryd.gyy.guolinstudy.R;
 
+import java.lang.reflect.Method;
+
+import javax.security.auth.login.LoginException;
+
 import butterknife.BindView;
 import butterknife.OnClick;
 import permissions.dispatcher.NeedsPermission;
@@ -21,6 +29,8 @@ import permissions.dispatcher.OnPermissionDenied;
 import permissions.dispatcher.OnShowRationale;
 import permissions.dispatcher.PermissionRequest;
 import permissions.dispatcher.RuntimePermissions;
+
+import static com.ryd.gyy.guolinstudy.Util.MainApplication.getGlobalContext;
 
 /**
  * 踩坑点：
@@ -83,10 +93,17 @@ public class PermissionsActivity extends BaseActivity {
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        // 代理权限处理到自动生成的方法
+        // 代理权限处理到自动生成的方法：授权结果会保存在grantResults中
         if (permissions.length > 0) {
             for (int i = 0; i < permissions.length; i++) {
-                Log.e(TAG, "requestCode: " + requestCode + "grantResults[" + i + "]:" + grantResults[i] + "permissions[" + i + "]:" + permissions[i]);
+                Log.e(TAG, "requestCode: " + requestCode + "  grantResults[" + i + "]:" + grantResults[i] + "  permissions[" + i + "]:" + permissions[i]);
+
+                if (grantResults[2] == 0) {
+                    //有拿到电话权限
+                    call();
+                } else {
+                    Toast.makeText(getGlobalContext(), "You denied the permission", Toast.LENGTH_SHORT).show();
+                }
             }
         }
         PermissionsActivityPermissionsDispatcher.onRequestPermissionsResult(this, requestCode, grantResults);
@@ -113,7 +130,7 @@ public class PermissionsActivity extends BaseActivity {
     // 多个权限
     @NeedsPermission({Manifest.permission.CAMERA, Manifest.permission.RECORD_AUDIO})
     void needPermissions() {
-
+        Log.e(TAG, "needPermissions: ----------------");
     }
 
 
@@ -156,5 +173,19 @@ public class PermissionsActivity extends BaseActivity {
     void showNeverAskForCamera() {
         Log.e(TAG, "showNeverAskForCamera: --------------");
         Toast.makeText(this, R.string.permission_camera_neverask, Toast.LENGTH_SHORT).show();
+    }
+
+
+    /**
+     * 拨打10086
+     */
+    private void call() {
+        try {
+            Intent intent = new Intent(Intent.ACTION_CALL);
+            intent.setData(Uri.parse("tel:10086"));
+            startActivity(intent);
+        } catch (SecurityException e) {
+            e.printStackTrace();
+        }
     }
 }
