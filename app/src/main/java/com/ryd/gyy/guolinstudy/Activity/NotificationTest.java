@@ -45,7 +45,6 @@ public class NotificationTest extends AppCompatActivity {
             createNotificationChannel(channelId, channelName, importance);
         }
 
-
     }
 
 
