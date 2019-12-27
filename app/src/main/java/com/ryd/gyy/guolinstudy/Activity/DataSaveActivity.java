@@ -1,6 +1,5 @@
 package com.ryd.gyy.guolinstudy.Activity;
 
-import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -23,7 +22,6 @@ import com.ryd.gyy.guolinstudy.R;
 import com.ryd.gyy.guolinstudy.Util.MySQLiteHelper;
 
 import org.litepal.LitePal;
-import org.litepal.tablemanager.Connector;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -94,7 +92,7 @@ public class DataSaveActivity extends BaseActivity {
 //        SQLiteOpenHelper dbHelper = new MySQLiteHelper(this, "demo.db", null, 2);
 //        版本为3：增加一列
         SQLiteOpenHelper dbHelper = new MySQLiteHelper(this, "demo.db", null, 5);
-        mdb = dbHelper.getWritableDatabase();
+        mdb = dbHelper.getWritableDatabase();//创建数据库
 //        SQLiteDatabase db1 = Connector.getDatabase();
 
         insertData();
@@ -106,6 +104,10 @@ public class DataSaveActivity extends BaseActivity {
 
     /**
      * 插入数据的方法汇总
+     * SQlite插入数据的几种方式：
+     * 1、使用原生的SQL语言。比如db.execSQL("insert into person(name, age, sex) values('张三', 18,'男')");
+     * 2、使用ContentValues(如下)
+     * 3、使用实体类的save方法。见DataSaveActivity
      */
     private void insertData() {
 //        验证插入数据---------------------------

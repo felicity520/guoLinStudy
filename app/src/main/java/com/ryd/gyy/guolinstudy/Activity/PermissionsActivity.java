@@ -4,8 +4,6 @@ import android.Manifest;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.pm.ActivityInfo;
-import android.content.res.Configuration;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
@@ -17,10 +15,6 @@ import androidx.annotation.NonNull;
 
 import com.ryd.gyy.guolinstudy.R;
 
-import java.lang.reflect.Method;
-
-import javax.security.auth.login.LoginException;
-
 import butterknife.BindView;
 import butterknife.OnClick;
 import permissions.dispatcher.NeedsPermission;
@@ -29,8 +23,6 @@ import permissions.dispatcher.OnPermissionDenied;
 import permissions.dispatcher.OnShowRationale;
 import permissions.dispatcher.PermissionRequest;
 import permissions.dispatcher.RuntimePermissions;
-
-import static com.ryd.gyy.guolinstudy.Util.MainApplication.getGlobalContext;
 
 /**
  * 踩坑点：
@@ -97,20 +89,13 @@ public class PermissionsActivity extends BaseActivity {
         if (permissions.length > 0) {
             for (int i = 0; i < permissions.length; i++) {
                 Log.e(TAG, "requestCode: " + requestCode + "  grantResults[" + i + "]:" + grantResults[i] + "  permissions[" + i + "]:" + permissions[i]);
-
-                if (grantResults[2] == 0) {
-                    //有拿到电话权限
-                    call();
-                } else {
-                    Toast.makeText(getGlobalContext(), "You denied the permission", Toast.LENGTH_SHORT).show();
-                }
             }
         }
         PermissionsActivityPermissionsDispatcher.onRequestPermissionsResult(this, requestCode, grantResults);
     }
 
     /**
-     * 注解一个方法，说明需要什么权限（一个或多个）。此时会弹出系统弹框。
+     * ⚠注意： 当用户给予权限时会执行该方法(用户同意之后，直接执行该方法)
      * -------------------------
      * 说明：调用此方法后会弹出一个系统弹框，让用户来选择
      * 1、用户都同意：就pass啦
@@ -128,16 +113,23 @@ public class PermissionsActivity extends BaseActivity {
     // 单个权限
     // @NeedsPermission(Manifest.permission.CAMERA)
     // 多个权限
-    @NeedsPermission({Manifest.permission.CAMERA, Manifest.permission.RECORD_AUDIO})
+    @NeedsPermission({Manifest.permission.CAMERA, Manifest.permission.RECORD_AUDIO, Manifest.permission.CALL_PHONE})
     void needPermissions() {
         Log.e(TAG, "needPermissions: ----------------");
+        try {
+            Intent intent = new Intent(Intent.ACTION_CALL);
+            intent.setData(Uri.parse("tel:10086"));
+            startActivity(intent);
+        } catch (SecurityException e) {
+            e.printStackTrace();
+        }
     }
 
 
     /**
      * 向用户说明为什么需要这些权限（可选）
      */
-    @OnShowRationale({Manifest.permission.CAMERA, Manifest.permission.RECORD_AUDIO})
+    @OnShowRationale({Manifest.permission.CAMERA, Manifest.permission.RECORD_AUDIO, Manifest.permission.CALL_PHONE})
     void showRationaleForCamera(final PermissionRequest request) {
         new AlertDialog.Builder(this)
                 .setPositiveButton(R.string.button_allow, new DialogInterface.OnClickListener() {
@@ -161,7 +153,7 @@ public class PermissionsActivity extends BaseActivity {
     /**
      * 用户拒绝授权回调（可选）
      */
-    @OnPermissionDenied({Manifest.permission.CAMERA, Manifest.permission.RECORD_AUDIO})
+    @OnPermissionDenied({Manifest.permission.CAMERA, Manifest.permission.RECORD_AUDIO, Manifest.permission.CALL_PHONE})
     void showDeniedForCamera() {
         Toast.makeText(this, R.string.permission_camera_denied, Toast.LENGTH_SHORT).show();
     }
@@ -169,23 +161,10 @@ public class PermissionsActivity extends BaseActivity {
     /**
      * 用户勾选了“不再提醒”时调用（可选）
      */
-    @OnNeverAskAgain({Manifest.permission.CAMERA, Manifest.permission.RECORD_AUDIO})
+    @OnNeverAskAgain({Manifest.permission.CAMERA, Manifest.permission.RECORD_AUDIO, Manifest.permission.CALL_PHONE})
     void showNeverAskForCamera() {
         Log.e(TAG, "showNeverAskForCamera: --------------");
         Toast.makeText(this, R.string.permission_camera_neverask, Toast.LENGTH_SHORT).show();
     }
 
-
-    /**
-     * 拨打10086
-     */
-    private void call() {
-        try {
-            Intent intent = new Intent(Intent.ACTION_CALL);
-            intent.setData(Uri.parse("tel:10086"));
-            startActivity(intent);
-        } catch (SecurityException e) {
-            e.printStackTrace();
-        }
-    }
 }

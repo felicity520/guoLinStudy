@@ -17,9 +17,8 @@
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" /> <!-- 接收开机广播 -->
     <uses-permission android:name="android.permission.CAMERA" /> <!-- 测试权限用到的相机和录音 -->
     <uses-permission android:name="android.permission.RECORD_AUDIO" />
-
-    <uses-permission android:name="android.permission.CALL_PHONE" />
-    <!--打电话用到的权限-->
+    <uses-permission android:name="android.permission.CALL_PHONE" /> <!-- 打电话权限 -->
+    <uses-permission android:name="android.permission.READ_CONTACTS" />
 
     <application
         android:name=".Util.MainApplication"
@@ -30,8 +29,15 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
+        <!--内容管理者必须要注册-->
+        <provider
+            android:name=".Util.MyContentProvider"
+            android:authorities="com.ryd.gyy.guolinstudy"
+            android:enabled="true"
+            android:exported="true"></provider>
+
         <activity
-            android:name=".Activity.PermissionsActivity"
+            android:name=".Activity.PerContactsActivity"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -39,9 +45,11 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
         <meta-data
             android:name="com.baidu.lbsapi.API_KEY"
             android:value="0ntqYn8yFYNhOYwnXKzzXOEvyewNhcup" /> <!-- android:name必须填写这个，value是API Key -->
+        <activity android:name=".Activity.PermissionsActivity" />
         <activity android:name=".Activity.DataSaveActivity" />
         <activity android:name=".Activity.GlideActivity" />
         <activity android:name=".Activity.MyActivity" />
@@ -49,10 +57,9 @@
         <activity android:name=".Activity.NotificationTest" />
         <activity android:name=".Activity.SendbrocastActivity" />
         <activity android:name=".Activity.DisplayCutoutActivity" />
-        <activity android:name=".Activity.MainActivity"></activity>
+        <activity android:name=".Activity.MainActivity" />
         <activity android:name=".Thread.ThreadStudy" />
-        <activity android:name=".Thread.AsyncTaskStudy" /> <!-- <activity android:name=".Activity.LocationActivity" /> -->
-        <!-- <activity android:name=".Activity.DownLoadActivity" /> -->
+        <activity android:name=".Thread.AsyncTaskStudy" /> <!-- <activity android:name=".Activity.DownLoadActivity" /> -->
         <service
             android:name=".Service.DownloadService"
             android:enabled="true"
@@ -61,6 +68,7 @@
             android:name="com.baidu.location.f"
             android:enabled="true"
             android:process=":remote" /> <!-- 使用百度定位的SDK必须要添加的 -->
+        <!-- <activity android:name=".Activity.LocationActivity" /> -->
         <receiver
             android:name=".Broadcast.BootUpReceiver"
             android:enabled="true"
@@ -79,7 +87,6 @@
                 <action android:name="com.gyy.broadcast.customize" />
             </intent-filter>
         </receiver>
-        <!--android:priority执行优先级，默认为0，值越大优先级越高-->
     </application>
 
 </manifest>

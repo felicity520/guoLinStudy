@@ -4,8 +4,11 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.ryd.gyy.guolinstudy.Activity.DownLoadActivity;
+
+import static com.ryd.gyy.guolinstudy.Util.MainApplication.getGlobalContext;
 
 public class BootUpReceiver extends BroadcastReceiver {
 
@@ -21,7 +24,7 @@ public class BootUpReceiver extends BroadcastReceiver {
             Intent i = new Intent(context, DownLoadActivity.class);
             i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             context.startActivity(i);
+            Toast.makeText(getGlobalContext(), "guolinApp收到开机广播了", Toast.LENGTH_SHORT).show();
         }
-        //throw new UnsupportedOperationException("Not yet implemented");
     }
 }
