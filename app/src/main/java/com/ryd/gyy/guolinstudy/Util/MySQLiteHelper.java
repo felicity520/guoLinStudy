@@ -5,6 +5,9 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
+/**
+ * 使用SQLite创建数据库
+ */
 public class MySQLiteHelper extends SQLiteOpenHelper {
 
     private static final String TAG = "MySQLiteHelper";
