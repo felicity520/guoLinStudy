@@ -9,11 +9,12 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.ryd.gyy.guolinstudy.R;
 
-
 /**
  * 参考：https://www.jianshu.com/p/49349eee9abc
  */
 public class ThreadStudy extends AppCompatActivity implements View.OnClickListener {
+
+    Thread secondThread;//第二类方法的线程
 
     private static final String TAG = "ThreadStudy";
 
@@ -30,7 +31,7 @@ public class ThreadStudy extends AppCompatActivity implements View.OnClickListen
         setContentView(R.layout.activity_thread);
 
         initView();
-
+        Log.i(TAG, "onCreate----------: " + getMainLooper().getThread().getId());//获取主线程id
 //        thirdKinds();
     }
 
@@ -50,7 +51,8 @@ public class ThreadStudy extends AppCompatActivity implements View.OnClickListen
 
     private void secondKind() {
         MyRunnable MyRunnable = new MyRunnable();
-        new Thread(MyRunnable).start();
+        secondThread = new Thread(MyRunnable);
+        secondThread.start();
     }
 
     /**
@@ -82,7 +84,8 @@ public class ThreadStudy extends AppCompatActivity implements View.OnClickListen
                 secondKind();
                 break;
             case R.id.threadStop:
-                stopThread();
+//                stopThread();
+                stopSecondThread();
                 break;
         }
     }
@@ -98,6 +101,19 @@ public class ThreadStudy extends AppCompatActivity implements View.OnClickListen
             Log.e(TAG, "stopThread: -----");
             mMyThread.interrupt();
             mMyThread = null;
+        }
+    }
+
+    /**
+     * interrupt()中断线程
+     */
+    private void stopSecondThread() {
+        Log.e(TAG, "secondThread: " + secondThread);
+        Log.e(TAG, "secondThread.isAlive(): " + secondThread.isAlive());
+        if (null != secondThread && secondThread.isAlive()) {
+            Log.e(TAG, "stopThread  secondThread: -----");
+            secondThread.interrupt();
+            secondThread = null;
         }
     }
 
@@ -146,8 +162,6 @@ public class ThreadStudy extends AppCompatActivity implements View.OnClickListen
                     break;// 抛出异常跳出循环
                 }
             }
-
-
         }
     }
 
@@ -160,8 +174,8 @@ public class ThreadStudy extends AppCompatActivity implements View.OnClickListen
         @Override
         public void run() {
             // do something
-            Log.i(TAG, "onCreate4: " + Thread.currentThread().getId());
-            Log.i(TAG, "onCreate5: " + getMainLooper().getThread().getId());
+            Log.i(TAG, "onCreate4: " + Thread.currentThread().getId());//当前线程ID
+            Log.i(TAG, "onCreate5: " + getMainLooper().getThread().getId());//主线程ID
             Log.e(TAG, "run: -------------");
         }
     }

@@ -5,6 +5,7 @@ import android.annotation.TargetApi;
 import android.app.Notification;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.content.Intent;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
@@ -19,6 +20,9 @@ import androidx.core.app.NotificationCompat;
 
 import com.ryd.gyy.guolinstudy.R;
 
+/**
+ * 发起通知
+ */
 public class NotificationTest extends AppCompatActivity {
 
     @Override
@@ -50,9 +54,15 @@ public class NotificationTest extends AppCompatActivity {
 
     /**
      * @param view 发布一个聊天的消息通知
+     *             点击之后取消的两种方式：setAutoCancel(true)
+     *                                    manager.cancel(1);传入设置的id
      */
     public void sendChatMsg(View view) {
+        Intent intent1 = new Intent(this, NotificationActivity.class);
+        PendingIntent pi = PendingIntent.getActivity(this, 0, intent1, 0);
+
         NotificationManager manager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+        manager.cancel(1);
         //判断应用是否有打开聊天消息的通道，如果没有跳转到设置提示用户打开
         NotificationChannel channel = manager.getNotificationChannel("chat");
         if (channel.getImportance() == NotificationManager.IMPORTANCE_NONE) {
@@ -65,10 +75,12 @@ public class NotificationTest extends AppCompatActivity {
         //这里的channelId和上面的保持一致
         //SmallIcon指在状态栏显示的图，LargeIcon是右侧显示的大图
         Notification notification = new NotificationCompat.Builder(this, "chat")
+//                .setAutoCancel(true)
                 .setContentTitle("收到一条聊天消息")
                 .setContentText("今天中午吃什么？")
                 .setWhen(System.currentTimeMillis())
                 .setSmallIcon(R.drawable.red01)
+                .setContentIntent(pi)
                 .setLargeIcon(BitmapFactory.decodeResource(getResources(), R.drawable.google01))
                 .setAutoCancel(true)
                 .build();
@@ -85,10 +97,9 @@ public class NotificationTest extends AppCompatActivity {
      *             大图小图说明：
      *             Android从5.0系统开始，对于通知栏图标的设计进行了修改。现在Google要求，所有应用程序的通知栏图标(小图)，应该只使用alpha图层（不要带颜色）来进行绘制，而不应该包括RGB图层。
      *             系统给右下角的这个小圆圈默认是设置成灰色的，使用setColor设置成和大图标一个颜色，整体就好看了。
-     *
+     *             <p>
      *             8.0:
      *             小图还是要用（不带颜色的），然后设置颜色
-     *
      */
     public void sendSubscribeMsg(View view) {
         NotificationManager manager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
