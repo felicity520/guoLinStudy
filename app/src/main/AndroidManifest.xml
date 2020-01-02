@@ -29,15 +29,15 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <!--内容管理者必须要注册-->
+        <!-- 内容管理者必须要注册 -->
         <provider
             android:name=".Util.MyContentProvider"
             android:authorities="com.ryd.gyy.guolinstudy"
             android:enabled="true"
-            android:exported="true"></provider>
+            android:exported="true" />
 
         <activity
-            android:name=".Activity.PerContactsActivity"
+            android:name=".Thread.ThreadStudy"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -49,16 +49,18 @@
         <meta-data
             android:name="com.baidu.lbsapi.API_KEY"
             android:value="0ntqYn8yFYNhOYwnXKzzXOEvyewNhcup" /> <!-- android:name必须填写这个，value是API Key -->
+        <activity android:name=".Activity.NotificationTest" />
+        <activity android:name=".Activity.NotificationActivity" />
         <activity android:name=".Activity.PermissionsActivity" />
         <activity android:name=".Activity.DataSaveActivity" />
         <activity android:name=".Activity.GlideActivity" />
         <activity android:name=".Activity.MyActivity" />
         <activity android:name=".Activity.BaseActivity" />
-        <activity android:name=".Activity.NotificationTest" />
+        <activity android:name=".Activity.PerContactsActivity" />
         <activity android:name=".Activity.SendbrocastActivity" />
         <activity android:name=".Activity.DisplayCutoutActivity" />
         <activity android:name=".Activity.MainActivity" />
-        <activity android:name=".Thread.ThreadStudy" />
+        <!--        <activity android:name=".Thread.ThreadStudy" />-->
         <activity android:name=".Thread.AsyncTaskStudy" /> <!-- <activity android:name=".Activity.DownLoadActivity" /> -->
         <service
             android:name=".Service.DownloadService"
