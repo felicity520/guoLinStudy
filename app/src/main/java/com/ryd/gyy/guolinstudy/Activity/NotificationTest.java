@@ -62,6 +62,7 @@ public class NotificationTest extends AppCompatActivity implements View.OnClickL
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_notification);
 
+        test();
         initView();
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
@@ -83,6 +84,18 @@ public class NotificationTest extends AppCompatActivity implements View.OnClickL
         }
         gotoMedia();
 
+    }
+
+    private void test() {
+        String Close_TIME_Hour = "15";//之前
+        Log.d("ggg", "\n\r" + "关机时间 ：" + Close_TIME_Hour);
+        int i = Integer.parseInt(Close_TIME_Hour);
+        Log.e(TAG, "test:  i" + i);
+
+        String Close_TIME_Hour1 = " 15";//之前
+        Log.d("ggg", "\n\r" + "关机时间Close_TIME_Hour1 ：" + Close_TIME_Hour1);
+        int i1 = Integer.parseInt(Close_TIME_Hour1);
+        Log.e(TAG, "test:  i1" + i1);
     }
 
 

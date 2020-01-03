@@ -4,7 +4,6 @@ import android.content.Context;
 import android.os.Build;
 import android.os.Bundle;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -113,6 +112,34 @@ public abstract class BaseActivity extends AppCompatActivity {
         }
         return super.onOptionsItemSelected(item);
     }
+
+    /*
+    //在res中创建menu文件夹，新建xml来定义控件
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.toolbar, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                mDrawerLayout.openDrawer(GravityCompat.START);
+                break;
+            case R.id.backup:
+                Toast.makeText(this, "You clicked Backup", Toast.LENGTH_SHORT).show();
+                break;
+            case R.id.delete:
+                Toast.makeText(this, "You clicked Delete", Toast.LENGTH_SHORT).show();
+                break;
+            case R.id.settings:
+                Toast.makeText(this, "You clicked Settings", Toast.LENGTH_SHORT).show();
+                break;
+            default:
+        }
+        return true;
+    }
+    */
 
     //设置标题
     public void setTitle(String title) {
