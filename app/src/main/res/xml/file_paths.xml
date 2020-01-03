@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<paths xmlns:android="http://schemas.android.com/apk/res/android">]
+
+    <!--虚拟的路径对文件路径进行映射.这里存放的是实际共享的文件目录和名字,path要和实际文件存放的位置对应，否则报错Failed to find configured root that contains-->
+    <!--    标签名	                作用-->
+    <!--    < files-path>	        相当于Context.getFilesDir()-->
+    <!--    < cache-path>	        相当于Context.getFilesDir()-->
+    <!--    < external-path>	    相当于Environment.getExternalStorageDiretory()-->
+
+    <external-path
+        name="my_images"
+        path="." />
+
+</paths>
