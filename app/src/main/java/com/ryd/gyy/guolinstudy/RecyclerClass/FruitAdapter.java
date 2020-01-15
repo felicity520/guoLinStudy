@@ -1,20 +1,24 @@
-package com.example.materialtest;
+package com.ryd.gyy.guolinstudy.RecyclerClass;
 
 import android.content.Context;
 import android.content.Intent;
-import android.support.v7.widget.CardView;
-import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.cardview.widget.CardView;
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.bumptech.glide.Glide;
+import com.ryd.gyy.guolinstudy.Activity.FruitActivity;
+import com.ryd.gyy.guolinstudy.R;
 
 import java.util.List;
 
-public class FruitAdapter extends RecyclerView.Adapter<FruitAdapter.ViewHolder>{
+public class FruitAdapter extends RecyclerView.Adapter<FruitAdapter.ViewHolder> {
 
     private static final String TAG = "FruitAdapter";
 
@@ -51,6 +55,7 @@ public class FruitAdapter extends RecyclerView.Adapter<FruitAdapter.ViewHolder>{
             public void onClick(View v) {
                 int position = holder.getAdapterPosition();
                 Fruit fruit = mFruitList.get(position);
+                Log.i(TAG, "fruit: " + fruit);
                 Intent intent = new Intent(mContext, FruitActivity.class);
                 intent.putExtra(FruitActivity.FRUIT_NAME, fruit.getName());
                 intent.putExtra(FruitActivity.FRUIT_IMAGE_ID, fruit.getImageId());

@@ -1,17 +1,18 @@
-package com.example.materialtest;
+package com.ryd.gyy.guolinstudy.Activity;
 
 import android.content.Intent;
-import android.graphics.Color;
-import android.support.design.widget.CollapsingToolbarLayout;
-import android.support.v7.app.ActionBar;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+
 import com.bumptech.glide.Glide;
+import com.google.android.material.appbar.CollapsingToolbarLayout;
+import com.ryd.gyy.guolinstudy.R;
 
 public class FruitActivity extends AppCompatActivity {
 
@@ -23,20 +24,23 @@ public class FruitActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_fruit);
+
+//获取传过来的name 和 id
         Intent intent = getIntent();
         String fruitName = intent.getStringExtra(FRUIT_NAME);
         int fruitImageId = intent.getIntExtra(FRUIT_IMAGE_ID, 0);
 
-
+//设置toolbar
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        CollapsingToolbarLayout collapsingToolbar = (CollapsingToolbarLayout) findViewById(R.id.collapsing_toolbar);
-        ImageView fruitImageView = (ImageView) findViewById(R.id.fruit_image_view);
-        TextView fruitContentText = (TextView) findViewById(R.id.fruit_content_text);
         setSupportActionBar(toolbar);
         ActionBar actionBar = getSupportActionBar();
         if (actionBar != null) {
             actionBar.setDisplayHomeAsUpEnabled(true);
         }
+
+        CollapsingToolbarLayout collapsingToolbar = (CollapsingToolbarLayout) findViewById(R.id.collapsing_toolbar);
+        ImageView fruitImageView = (ImageView) findViewById(R.id.fruit_image_view);
+        TextView fruitContentText = (TextView) findViewById(R.id.fruit_content_text);
         collapsingToolbar.setTitle(fruitName);
         Glide.with(this).load(fruitImageId).into(fruitImageView);
         String fruitContent = generateFruitContent(fruitName);

@@ -1,4 +1,4 @@
-package com.example.materialtest;
+package com.ryd.gyy.guolinstudy.RecyclerClass;
 
 public class Fruit {
 

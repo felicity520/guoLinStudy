@@ -86,6 +86,9 @@ public class NotificationTest extends AppCompatActivity implements View.OnClickL
 
     }
 
+    /**
+     * 测试结果：带有空格的字符串转换为数字时会报错。
+     */
     private void test() {
         String Close_TIME_Hour = "15";//之前
         Log.d("ggg", "\n\r" + "关机时间 ：" + Close_TIME_Hour);
