@@ -52,4 +52,11 @@ dependencies {
 
 //    PercentFrameLayout用到的闭包:google已经弃用了PercentFrameLayout
     //implementation 'com.android.support:percent:28.0.0'
+
+//    高德地图:3D地图/2D地图/导航/搜索/定位
+    implementation 'com.amap.api:3dmap:latest.integration'
+    implementation 'com.amap.api:map2d:latest.integration'
+    implementation 'com.amap.api:navi-3dmap:latest.integration'
+    implementation 'com.amap.api:search:latest.integration'
+    implementation 'com.amap.api:location:latest.integration'
 }
