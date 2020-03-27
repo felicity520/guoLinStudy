@@ -1,25 +1,16 @@
 package com.ryd.gyy.guolinstudy.Activity;
 
-import android.annotation.SuppressLint;
-import android.app.AlertDialog;
-import android.content.Intent;
+import android.content.pm.ApplicationInfo;
 import android.os.Bundle;
-import android.view.Gravity;
-import android.view.View;
 import android.widget.Button;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.ryd.gyy.guolinstudy.R;
-import com.ryd.gyy.guolinstudy.Util.UserUtil;
+import com.ryd.gyy.guolinstudy.View.CollapseView;
 
-import static com.ryd.gyy.guolinstudy.Util.MainApplication.getGlobalContext;
-
-public class MainActivity extends AppCompatActivity implements View.OnClickListener {
+public class MainActivity extends AppCompatActivity {
 
     private static final String TAG = "MainActivity";
 
@@ -31,6 +22,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         System.loadLibrary("native-lib");
     }
 
+    //    自定义view
+    CollapseView collapseView;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -40,6 +35,18 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
 
         initView();
+        initData();
+    }
+
+    private void initData() {
+        collapseView.setNumber("1");
+        collapseView.setTitle("第一张图");
+
+        //得到application对象
+        ApplicationInfo appInfo = getApplicationInfo();
+       //得到该图片的id(name 是该图片的名字，"drawable" 是该图片存放的目录，appInfo.packageName是应用程序的包)
+//        int resID = getResources().getIdentifier(R.drawable.apple, "drawable", appInfo.packageName);
+        collapseView.setContent(R.layout);
     }
 
 
@@ -47,8 +54,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         tv = findViewById(R.id.sample_text);
 //        tv.setText(stringFromJNI());
 
-        btn_demo = (Button) findViewById(R.id.btn_demo);
-        btn_demo.setOnClickListener(this);
+
+//        自定义view
+        collapseView = (CollapseView) findViewById(R.id.collapseView);
     }
 
     /**
@@ -57,12 +65,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
      */
     public native String stringFromJNI();
 
-    @SuppressLint("WrongConstant")
-    @Override
-    public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.btn_demo:
-//                Toast toast = Toast.makeText(MainActivity.this, "提示用户，Toast一下", Toast.LENGTH_SHORT);
+
+    public void test() {
+        //                Toast toast = Toast.makeText(MainActivity.this, "提示用户，Toast一下", Toast.LENGTH_SHORT);
 //                LinearLayout toastView = (LinearLayout) toast.getView();//获取Toast的LinearLayout，注意需要是线性布局
 //                ImageView image = new ImageView(MainActivity.this);
 //                image.setImageResource(R.loading.ryd2);//生成一个现实Logo的ImageView
@@ -72,9 +77,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 //                UserUtil.dialog("title","content",MainActivity.this);
 //                UserUtil.showSnackbar(getWindow().getDecorView());
 //                Log.e(TAG, "验证dialog的阻断---------------: ");
-                UserUtil.showToast(getGlobalContext(), "我是toast", Toast.LENGTH_SHORT);
-                break;
-        }
+//        UserUtil.showToast(getGlobalContext(), "我是toast", Toast.LENGTH_SHORT);
     }
 
 
