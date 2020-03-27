@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <!--
+    app:showAsAction 有以下三个属性：
+    ifRoom 表示在屏幕空间足够的情况下显示在Toolbar中，不够的话就显示在菜单中
+    never 表示永远不显示在Toolbar中，而是一直显示在菜单中
+    always 表示永远显示在Toolbar中，如果屏幕空间不够则不显示
+    -->
+    <item
+        android:id="@+id/backup"
+        android:icon="@drawable/ic_backup"
+        android:title="Backup"
+        app:showAsAction="always" />
+    <item
+        android:id="@+id/delete"
+        android:icon="@drawable/ic_delete"
+        android:title="Delete"
+        app:showAsAction="ifRoom" />
+
+    <!--三个点...表示菜单栏-->
+    <item
+        android:id="@+id/settings"
+        android:icon="@drawable/ic_settings"
+        android:title="Settings"
+        app:showAsAction="never" />
+</menu>

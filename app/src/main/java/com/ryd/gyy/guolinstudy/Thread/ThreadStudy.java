@@ -9,11 +9,12 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.ryd.gyy.guolinstudy.R;
 
-
 /**
  * 参考：https://www.jianshu.com/p/49349eee9abc
  */
 public class ThreadStudy extends AppCompatActivity implements View.OnClickListener {
+
+    Thread secondThread;//第二类方法的线程
 
     private static final String TAG = "ThreadStudy";
 
@@ -30,7 +31,7 @@ public class ThreadStudy extends AppCompatActivity implements View.OnClickListen
         setContentView(R.layout.activity_thread);
 
         initView();
-
+        Log.i(TAG, "onCreate----------: " + getMainLooper().getThread().getId());//获取主线程id
 //        thirdKinds();
     }
 
@@ -50,7 +51,8 @@ public class ThreadStudy extends AppCompatActivity implements View.OnClickListen
 
     private void secondKind() {
         MyRunnable MyRunnable = new MyRunnable();
-        new Thread(MyRunnable).start();
+        secondThread = new Thread(MyRunnable);
+        secondThread.start();
     }
 
     /**
@@ -78,10 +80,12 @@ public class ThreadStudy extends AppCompatActivity implements View.OnClickListen
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.threadStart:
-                firstKind();
+//                firstKind();
+                secondKind();
                 break;
             case R.id.threadStop:
-                stopThread();
+//                stopThread();
+                stopSecondThread();
                 break;
         }
     }
@@ -91,12 +95,25 @@ public class ThreadStudy extends AppCompatActivity implements View.OnClickListen
      * interrupt()中断线程
      */
     private void stopThread() {
-        Log.e(TAG, "mMyThread: " + mMyThread );
-        Log.e(TAG, "mMyThread.isAlive(): " + mMyThread.isAlive() );
+        Log.e(TAG, "mMyThread: " + mMyThread);
+        Log.e(TAG, "mMyThread.isAlive(): " + mMyThread.isAlive());
         if (null != mMyThread && mMyThread.isAlive()) {
             Log.e(TAG, "stopThread: -----");
             mMyThread.interrupt();
             mMyThread = null;
+        }
+    }
+
+    /**
+     * interrupt()中断线程
+     */
+    private void stopSecondThread() {
+        Log.e(TAG, "secondThread: " + secondThread);
+        Log.e(TAG, "secondThread.isAlive(): " + secondThread.isAlive());
+        if (null != secondThread && secondThread.isAlive()) {
+            Log.e(TAG, "stopThread  secondThread: -----");
+            secondThread.interrupt();
+            secondThread = null;
         }
     }
 
@@ -134,34 +151,34 @@ public class ThreadStudy extends AppCompatActivity implements View.OnClickListen
 
             //终极方法
             int i = 0;
-            while(!isInterrupted()){  // 判断线程是否被打断
+            while (!isInterrupted()) {  // 判断线程是否被打断
                 try {
                     i++;
                     Thread.sleep(1000);
-                    Log.i("thread",Thread.currentThread().getName()+":Running()_Count:"+i);
+                    Log.i("thread", Thread.currentThread().getName() + ":Running()_Count:" + i);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
-                    Log.i("thread",Thread.currentThread().getName()+"异常抛出，停止线程");
+                    Log.i("thread", Thread.currentThread().getName() + "异常抛出，停止线程");
                     break;// 抛出异常跳出循环
                 }
             }
-
-
         }
     }
 
 
     /**
-     * 第二种：实现Runnable
+     * 第二种：实现Runnable,确认是在子线程Thread.currentThread().getId()
      */
     public class MyRunnable implements Runnable {
 
         @Override
         public void run() {
             // do something
+            Log.i(TAG, "onCreate4: " + Thread.currentThread().getId());//当前线程ID
+            Log.i(TAG, "onCreate5: " + getMainLooper().getThread().getId());//主线程ID
+            Log.e(TAG, "run: -------------");
         }
     }
-
 
 
 }

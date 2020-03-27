@@ -13,12 +13,17 @@ import com.baidu.location.LocationClient;
 import com.baidu.location.LocationClientOption;
 import com.baidu.mapapi.SDKInitializer;
 import com.baidu.mapapi.map.BaiduMap;
+import com.baidu.mapapi.map.BitmapDescriptor;
 import com.baidu.mapapi.map.BitmapDescriptorFactory;
 import com.baidu.mapapi.map.MapStatusUpdate;
 import com.baidu.mapapi.map.MapStatusUpdateFactory;
 import com.baidu.mapapi.map.MapView;
 import com.baidu.mapapi.map.MyLocationConfiguration;
 import com.baidu.mapapi.map.MyLocationData;
+import com.baidu.mapapi.map.Overlay;
+import com.baidu.mapapi.map.OverlayOptions;
+import com.baidu.mapapi.map.PolylineDottedLineType;
+import com.baidu.mapapi.map.PolylineOptions;
 import com.baidu.mapapi.model.LatLng;
 import com.ryd.gyy.guolinstudy.R;
 
@@ -46,6 +51,8 @@ public class LocationActivity extends AppCompatActivity {
     private TextView positionText;
     private MapView mapView;
     private BaiduMap baiduMap;//将地图显示出来
+
+    private BitmapDescriptor mGreenTexture = BitmapDescriptorFactory.fromAsset("Icon_road_green_arrow.png");//纹理样式
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -87,7 +94,34 @@ public class LocationActivity extends AppCompatActivity {
     private void requestLocation() {
         initLocation();
         mLocationClient.start();
+        drawPolyline();
     }
+
+    /**
+     * 绘制折线，为了验证可以虚线绘制，也可以实线绘制
+     */
+    private void drawPolyline() {
+        //构建折线点坐标
+        List<LatLng> points = new ArrayList<LatLng>();
+        points.add(new LatLng(39.965,116.404));
+        points.add(new LatLng(39.925,116.454));
+        points.add(new LatLng(39.955,116.494));
+        points.add(new LatLng(39.905,116.554));
+        points.add(new LatLng(39.965,116.604));
+        points.add(new LatLng(39.925,116.645));
+        points.add(new LatLng(39.955,116.704));
+
+        //设置折线的属性
+        OverlayOptions mOverlayOptions = new PolylineOptions()
+                .width(30)
+                .visible(true)
+                .customTexture(BitmapDescriptorFactory.fromResourceWithDpi(R.drawable.icon_road_green_arrow, 480))
+                .points(points);
+        //在地图上绘制折线
+        //mPloyline 折线对象
+        Overlay mPolyline = baiduMap.addOverlay(mOverlayOptions);
+    }
+
 
     private void initLocation() {
         LocationClientOption option = new LocationClientOption();
@@ -169,7 +203,7 @@ public class LocationActivity extends AppCompatActivity {
             LatLng ll = new LatLng(location.getLatitude(), location.getLongitude());
             MapStatusUpdate update = MapStatusUpdateFactory.newLatLng(ll);
             baiduMap.animateMapStatus(update);
-            update = MapStatusUpdateFactory.zoomTo(21f);
+            update = MapStatusUpdateFactory.zoomTo(18f);
             baiduMap.animateMapStatus(update);
             isFirstLocate = false;
         }
@@ -184,9 +218,9 @@ public class LocationActivity extends AppCompatActivity {
 
 
         //自定义内容：方向箭头的自定义，可有可无
-        MyLocationConfiguration mLocationConfiguration = new MyLocationConfiguration(MyLocationConfiguration.LocationMode.FOLLOWING, true,
-                BitmapDescriptorFactory.fromResource(R.drawable.red01), 0xAAFFFF88, 0xAA00FF00);
-        baiduMap.setMyLocationConfiguration(mLocationConfiguration);
+//        MyLocationConfiguration mLocationConfiguration = new MyLocationConfiguration(MyLocationConfiguration.LocationMode.FOLLOWING, true,
+//                BitmapDescriptorFactory.fromResource(R.drawable.red01), 0xAAFFFF88, 0xAA00FF00);
+//        baiduMap.setMyLocationConfiguration(mLocationConfiguration);
     }
 
     /*
@@ -244,9 +278,10 @@ public class LocationActivity extends AppCompatActivity {
             */
 
 
-            if (location.getLocType() == BDLocation.TypeGpsLocation || location.getLocType() == BDLocation.TypeNetWorkLocation) {
-                navigateTo(location);
-            }
+            //为了测试折线，暂时先不移动到我的位置
+//            if (location.getLocType() == BDLocation.TypeGpsLocation || location.getLocType() == BDLocation.TypeNetWorkLocation) {
+//                navigateTo(location);
+//            }
 
         }
     }

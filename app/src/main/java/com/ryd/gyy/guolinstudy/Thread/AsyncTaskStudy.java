@@ -2,6 +2,7 @@ package com.ryd.gyy.guolinstudy.Thread;
 
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ProgressBar;
@@ -11,12 +12,19 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.ryd.gyy.guolinstudy.R;
 
+import java.util.concurrent.Executor;
+import java.util.concurrent.LinkedBlockingQueue;
+import java.util.concurrent.ThreadPoolExecutor;
+import java.util.concurrent.TimeUnit;
+
 /**
  * 参考：https://www.jianshu.com/p/37502bbbb25a
  * 异步消息处理机制 Thread + handler
  * AsyncTaskStudy就是将具体的方法封装好，比如在哪个方法更新UI，在哪个方法进行耗时操作等等
  */
 public class AsyncTaskStudy extends AppCompatActivity implements View.OnClickListener {
+
+    private static final String TAG = "AsyncTaskStudy";
 
     // 线程变量
     MyTask mTask;
@@ -50,8 +58,20 @@ public class AsyncTaskStudy extends AppCompatActivity implements View.OnClickLis
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.button:
-                mTask = new MyTask();
-                mTask.execute();
+                for (int i = 0;i < 2;i++){
+                    //串行执行，一个任务执行完毕之后，才会执行下一个任务
+                    Log.i(TAG, "onClick   i: " + i);
+                    mTask = new MyTask();
+                    mTask = new MyTask();
+                    mTask.execute();
+                }
+
+
+                //自由地进行配置线程池，允许在同一时刻有15个任务正在执行，并且最多能够存储200个任务
+//                Executor exec = new ThreadPoolExecutor(15, 200, 10,
+//                        TimeUnit.SECONDS, new LinkedBlockingQueue<Runnable>());
+//                new MyTask().executeOnExecutor(exec);
+
                 break;
             case R.id.cancel:
                 // 取消一个正在执行的任务,调用cancel之后onCancelled方法将会被调用
@@ -74,6 +94,7 @@ public class AsyncTaskStudy extends AppCompatActivity implements View.OnClickLis
         // 作用：执行 线程任务前的操作
         @Override
         protected void onPreExecute() {
+            Log.e(TAG, "onPreExecute: ---------");
             text.setText("加载中");
             // 执行前显示提示
         }
@@ -118,6 +139,7 @@ public class AsyncTaskStudy extends AppCompatActivity implements View.OnClickLis
         @Override
         protected void onPostExecute(String result) {
             // 执行完毕后，则更新UI
+            Log.e(TAG, "onPostExecute: 加载完毕--------------" );
             text.setText("加载完毕");
         }
 
