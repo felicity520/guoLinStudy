@@ -30,16 +30,6 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme.NoActionBar"
         android:usesCleartextTraffic="true">
-        <activity
-            android:name=".Activity.MaterialActivity"
-            android:label="@string/toolbar_name"
-            android:theme="@style/AppTheme.NoActionBar">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
         <!--修改标题栏上显示的文字(这样就可以和app的名称不一样)：android:label="@string/toolbar_name"-->
         <!-- 内容管理者必须要注册:创建完之后共享给别人调用 -->
         <provider

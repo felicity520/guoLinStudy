@@ -39,13 +39,14 @@ dependencies {
     implementation 'androidx.appcompat:appcompat:1.1.0'
     implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
     testImplementation 'junit:junit:4.12'
-    androidTestImplementation 'androidx.test:runner:1.3.0-alpha02'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0-alpha02'
+    androidTestImplementation 'androidx.test:runner:1.3.0-alpha05'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0-alpha05'
     implementation 'com.squareup.okhttp3:okhttp:3.11.0'
     implementation files('libs/BaiduLBS_Android.jar')
+
 //    使用Snackbar要添加的依赖
     implementation 'com.android.support:design:23.4.0'
-    implementation 'com.google.android.material:material:1.0.0'
+    implementation 'com.google.android.material:material:1.1.0'
 
 //    butterknife注入:8.1.1的不能用，需要更新到10.0.0
     implementation 'com.jakewharton:butterknife:10.2.0'
@@ -69,8 +70,6 @@ dependencies {
     debugImplementation 'com.amitshekhar.android:debug-db:1.0.3'
     implementation 'org.jetbrains:annotations:15.0'
 
-    implementation 'com.google.android.material:material:1.0.0'
-
 //图片圆形化：将头像圆角化
     implementation 'de.hdodenhof:circleimageview:3.0.1'
 
@@ -78,5 +77,9 @@ dependencies {
 
 //    卡片化布局
     implementation 'androidx.cardview:cardview:1.0.0'
+
+//    文本对齐依赖
+    implementation 'com.text:alginlib:1.0.1'
+    implementation 'androidx.swiperefreshlayout:swiperefreshlayout:1.0.0'
 
 }
