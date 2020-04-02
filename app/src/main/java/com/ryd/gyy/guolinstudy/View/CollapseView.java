@@ -4,6 +4,7 @@ import android.content.Context;
 import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.WindowManager;
@@ -23,6 +24,9 @@ import com.ryd.gyy.guolinstudy.R;
  * http://blog.csdn.net/lfdfhl
  */
 public class CollapseView extends LinearLayout {
+
+    private static final String TAG = "CollapseView";
+
     private long duration = 350;
     private Context mContext;
     private TextView mNumberTextView;
@@ -85,11 +89,14 @@ public class CollapseView extends LinearLayout {
 
     public void rotateArrow() {
         int degree = 0;
+//        setTag是存储数据或者标记作用，这里第一次进入没有set，获取get = null
         if (mArrowImageView.getTag() == null || mArrowImageView.getTag().equals(true)) {
+            Log.e(TAG, "rotateArrow getTag() is null");
             mArrowImageView.setTag(false);
             degree = -180;
             expand(mContentRelativeLayout);
         } else {
+            Log.e(TAG, "rotateArrow getTag() is not null");
             degree = 0;
             mArrowImageView.setTag(true);
             collapse(mContentRelativeLayout);
@@ -97,11 +104,17 @@ public class CollapseView extends LinearLayout {
         mArrowImageView.animate().setDuration(duration).rotation(degree);
     }
 
+    /**
+     * 多次调用onMeasure
+     * @param widthMeasureSpec
+     * @param heightMeasureSpec
+     */
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
         parentWidthMeasureSpec = widthMeasureSpec;
         parentHeightMeasureSpec = heightMeasureSpec;
+        Log.e(TAG, "parentWidthMeasureSpec: " + parentWidthMeasureSpec + "parentHeightMeasureSpec:" + parentHeightMeasureSpec);
     }
 
     @Override
@@ -114,20 +127,28 @@ public class CollapseView extends LinearLayout {
         WindowManager wm = (WindowManager) mContext.getSystemService(Context.WINDOW_SERVICE);
         DisplayMetrics outMetrics = new DisplayMetrics();
         wm.getDefaultDisplay().getMetrics(outMetrics);
+        //手动测量View的方式获取View的大小
         view.measure(parentWidthMeasureSpec, parentHeightMeasureSpec);
         final int measuredWidth = view.getMeasuredWidth();
         final int measuredHeight = view.getMeasuredHeight();
         view.setVisibility(View.VISIBLE);
 
         Animation animation = new Animation() {
+            /**
+             * 在绘制Animation的过程中会反复的调用applyTransformation函数，
+             * @param interpolatedTime 同样也是跑两次if
+             * @param t
+             */
             @Override
             protected void applyTransformation(float interpolatedTime, Transformation t) {
                 if (interpolatedTime == 1) {
                     view.getLayoutParams().height = measuredHeight;
+                    Log.e(TAG, "expand 1: ");
                 } else {
+                    Log.e(TAG, "expand 0: ");
                     view.getLayoutParams().height = (int) (measuredHeight * interpolatedTime);
                 }
-                view.requestLayout();
+                view.requestLayout();//刷新界面
             }
 
 
@@ -144,11 +165,17 @@ public class CollapseView extends LinearLayout {
     private void collapse(final View view) {
         final int measuredHeight = view.getMeasuredHeight();
         Animation animation = new Animation() {
+            /**
+             * @param interpolatedTime 绘制的过程中是0，绘制完成是1，所以是不断的调用else，最后调用两次if，为什么是两次，还要需要研究
+             * @param t
+             */
             @Override
             protected void applyTransformation(float interpolatedTime, Transformation t) {
                 if (interpolatedTime == 1) {
                     view.setVisibility(View.GONE);
+                    Log.e(TAG, "collapse 1: ");
                 } else {
+                    Log.e(TAG, "collapse 0: ");
                     view.getLayoutParams().height = measuredHeight - (int) (measuredHeight * interpolatedTime);
                     view.requestLayout();
                 }

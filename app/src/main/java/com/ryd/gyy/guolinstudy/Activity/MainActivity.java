@@ -1,7 +1,8 @@
 package com.ryd.gyy.guolinstudy.Activity;
 
-import android.content.pm.ApplicationInfo;
+import android.content.Context;
 import android.os.Bundle;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
@@ -9,6 +10,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.ryd.gyy.guolinstudy.R;
 import com.ryd.gyy.guolinstudy.View.CollapseView;
+import com.ryd.gyy.guolinstudy.View.MyFlowLayout;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -16,6 +18,8 @@ public class MainActivity extends AppCompatActivity {
 
     private Button btn_demo;
     private TextView tv;
+
+    private Context mcontext;
 
     // Used to load the 'native-lib' library on application startup.
     static {
@@ -25,10 +29,12 @@ public class MainActivity extends AppCompatActivity {
     //    自定义view
     CollapseView collapseView;
 
+    MyFlowLayout mFlowLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        mcontext = MainActivity.this;
         setContentView(R.layout.activity_main);
 //        setContentView(R.layout.activity_test);//学习ConstraintLayout的布局
 //        setContentView(R.layout.activity_constraint_guoshen);//仿照郭神用拖动的方法制作的布局
@@ -39,24 +45,35 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void initData() {
+//        自定义view第一个例子
         collapseView.setNumber("1");
-        collapseView.setTitle("第一张图");
+        collapseView.setTitle("大傻子周正亮");
+//      这里要传入图片对应的xml文件才可以
+        collapseView.setContent(R.layout.nav_header);
 
-        //得到application对象
-        ApplicationInfo appInfo = getApplicationInfo();
-       //得到该图片的id(name 是该图片的名字，"drawable" 是该图片存放的目录，appInfo.packageName是应用程序的包)
-//        int resID = getResources().getIdentifier(R.drawable.apple, "drawable", appInfo.packageName);
-        collapseView.setContent(R.layout);
+//        自定义view第二个例子，不能直接使用activity_main中的TextView。所以直接new一个TextView，并且设置参数
+        TextView testText = new TextView(mcontext);
+        testText.setText("我是测试代码hhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh");
+        ViewGroup.MarginLayoutParams params = new ViewGroup.MarginLayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 200);
+        mFlowLayout.addView(testText, params);
+
     }
 
 
     private void initView() {
-        tv = findViewById(R.id.sample_text);
+//        tv = findViewById(R.id.sample_text);
 //        tv.setText(stringFromJNI());
 
 
 //        自定义view
         collapseView = (CollapseView) findViewById(R.id.collapseView);
+//        ((ViewGroup) mFlowLayout.getParent()).removeView(mFlowLayout);
+        mFlowLayout = (MyFlowLayout) findViewById(R.id.flowLayout);
+//        说明：这里直接将activity_main中的TextView加载到MyFlowLayout会报错
+//        报错内容:“The specified child already has a parent. You must call removeView"
+//        报错原因:因为activity_main中的TextView已经有一个父View了，重复添加子View会报错
+//        参考博客：https://www.jianshu.com/p/2146ace8a244
+//        mFlowLayout.addView(tv, tv.getLayoutParams());
     }
 
     /**
