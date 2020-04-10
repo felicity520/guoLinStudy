@@ -9,6 +9,10 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.ryd.gyy.guolinstudy.R;
 import com.ryd.gyy.guolinstudy.View.CollapseView;
+import com.ryd.gyy.guolinstudy.View.FlowLayout;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -25,6 +29,7 @@ public class MainActivity extends AppCompatActivity {
     //    自定义view
     CollapseView collapseView;
 
+    private FlowLayout flowLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,19 +44,28 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void initData() {
+//        自定义view学习-
         collapseView.setNumber("1");
         collapseView.setTitle("第一张图");
+        collapseView.setContent(R.layout.nav_header);
 
-        //得到application对象
-        ApplicationInfo appInfo = getApplicationInfo();
-       //得到该图片的id(name 是该图片的名字，"drawable" 是该图片存放的目录，appInfo.packageName是应用程序的包)
-//        int resID = getResources().getIdentifier(R.drawable.apple, "drawable", appInfo.packageName);
-        collapseView.setContent(R.layout);
+//        自定义view学习二
+        flowLayout = (FlowLayout) findViewById(R.id.flowLayout);
+        List<String> lable = new ArrayList<>();
+        lable.add("经济");
+        lable.add("娱乐");
+        lable.add("八卦");
+        lable.add("小道消息");
+        lable.add("政治中心");
+        lable.add("彩票");
+        lable.add("情感");
+        //设置标签
+        flowLayout.setLables(lable, true);
     }
 
 
     private void initView() {
-        tv = findViewById(R.id.sample_text);
+//        tv = findViewById(R.id.sample_text);
 //        tv.setText(stringFromJNI());
 
 

@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:flowlayout="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -8,24 +9,57 @@
     tools:context=".Activity.MainActivity">
 
     <!--水平滚动的TextView-->
-<!--    <TextView-->
-<!--        android:id="@+id/sample_text"-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:ellipsize="marquee"-->
-<!--        android:fadeScrollbars="false"-->
-<!--        android:focusable="true"-->
-<!--        android:letterSpacing="-0.15"-->
-<!--        android:singleLine="true"-->
-<!--        android:text="消息:爱车的小伙伴们注意啦！这次活动马上消息:爱车的小伙伴们注意啦！测试代码测试代码测试代码测试代码测试代码测试代码测试代码测试代码测试代码这次活动马上消息:爱车的小伙伴们注意啦！这次活动马上"-->
-<!--        android:visibility="gone" />-->
+    <!--    <TextView-->
+    <!--        android:id="@+id/sample_text"-->
+    <!--        android:layout_width="wrap_content"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:ellipsize="marquee"-->
+    <!--        android:fadeScrollbars="false"-->
+    <!--        android:focusable="true"-->
+    <!--        android:letterSpacing="-0.15"-->
+    <!--        android:singleLine="true"-->
+    <!--        android:text="消息:爱车的小伙伴们注意啦！这次活动马上消息:爱车的小伙伴们注意啦！测试代码测试代码测试代码测试代码测试代码测试代码测试代码测试代码测试代码这次活动马上消息:爱车的小伙伴们注意啦！这次活动马上"-->
+    <!--        android:visibility="gone" />-->
 
 
     <com.ryd.gyy.guolinstudy.View.CollapseView
         android:id="@+id/collapseView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="wrap_content" />
 
+    <com.ryd.gyy.guolinstudy.View.FlowLayout
+        android:id="@+id/flowLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="20dip"
+        flowlayout:lineSpace="20dip"
+        flowlayout:rowSpace="10dip" />
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <EditText
+            android:layout_marginLeft="40dip"
+            android:id="@+id/EditView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:cursorVisible="true"
+            android:focusable="true"
+            android:hint="请输入"
+            android:selectAllOnFocus="true"
+            android:singleLine="true" />
+
+        <Button
+            android:id="@+id/btn"
+            android:text="确定"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="40dip" />
+
+    </LinearLayout>
 
 </LinearLayout>
 
