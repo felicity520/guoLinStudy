@@ -190,3 +190,4 @@ public class CollapseView extends LinearLayout {
         view.startAnimation(animation);
     }
 }
+>>>>>>> d9a40c28bbbd07783375d62399dadca371211dd0

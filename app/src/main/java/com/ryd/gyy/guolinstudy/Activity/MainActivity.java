@@ -1,6 +1,7 @@
 package com.ryd.gyy.guolinstudy.Activity;
 
 import android.content.Context;
+import android.content.pm.ApplicationInfo;
 import android.os.Bundle;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -10,7 +11,13 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.ryd.gyy.guolinstudy.R;
 import com.ryd.gyy.guolinstudy.View.CollapseView;
+import com.ryd.gyy.guolinstudy.View.FlowLayout;
 import com.ryd.gyy.guolinstudy.View.MyFlowLayout;
+
+import java.util.ArrayList;
+import java.util.List;
+
+
 
 public class MainActivity extends AppCompatActivity {
 
@@ -30,6 +37,9 @@ public class MainActivity extends AppCompatActivity {
     CollapseView collapseView;
 
     MyFlowLayout mFlowLayout;
+
+    private FlowLayout flowLayout;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,6 +67,23 @@ public class MainActivity extends AppCompatActivity {
         ViewGroup.MarginLayoutParams params = new ViewGroup.MarginLayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 200);
         mFlowLayout.addView(testText, params);
 
+        //        自定义view学习-
+        collapseView.setNumber("1");
+        collapseView.setTitle("第一张图");
+        collapseView.setContent(R.layout.nav_header);
+
+//        自定义view学习二
+        flowLayout = (FlowLayout) findViewById(R.id.flowLayout1);
+        List<String> lable = new ArrayList<>();
+        lable.add("经济");
+        lable.add("娱乐");
+        lable.add("八卦");
+        lable.add("小道消息");
+        lable.add("政治中心");
+        lable.add("彩票");
+        lable.add("情感");
+        //设置标签
+        flowLayout.setLables(lable, true);
     }
 
 
@@ -74,7 +101,12 @@ public class MainActivity extends AppCompatActivity {
 //        报错原因:因为activity_main中的TextView已经有一个父View了，重复添加子View会报错
 //        参考博客：https://www.jianshu.com/p/2146ace8a244
 //        mFlowLayout.addView(tv, tv.getLayoutParams());
+
+
+
     }
+
+
 
     /**
      * A native method that is implemented by the 'native-lib' native library,
@@ -99,3 +131,4 @@ public class MainActivity extends AppCompatActivity {
 
 
 }
+
