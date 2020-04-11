@@ -29,7 +29,7 @@
     <com.ryd.gyy.guolinstudy.View.MyFlowLayout
         android:id="@+id/flowLayout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="wrap_content" />
 
 
 </LinearLayout>
