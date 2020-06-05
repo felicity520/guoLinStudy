@@ -44,7 +44,7 @@
             android:process=":remote" />
 
         <activity
-            android:name=".Activity.MainActivity"
+            android:name=".Activity.MaterialActivity"
             android:label="@string/toolbar_name"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>

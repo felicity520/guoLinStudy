@@ -4,6 +4,10 @@ import java.util.ArrayList;
 
 import static java.sql.DriverManager.println;
 
+/***
+ * 原型模式：https://www.jianshu.com/p/465c25491eaf
+ * 浅拷贝的时候String等基本类型数据是不会改变的，ArrayList<String>这样的引用类型来说，原始的数据也会改变。
+ */
 public class Car implements Cloneable {
 
     private String brand;
@@ -43,7 +47,6 @@ public class Car implements Cloneable {
         //再打印一遍
         println("car_____:" + car.hashCode() + "__集合大小:" + car.wheelList.size());
         println("cloneCar_____:" + cloneCar.hashCode() + "__集合大小:" + cloneCar.wheelList.size());
-
     }
 
 
