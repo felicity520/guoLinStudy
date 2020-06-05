@@ -1,4 +1,6 @@
 apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-android'
 
 android {
     compileSdkVersion 28
@@ -56,15 +58,15 @@ dependencies {
     //implementation 'com.android.support:percent:28.0.0'
 
     //注入Glide
-    implementation 'com.github.bumptech.glide:glide:4.9.0'
-    annotationProcessor 'com.github.bumptech.glide:compiler:4.9.0'
+    implementation 'com.github.bumptech.glide:glide:4.11.0'
+    annotationProcessor 'com.github.bumptech.glide:compiler:4.11.0'
 
     //导入permissionsdispatcher框架，最新的是4.6.0
     implementation "org.permissionsdispatcher:permissionsdispatcher:4.6.0"
     annotationProcessor "org.permissionsdispatcher:permissionsdispatcher-processor:4.6.0"
 
 //    导入litepal依赖
-    implementation 'org.litepal.android:java:3.0.0'
+    implementation 'org.litepal.guolindev:core:3.1.1'
 
 //    调试数据库的工具Android-Debug-Database
     debugImplementation 'com.amitshekhar.android:debug-db:1.0.3'
@@ -81,6 +83,11 @@ dependencies {
 //    文本对齐依赖
     implementation 'com.text:alginlib:1.0.1'
     implementation 'androidx.swiperefreshlayout:swiperefreshlayout:1.0.0'
+    implementation "androidx.core:core-ktx:+"
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
 
+}
+repositories {
+    mavenCentral()
 }
 

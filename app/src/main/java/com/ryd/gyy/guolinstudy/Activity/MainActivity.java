@@ -14,6 +14,7 @@ import com.ryd.gyy.guolinstudy.View.CollapseView;
 import com.ryd.gyy.guolinstudy.View.FlowLayout;
 
 import com.ryd.gyy.guolinstudy.View.MyFlowLayout;
+import com.ryd.gyy.guolinstudy.testjava.Singleton;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -51,6 +52,18 @@ public class MainActivity extends AppCompatActivity {
 
         initView();
         initData();
+
+        studyDesignModule();
+    }
+
+    /**
+     * 学习设计者模式
+     */
+    private void studyDesignModule() {
+        Singleton.method();//单例模式，全局有效
+
+
+        //建造者模式
     }
 
     private void initData() {
@@ -108,9 +121,7 @@ public class MainActivity extends AppCompatActivity {
 //        mFlowLayout.addView(tv, tv.getLayoutParams());
 
 
-
     }
-
 
 
     /**
