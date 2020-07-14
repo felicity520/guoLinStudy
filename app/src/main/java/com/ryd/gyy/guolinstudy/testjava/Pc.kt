@@ -160,6 +160,8 @@ interface PcBuilder {
 
 
 fun main() {
+    println("1/0=" + 1 / 0)
+
     //创建一个 SurfaceBook
     val surfaceBook = Pc.Builder()
             .setCpu("cpu")
