@@ -21,6 +21,7 @@ import com.google.android.material.snackbar.Snackbar;
 import com.ryd.gyy.guolinstudy.R;
 import com.ryd.gyy.guolinstudy.RecyclerClass.Fruit;
 import com.ryd.gyy.guolinstudy.RecyclerClass.FruitAdapter;
+import com.ryd.gyy.guolinstudy.View.MyRecyclerView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -94,6 +95,7 @@ public class MaterialActivity extends AppCompatActivity {
     }
 
     private void initRecycler() {
+//        MyRecyclerView recyclerView = new MyRecyclerView(this);
         RecyclerView recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
         GridLayoutManager layoutManager = new GridLayoutManager(this, 2);
         recyclerView.setLayoutManager(layoutManager);

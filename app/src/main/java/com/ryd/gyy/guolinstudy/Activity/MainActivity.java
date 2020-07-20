@@ -13,15 +13,14 @@ import com.ryd.gyy.guolinstudy.R;
 import com.ryd.gyy.guolinstudy.View.ButtonSubclass;
 import com.ryd.gyy.guolinstudy.View.CollapseView;
 import com.ryd.gyy.guolinstudy.View.FlowLayout;
+
 import com.ryd.gyy.guolinstudy.View.MyFlowLayout;
+import com.ryd.gyy.guolinstudy.testjava.Singleton;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import android.view.MotionEvent;
-
 import android.view.View;
-
 public class MainActivity extends AppCompatActivity {
 
     private static final String TAG = "MainActivity";
@@ -38,6 +37,7 @@ public class MainActivity extends AppCompatActivity {
 
     //    自定义view
     CollapseView collapseView;
+
 
     MyFlowLayout mFlowLayout;
 
@@ -56,9 +56,22 @@ public class MainActivity extends AppCompatActivity {
 
         initView();
         initData();
+
+        studyDesignModule();
+    }
+
+    /**
+     * 学习设计者模式
+     */
+    private void studyDesignModule() {
+        Singleton.method();//单例模式，全局有效
+
+
+        //建造者模式
     }
 
     private void initData() {
+
 //        自定义view第一个例子
         collapseView.setNumber("1");
         collapseView.setTitle("大傻子周正亮");
@@ -73,11 +86,16 @@ public class MainActivity extends AppCompatActivity {
 
         //        自定义view学习-
         collapseView.setNumber("1");
+
         collapseView.setTitle("第一张图");
         collapseView.setContent(R.layout.nav_header);
 
 //        自定义view学习二
+
+        flowLayout = (FlowLayout) findViewById(R.id.flowLayout);
+
         flowLayout = (FlowLayout) findViewById(R.id.flowLayout1);
+
         List<String> lable = new ArrayList<>();
         lable.add("经济");
         lable.add("娱乐");
@@ -107,7 +125,6 @@ public class MainActivity extends AppCompatActivity {
 //        报错原因:因为activity_main中的TextView已经有一个父View了，重复添加子View会报错
 //        参考博客：https://www.jianshu.com/p/2146ace8a244
 //        mFlowLayout.addView(tv, tv.getLayoutParams());
-
 
 
     }

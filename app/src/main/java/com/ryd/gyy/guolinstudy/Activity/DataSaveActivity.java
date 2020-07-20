@@ -1,5 +1,6 @@
 package com.ryd.gyy.guolinstudy.Activity;
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -39,6 +40,9 @@ import butterknife.OnClick;
 
 import static com.ryd.gyy.guolinstudy.Util.MainApplication.getGlobalContext;
 
+/**
+ * @author Administrator gyy
+ */
 public class DataSaveActivity extends BaseActivity {
 
     private static final String TAG = "DataSaveActivity";
@@ -72,7 +76,8 @@ public class DataSaveActivity extends BaseActivity {
         //TextUtils.isEmpty(inputText)相当于判断字符是否为null或者""空字符
         if (!TextUtils.isEmpty(inputText)) {
             editText3.setText(inputText);
-            editText3.setSelection(inputText.length());//将输入光标移动到文本的末尾
+            //将输入光标移动到文本的末尾
+            editText3.setSelection(inputText.length());
             Toast.makeText(this, "Restoring succeeded", Toast.LENGTH_SHORT).show();
         }
 //SharedPreferences保存密码的功能
@@ -92,7 +97,8 @@ public class DataSaveActivity extends BaseActivity {
 //        SQLiteOpenHelper dbHelper = new MySQLiteHelper(this, "demo.db", null, 2);
 //        版本为3：增加一列
         SQLiteOpenHelper dbHelper = new MySQLiteHelper(this, "demo.db", null, 5);
-        mdb = dbHelper.getWritableDatabase();//创建数据库
+        //创建数据库
+        mdb = dbHelper.getWritableDatabase();
 //        SQLiteDatabase db1 = Connector.getDatabase();
 
         insertData();
@@ -135,10 +141,12 @@ public class DataSaveActivity extends BaseActivity {
         } else {
             Toast.makeText(getGlobalContext(), "comment1存储失败", Toast.LENGTH_SHORT).show();
         }
+
         Comment comment2 = new Comment();
         comment2.setContent("赞一个");
         comment2.setPublishDate(new Date());
         comment2.save();
+
         News news = new News();
         news.getCommentList().add(comment1);
         news.getCommentList().add(comment2);
@@ -147,6 +155,7 @@ public class DataSaveActivity extends BaseActivity {
         news.setPublishDate(new Date());
         news.setCommentCount(news.getCommentList().size());
         news.save();
+
 //        一次性插入多条
         List<News> newsList = new ArrayList<News>();
         News news1 = new News();
@@ -155,7 +164,36 @@ public class DataSaveActivity extends BaseActivity {
         news2.setTitle("GYY第二条");
         newsList.add(news1);
         newsList.add(news2);
-        LitePal.saveAll(newsList);
+//        支持一次性插入整个list，返回true表示成功，否则是失败
+        boolean flag = LitePal.saveAll(newsList);
+        Log.e(TAG, "insertData flag: " + flag );
+
+//        kt版插入list数据:更加简便
+//        val personList: List<News>
+//        personList.saveAll()
+
+
+//        支持事务的相关操作：java版
+//        try {
+//            LitePal.beginTransaction();
+//            boolean result1 = // 数据库操作1
+//            boolean result2 = // 数据库操作2
+//            boolean result3 = // 数据库操作3
+//            if (result1 && result2 && result3) {
+//                LitePal.setTransactionSuccessful();
+//            }
+//        } finally {
+//            LitePal.endTransaction();
+//        }
+
+
+//支持事务的相关操作：kt版本。返回true表示成功，
+//        LitePal.runInTransaction {
+//            val result1 = // 数据库操作1
+//                    val result2 = // 数据库操作2
+//                    val result3 = // 数据库操作3
+//                    result1 && result2 && result3
+//        }
     }
 
     /**

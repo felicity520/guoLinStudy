@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:flowlayout="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -8,32 +9,13 @@
     android:orientation="vertical"
     tools:context=".Activity.MainActivity">
 
-    <!--水平滚动的TextView-->
-<!--    <TextView-->
-<!--        android:visibility="gone"-->
-<!--        android:id="@+id/sample_text"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:ellipsize="marquee"-->
-<!--        android:fadeScrollbars="false"-->
-<!--        android:focusable="true"-->
-<!--        android:letterSpacing="-0.15"-->
-<!--        android:singleLine="true"-->
-<!--        android:text="这次活动马上消息:爱车的小伙伴们注意啦!" />-->
-
-
     <com.ryd.gyy.guolinstudy.View.CollapseView
         android:id="@+id/collapseView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
-    <com.ryd.gyy.guolinstudy.View.MyFlowLayout
-        android:id="@+id/flowLayout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
-
     <com.ryd.gyy.guolinstudy.View.FlowLayout
-        android:id="@+id/flowLayout1"
+        android:id="@+id/flowLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="20dip"
@@ -46,10 +28,10 @@
         android:orientation="horizontal">
 
         <EditText
-            android:layout_marginLeft="40dip"
             android:id="@+id/EditView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="40dip"
             android:cursorVisible="true"
             android:focusable="true"
             android:hint="请输入"
@@ -63,7 +45,6 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="40dip" />
     </LinearLayout>
-
 
     <com.ryd.gyy.guolinstudy.View.LinearLayoutSubclass
         android:layout_width="match_parent"
@@ -80,6 +61,13 @@
 
     </com.ryd.gyy.guolinstudy.View.LinearLayoutSubclass>
 
+    <com.ryd.gyy.guolinstudy.View.FlowLayout
+        android:id="@+id/flowLayout1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="20dip"
+        flowlayout:lineSpace="20dip"
+        flowlayout:rowSpace="10dip" />
 </LinearLayout>
 
 

@@ -1,18 +1,37 @@
 package com.ryd.gyy.guolinstudy.Thread;
 
+import android.content.Intent;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.KeyEvent;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.ryd.gyy.guolinstudy.Model.JianzhiResult;
 import com.ryd.gyy.guolinstudy.R;
+import com.ryd.gyy.guolinstudy.Util.JsoupTool;
+
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
+
+import static android.widget.Toast.LENGTH_SHORT;
 
 /**
  * 参考：https://www.jianshu.com/p/49349eee9abc
  */
 public class ThreadStudy extends AppCompatActivity implements View.OnClickListener {
+
+    //pn是第几页，rn是一页显示多少条数据：https://zhaopin.baidu.com/jianzhi?city=温州&pn=5&rn=3
+    private String POST_URL = "https://zhaopin.baidu.com/jianzhi?city=温州&pn=2&rn=3";
+
+    private JsoupTool jsoupTool;
 
     Thread secondThread;//第二类方法的线程
 
@@ -23,6 +42,7 @@ public class ThreadStudy extends AppCompatActivity implements View.OnClickListen
     MyThread mMyThread;
     private Button threadStart;
     private Button threadStop;
+    private Button btn_sendRequest;
 
 
     @Override
@@ -31,8 +51,13 @@ public class ThreadStudy extends AppCompatActivity implements View.OnClickListen
         setContentView(R.layout.activity_thread);
 
         initView();
+        initData();
         Log.i(TAG, "onCreate----------: " + getMainLooper().getThread().getId());//获取主线程id
 //        thirdKinds();
+    }
+
+    private void initData() {
+        jsoupTool = new JsoupTool();
     }
 
     private void initView() {
@@ -41,6 +66,18 @@ public class ThreadStudy extends AppCompatActivity implements View.OnClickListen
 
         threadStop = (Button) findViewById(R.id.threadStop);
         threadStop.setOnClickListener(this);
+
+        btn_sendRequest = (Button) findViewById(R.id.btn_sendRequest);
+        btn_sendRequest.setOnClickListener(this);
+
+        btn_sendRequest.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                Log.e(TAG, "onTouch: " + event.getAction());
+                return false;
+                //return true;//返回true就认为这个事件被onTouch消费掉了，因而不会再继续向下传递。
+            }
+        });
     }
 
 
@@ -87,7 +124,47 @@ public class ThreadStudy extends AppCompatActivity implements View.OnClickListen
 //                stopThread();
                 stopSecondThread();
                 break;
+            case R.id.btn_sendRequest:
+                //跳转到某个app的代码
+                String packname = "example.xmryd.com.a8841factory";
+                PackageManager packageManager = getPackageManager();
+
+                if (checkPackInfo(packname)) {
+                    Intent intent = packageManager.getLaunchIntentForPackage(packname);
+                    startActivity(intent);
+                } else {
+                    //没有安装app要做的事情
+                    Toast.makeText(ThreadStudy.this, "没有安装example.xmryd.com.a8841factory" + packname, LENGTH_SHORT).show();
+                }
+
+
+                jsoupTool.runJsoup(POST_URL, new JsoupTool.JsoupResultListener() {
+                    @Override
+                    public void onSuccess(ArrayList<JianzhiResult> results) {
+                        Log.i("TAG", results.toString());
+                    }
+
+                    @Override
+                    public void onFail(ArrayList<JianzhiResult> results) {
+
+                    }
+                });
+                break;
         }
+    }
+
+
+    /**
+     * 检查包是否存在(存在：true  不存在：false)
+     */
+    private boolean checkPackInfo(String packname) {
+        PackageInfo packageInfo = null;
+        try {
+            packageInfo = getPackageManager().getPackageInfo(packname, 0);
+        } catch (PackageManager.NameNotFoundException e) {
+            e.printStackTrace();
+        }
+        return packageInfo != null;
     }
 
 
@@ -180,5 +257,33 @@ public class ThreadStudy extends AppCompatActivity implements View.OnClickListen
         }
     }
 
+
+    //保存点击的时间
+    private long exitTime = 0;
+
+    //只在当前的activity
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
+            if ((System.currentTimeMillis() - exitTime) > 2000) {
+                Toast.makeText(getApplicationContext(), "再按一次退出程序",
+                        LENGTH_SHORT).show();
+                exitTime = System.currentTimeMillis();
+                Log.i(TAG, "退出时间 : " + exitTime);
+                stampToDate(exitTime);
+                Log.i(TAG, "转换后的时间 : " + stampToDate(exitTime));
+            } else {
+                System.exit(0);
+            }
+            return false;
+        }
+        return super.onKeyDown(keyCode, event);
+    }
+
+    /* * 将时间戳转换为时间 */
+    public String stampToDate(long timeMillis) {
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        Date date = new Date(timeMillis);
+        return simpleDateFormat.format(date);
+    }
 
 }
