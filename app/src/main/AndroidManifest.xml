@@ -43,7 +43,7 @@
             android:process=":remote" />
 
         <activity
-            android:name=".Thread.ThreadStudy"
+            android:name=".Activity.MaterialActivity"
             android:label="@string/toolbar_name"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
@@ -90,7 +90,8 @@
         <activity android:name=".Activity.BaseActivity" />
         <activity android:name=".Activity.PerContactsActivity" />
         <activity android:name=".Activity.SendbrocastActivity" />
-        <activity android:name=".Activity.DisplayCutoutActivity" /> <!-- <activity android:name=".Activity.MaterialActivity" /> -->
+        <activity android:name=".Activity.DisplayCutoutActivity" />
+        <!-- <activity android:name=".Activity.MaterialActivity" /> -->
         <!-- <activity android:name=".Activity.MainActivity" /> -->
         <activity android:name=".Activity.FruitActivity" />
         <activity android:name=".Thread.AsyncTaskStudy" /> <!-- <activity android:name=".Activity.DownLoadActivity" /> -->
