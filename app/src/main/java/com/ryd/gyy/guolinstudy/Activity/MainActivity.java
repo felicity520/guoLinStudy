@@ -1,15 +1,16 @@
 package com.ryd.gyy.guolinstudy.Activity;
 
 import android.content.Context;
-import android.content.pm.ApplicationInfo;
 import android.os.Bundle;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.viewpager.widget.ViewPager;
 
 import com.ryd.gyy.guolinstudy.R;
+import com.ryd.gyy.guolinstudy.View.ButtonSubclass;
 import com.ryd.gyy.guolinstudy.View.CollapseView;
 import com.ryd.gyy.guolinstudy.View.FlowLayout;
 import com.ryd.gyy.guolinstudy.View.MyFlowLayout;
@@ -17,7 +18,9 @@ import com.ryd.gyy.guolinstudy.View.MyFlowLayout;
 import java.util.ArrayList;
 import java.util.List;
 
+import android.view.MotionEvent;
 
+import android.view.View;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -40,6 +43,7 @@ public class MainActivity extends AppCompatActivity {
 
     private FlowLayout flowLayout;
 
+    private ButtonSubclass mButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -84,8 +88,10 @@ public class MainActivity extends AppCompatActivity {
         lable.add("情感");
         //设置标签
         flowLayout.setLables(lable, true);
-    }
 
+//自定义view的ButtonSubclass
+        mButton= (ButtonSubclass) findViewById(R.id.button);
+    }
 
     private void initView() {
 //        tv = findViewById(R.id.sample_text);
@@ -106,14 +112,11 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-
-
     /**
      * A native method that is implemented by the 'native-lib' native library,
      * which is packaged with this application.
      */
     public native String stringFromJNI();
-
 
     public void test() {
         //                Toast toast = Toast.makeText(MainActivity.this, "提示用户，Toast一下", Toast.LENGTH_SHORT);
@@ -127,6 +130,40 @@ public class MainActivity extends AppCompatActivity {
 //                UserUtil.showSnackbar(getWindow().getDecorView());
 //                Log.e(TAG, "验证dialog的阻断---------------: ");
 //        UserUtil.showToast(getGlobalContext(), "我是toast", Toast.LENGTH_SHORT);
+    }
+
+    @Override
+    public boolean dispatchTouchEvent(MotionEvent ev) {
+        switch (ev.getAction()) {
+            case MotionEvent.ACTION_DOWN:
+                System.out.println("---> MainActivity中调用dispatchTouchEvent()--->ACTION_DOWN");
+                break;
+            case MotionEvent.ACTION_MOVE:
+                System.out.println("---> MainActivity中调用dispatchTouchEvent()--->ACTION_MOVE");
+                break;
+            case MotionEvent.ACTION_UP:
+                System.out.println("---> MainActivity中调用dispatchTouchEvent()--->ACTION_UP");
+            default:
+                break;
+        }
+        return super.dispatchTouchEvent(ev);
+    }
+
+    @Override
+    public boolean onTouchEvent(MotionEvent ev) {
+        switch (ev.getAction()) {
+            case MotionEvent.ACTION_DOWN:
+                System.out.println("---> MainActivity中调用onTouchEvent()--->ACTION_DOWN");
+                break;
+            case MotionEvent.ACTION_MOVE:
+                System.out.println("---> MainActivity中调用onTouchEvent()--->ACTION_MOVE");
+                break;
+            case MotionEvent.ACTION_UP:
+                System.out.println("---> MainActivity中调用onTouchEvent()--->ACTION_UP");
+            default:
+                break;
+        }
+        return super.onTouchEvent(ev);
     }
 
 

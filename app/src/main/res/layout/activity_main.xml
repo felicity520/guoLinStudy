@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-
+    xmlns:flowlayout="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     tools:context=".Activity.MainActivity">
 
@@ -62,8 +62,24 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="40dip" />
-
     </LinearLayout>
+
+
+    <com.ryd.gyy.guolinstudy.View.LinearLayoutSubclass
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <com.ryd.gyy.guolinstudy.View.ButtonSubclass
+            android:id="@+id/button"
+            android:layout_centerInParent="true"
+            android:layout_width="500px"
+            android:layout_height="500px"
+            android:background="#FF3A9120"
+            android:textSize="50px"
+            android:text="Touch Me" />
+
+    </com.ryd.gyy.guolinstudy.View.LinearLayoutSubclass>
+
 </LinearLayout>
 
 
