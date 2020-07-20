@@ -13,3 +13,5 @@
 /build
 /captures
 .externalNativeBuild
+/.idea/dbnavigator.xml
+/.idea/codeStyles/Project.xml
