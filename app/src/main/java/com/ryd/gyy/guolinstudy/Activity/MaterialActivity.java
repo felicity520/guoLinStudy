@@ -21,8 +21,6 @@ import com.google.android.material.snackbar.Snackbar;
 import com.ryd.gyy.guolinstudy.R;
 import com.ryd.gyy.guolinstudy.RecyclerClass.Fruit;
 import com.ryd.gyy.guolinstudy.RecyclerClass.FruitAdapter;
-import com.ryd.gyy.guolinstudy.View.MyRecyclerView;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -39,6 +37,8 @@ import java.util.Random;
  * CollapsingToolbarLayout:可折叠式的标题栏
  */
 public class MaterialActivity extends AppCompatActivity {
+
+    private static final String TAG = "MaterialActivity";
 
     private DrawerLayout mDrawerLayout;
 
@@ -61,7 +61,6 @@ public class MaterialActivity extends AppCompatActivity {
         initRecycler();
         initRefresh();
     }
-
     private void initRefresh() {
         swipeRefresh = (SwipeRefreshLayout) findViewById(R.id.swipe_refresh);
         swipeRefresh.setColorSchemeResources(R.color.colorPrimary);//下拉刷新进度条的颜色
