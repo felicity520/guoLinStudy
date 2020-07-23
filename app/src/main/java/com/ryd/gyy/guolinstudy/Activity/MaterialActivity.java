@@ -1,6 +1,9 @@
 package com.ryd.gyy.guolinstudy.Activity;
 
+import android.app.Activity;
+import android.content.Context;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -21,9 +24,13 @@ import com.google.android.material.snackbar.Snackbar;
 import com.ryd.gyy.guolinstudy.R;
 import com.ryd.gyy.guolinstudy.RecyclerClass.Fruit;
 import com.ryd.gyy.guolinstudy.RecyclerClass.FruitAdapter;
+
+import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
+
+import dalvik.system.DexClassLoader;
 
 /**
  * Toolbar：标题栏
@@ -60,7 +67,19 @@ public class MaterialActivity extends AppCompatActivity {
         initFruitsData();
         initRecycler();
         initRefresh();
+        studyClassLoader();
     }
+
+    private void studyClassLoader() {
+        // 在 onCreate 中执行下面代码
+        ClassLoader classLoader = getClassLoader();
+        while (classLoader != null) {
+            Log.e(TAG, "xxx classLoader:" + classLoader);
+            classLoader = classLoader.getParent();
+        }
+        Log.e(TAG, "yyy classLoader:" + Activity.class.getClassLoader());
+    }
+
     private void initRefresh() {
         swipeRefresh = (SwipeRefreshLayout) findViewById(R.id.swipe_refresh);
         swipeRefresh.setColorSchemeResources(R.color.colorPrimary);//下拉刷新进度条的颜色
