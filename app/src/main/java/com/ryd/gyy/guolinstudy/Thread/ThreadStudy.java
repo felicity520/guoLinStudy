@@ -75,6 +75,8 @@ public class ThreadStudy extends AppCompatActivity implements View.OnClickListen
             public boolean onTouch(View v, MotionEvent event) {
                 Log.e(TAG, "onTouch: " + event.getAction());
                 return false;
+                //onTouch() 执行总优先于 onClick()
+                //onTouch() 方法优先级高于 onTouchEvent(event) 方法
                 //return true;//返回true就认为这个事件被onTouch消费掉了，因而不会再继续向下传递。
             }
         });
