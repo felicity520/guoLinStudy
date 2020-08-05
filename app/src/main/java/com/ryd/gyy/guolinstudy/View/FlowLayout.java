@@ -96,7 +96,7 @@ public class FlowLayout extends ViewGroup {
             height = (childH * row) + (row - 1) * ROW_SPACE;
         }
 
-        //保存测量高度
+        //保存测量高度,setMeasuredDimension后面的宽高就决定了布局的大小
         setMeasuredDimension(width, height);
     }
 
