@@ -4,27 +4,30 @@
     xmlns:flowlayout="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context=".Activity.MainActivity">
 
     <com.ryd.gyy.guolinstudy.View.CollapseView
         android:id="@+id/collapseView"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:visibility="gone" />
 
     <com.ryd.gyy.guolinstudy.View.FlowLayout
         android:id="@+id/flowLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="20dip"
+        android:visibility="gone"
         flowlayout:lineSpace="20dip"
         flowlayout:rowSpace="10dip" />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:visibility="gone">
 
         <EditText
             android:id="@+id/EditView"
@@ -39,24 +42,25 @@
 
         <Button
             android:id="@+id/btn"
-            android:text="确定"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="40dip" />
+            android:layout_marginLeft="40dip"
+            android:text="确定" />
     </LinearLayout>
 
     <com.ryd.gyy.guolinstudy.View.LinearLayoutSubclass
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:visibility="gone">
 
         <com.ryd.gyy.guolinstudy.View.ButtonSubclass
             android:id="@+id/button"
-            android:layout_centerInParent="true"
             android:layout_width="500px"
             android:layout_height="500px"
+            android:layout_centerInParent="true"
             android:background="#FF3A9120"
-            android:textSize="50px"
-            android:text="Touch Me" />
+            android:text="Touch Me"
+            android:textSize="50px" />
 
     </com.ryd.gyy.guolinstudy.View.LinearLayoutSubclass>
 
@@ -65,8 +69,29 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="20dip"
+        android:visibility="gone"
         flowlayout:lineSpace="20dip"
         flowlayout:rowSpace="10dip" />
+
+    <LinearLayout
+        android:visibility="gone"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <Button
+            android:onClick="switchImage"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="swtich image" />
+
+        <ImageView
+            android:id="@+id/poolImage"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+    </LinearLayout>
+
 </LinearLayout>
 
 

@@ -43,7 +43,7 @@
             android:process=":remote" />
 
         <activity
-            android:name=".Activity.MaterialActivity"
+            android:name=".Activity.MainActivity"
             android:label="@string/toolbar_name"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
@@ -60,7 +60,7 @@
 
         <activity android:name=".Activity.LocationActivity" />
         <activity android:name=".Activity.DownLoadActivity" />
-        <activity android:name=".Activity.NotificationTest" /> <!-- <activity android:name=".Activity.MainActivity" /> -->
+        <activity android:name=".Activity.NotificationTest" />
         <!-- <activity android:name=".Thread.ThreadStudy" /> -->
         <!-- 修改标题栏上显示的文字(这样就可以和app的名称不一样)：android:label="@string/toolbar_name" -->
         <!-- 内容管理者必须要注册:创建完之后共享给别人调用 -->

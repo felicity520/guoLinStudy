@@ -90,6 +90,9 @@ dependencies {
     // 解析html的jsoup
     implementation 'org.jsoup:jsoup:1.12.2'
 
+    //Square出品的图片加载库之一
+    implementation 'com.squareup.picasso:picasso:2.5.2'
+
 }
 repositories {
     mavenCentral()

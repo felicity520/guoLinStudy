@@ -1,29 +1,61 @@
 package com.ryd.gyy.guolinstudy.Activity;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
+import android.util.Log;
+import android.util.LruCache;
+import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.viewpager.widget.ViewPager;
 
 import com.ryd.gyy.guolinstudy.R;
 import com.ryd.gyy.guolinstudy.View.ButtonSubclass;
 import com.ryd.gyy.guolinstudy.View.CollapseView;
 import com.ryd.gyy.guolinstudy.View.FlowLayout;
-
-import com.ryd.gyy.guolinstudy.View.MyFlowLayout;
 import com.ryd.gyy.guolinstudy.testjava.Singleton;
 
 import java.util.ArrayList;
 import java.util.List;
+
 import android.view.MotionEvent;
-import android.view.View;
+
+/**
+ * 　　　┏┓　　　┏┓
+ * 　　┏┛┻━━━┛┻┓
+ * 　　┃　　　　　　　┃
+ * 　　┃　　　━　　　┃
+ * 　　┃　┳┛　┗┳　┃
+ * 　　┃　　　　　　　┃
+ * 　　┃　　　┻　　　┃
+ * 　　┃　　　　　　　┃
+ * 　　┗━┓　　　┏━┛
+ * 　　　　┃　　　┃ 神兽保佑
+ * 　　　　┃　　　┃ 代码无BUG！
+ * 　　　　┃　　　┗━━━┓
+ * 　　　　┃　　　　　　　┣┓
+ * 　　　　┃　　　　　　　┏┛
+ * 　　　　┗┓┓┏━┳┓┏┛
+ * 　　　　　┃┫┫　┃┫┫
+ * 　　　　　┗┻┛　┗┻┛
+ * add by GYY
+ */
 public class MainActivity extends AppCompatActivity {
 
     private static final String TAG = "MainActivity";
+
+    //学习位图
+    ImageView poolImage;
+    int resIndex;
+    int[] resIds = {R.drawable.rodman, R.drawable.rodman2};
+    Bitmap reuseBitmap;
+    private LruCache<String, Bitmap> bitmapCache;
+
 
     private Button btn_demo;
     private TextView tv;
@@ -38,8 +70,7 @@ public class MainActivity extends AppCompatActivity {
     //    自定义view
     CollapseView collapseView;
 
-
-    MyFlowLayout mFlowLayout;
+    FlowLayout mFlowLayout;
 
     private FlowLayout flowLayout;
 
@@ -58,6 +89,127 @@ public class MainActivity extends AppCompatActivity {
         initData();
 
         studyDesignModule();
+        studyBitmap();
+    }
+
+    /***
+     * 学习拉勾教育上的位图
+     */
+    private void studyBitmap() {
+//        BitmapFactory.Options options = new BitmapFactory.Options();
+//        options.inPreferredConfig = Bitmap.Config.ARGB_8888;
+//        //Bitmap 采样压缩 宽高都有，所以整体内存会缩小4倍
+//        options.inSampleSize = 2;
+
+        //RGB_565 一个像素占两个字节     一半
+        //ARGB_8888 一个像素占4个字节
+
+        //bitmap size is 2483776 420dpi ARGB_8888 drawable-xhdpi的屏幕密度是320 算下来是2,480,625
+        //bitmap size is 4410000 420dpi ARGB_8888 drawable-hdpi的屏幕密度是240  没错
+//        Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.rodman, options);
+//        Log.i(TAG, "bitmap size is " + bitmap.getAllocationByteCount());
+
+
+//        try {
+//            InputStream is = getResources().getAssets().open("rodman.png");
+//            Bitmap image = BitmapFactory.decodeStream(is);
+//            //原始大小：1440000 即没有经过缩放的大小
+//            Log.i(TAG, "image bitmap size is " + image.getAllocationByteCount());
+//            is.close();
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+
+
+        //改进内存抖动之后的代码
+        final BitmapFactory.Options options = new BitmapFactory.Options();
+        options.inMutable = true;
+        reuseBitmap = BitmapFactory.decodeResource(getResources(), resIds[0], options);
+
+
+        //缓存机制
+        int cacheSize = 20 * 1024 * 1024;  // 20M
+        bitmapCache = new LruCache<String, Bitmap>(cacheSize) {
+            @Override
+            protected int sizeOf(String key, Bitmap bitmap) {
+                // 重写此方法来衡量每张图片的大小，默认返回图片数量。
+                return bitmap.getAllocationByteCount();
+            }
+        };
+
+    }
+
+
+    public void addBitmapToCache(String key, Bitmap bitmap) {
+        if (getBitmapFromCache(key) == null) {
+            bitmapCache.put(key, bitmap);
+        }
+    }
+
+    public Bitmap getBitmapFromCache(String key) {
+        return bitmapCache.get(key);
+    }
+
+
+    public void switchImage(View view) {
+        poolImage.setImageBitmap(getBitmap());
+    }
+
+    /***
+     * 之前会引起内存抖动的方法
+     * @return
+     */
+//    private Bitmap getBitmap() {
+//        return BitmapFactory.decodeResource(getResources(), resIds[resIndex++ % 2]);
+//    }
+
+    /***
+     * 改进后的,查看内存分析工具Profiler下面不会有删除形状的垃圾桶，那就是没有触发内存抖动
+     * @return
+     */
+    private Bitmap getBitmap() {
+        final BitmapFactory.Options options = new BitmapFactory.Options();
+        options.inJustDecodeBounds = true;
+        BitmapFactory.decodeResource(getResources(), resIds[resIndex % 2], options);
+        if (canUseForInBitmap(reuseBitmap, options)) {
+            Log.e(TAG, "reuseBitmap is reusable");
+            //Options.inMutable 置为 true，这里如果不置为 true 的话，BitmapFactory 将不会重复利用 Bitmap 内存
+            options.inMutable = true;
+            options.inBitmap = reuseBitmap;
+        }
+        options.inJustDecodeBounds = false;
+        return BitmapFactory.decodeResource(getResources(), resIds[resIndex++ % 2], options);
+    }
+
+    public static boolean canUseForInBitmap(Bitmap candidate, BitmapFactory.Options targetOptions) {
+        int width = targetOptions.outWidth / Math.max(targetOptions.inSampleSize, 1);
+        int height = targetOptions.outHeight / Math.max(targetOptions.inSampleSize, 1);
+        int byteCount = width * height * getBytesPerPixel(candidate.getConfig());
+
+        Log.e(TAG, "reuseBitmap byteCount: " + byteCount);
+        Log.e(TAG, "reuseBitmap candidate.getAllocationByteCount(): " + candidate.getAllocationByteCount());
+        //在 Android 4.4 版本之前，只能重用相同大小的 Bitmap 内存区域；
+        //4.4 之后你可以重用任何 Bitmap 的内存区域，只要这块内存比将要分配内存的 bitmap 大就可以。
+        //     新内存     <  可以复用的内存
+        return byteCount <= candidate.getAllocationByteCount();
+    }
+
+
+    private static int getBytesPerPixel(Bitmap.Config config) {
+        int bytesPerPixel;
+        switch (config) {
+            case ALPHA_8:
+                bytesPerPixel = 1;
+                break;
+            case RGB_565:
+            case ARGB_4444:
+                bytesPerPixel = 2;
+                break;
+            default:
+                bytesPerPixel = 4;
+                break;
+        }
+        return bytesPerPixel;
     }
 
     /**
@@ -108,7 +260,7 @@ public class MainActivity extends AppCompatActivity {
         flowLayout.setLables(lable, true);
 
 //自定义view的ButtonSubclass
-        mButton= (ButtonSubclass) findViewById(R.id.button);
+        mButton = (ButtonSubclass) findViewById(R.id.button);
     }
 
     private void initView() {
@@ -119,7 +271,7 @@ public class MainActivity extends AppCompatActivity {
 //        自定义view
         collapseView = (CollapseView) findViewById(R.id.collapseView);
 //        ((ViewGroup) mFlowLayout.getParent()).removeView(mFlowLayout);
-        mFlowLayout = (MyFlowLayout) findViewById(R.id.flowLayout);
+        mFlowLayout = (FlowLayout) findViewById(R.id.flowLayout);
 //        说明：这里直接将activity_main中的TextView加载到MyFlowLayout会报错
 //        报错内容:“The specified child already has a parent. You must call removeView"
 //        报错原因:因为activity_main中的TextView已经有一个父View了，重复添加子View会报错
