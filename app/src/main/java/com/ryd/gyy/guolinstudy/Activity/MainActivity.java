@@ -49,6 +49,8 @@ public class MainActivity extends AppCompatActivity {
 
     private static final String TAG = "MainActivity";
 
+    //Convert to WebP可以将png和jpeg无损压缩，可减小apk体积
+
     //学习位图
     ImageView poolImage;
     int resIndex;

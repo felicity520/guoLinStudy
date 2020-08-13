@@ -33,6 +33,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme.NoActionBar"
         android:usesCleartextTraffic="true">
+<!--        <activity android:name=".Activity.ServerActivity"></activity>-->
         <!-- android:name必须填写这个，value是API Key（百度） -->
         <meta-data
             android:name="com.baidu.lbsapi.API_KEY"
@@ -43,25 +44,23 @@
             android:process=":remote" />
 
         <activity
-            android:name=".Activity.MainActivity"
+            android:name=".Activity.ServerActivity"
             android:label="@string/toolbar_name"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
 
                 <!-- 这两行配置成桌面应用 -->
-                <!--                <category android:name="android.intent.category.DEFAULT" />-->
-                <!--                <category android:name="android.intent.category.HOME" />-->
+                <!-- <category android:name="android.intent.category.DEFAULT" /> -->
+                <!-- <category android:name="android.intent.category.HOME" /> -->
 
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity android:name=".Activity.LocationActivity" />
         <activity android:name=".Activity.DownLoadActivity" />
-        <activity android:name=".Activity.NotificationTest" />
-        <!-- <activity android:name=".Thread.ThreadStudy" /> -->
+        <activity android:name=".Activity.NotificationTest" /> <!-- <activity android:name=".Thread.ThreadStudy" /> -->
         <!-- 修改标题栏上显示的文字(这样就可以和app的名称不一样)：android:label="@string/toolbar_name" -->
         <!-- 内容管理者必须要注册:创建完之后共享给别人调用 -->
         <provider
@@ -90,8 +89,7 @@
         <activity android:name=".Activity.BaseActivity" />
         <activity android:name=".Activity.PerContactsActivity" />
         <activity android:name=".Activity.SendbrocastActivity" />
-        <activity android:name=".Activity.DisplayCutoutActivity" />
-        <!-- <activity android:name=".Activity.MaterialActivity" /> -->
+        <activity android:name=".Activity.DisplayCutoutActivity" /> <!-- <activity android:name=".Activity.MaterialActivity" /> -->
         <!-- <activity android:name=".Activity.MainActivity" /> -->
         <activity android:name=".Activity.FruitActivity" />
         <activity android:name=".Thread.AsyncTaskStudy" /> <!-- <activity android:name=".Activity.DownLoadActivity" /> -->

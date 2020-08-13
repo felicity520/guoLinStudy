@@ -23,6 +23,15 @@ android {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
+        debug {
+//            minifyEnabled是否开启混淆
+//            shrinkResources删除无效的Resource
+//            shrinkResources依赖于minifyEnabled,必须一起用
+//            指定使用哪个语言，会将其他的语言的给去除
+            minifyEnabled false
+            shrinkResources false
+//            resConfigs "zh"
+        }
     }
     externalNativeBuild {
         cmake {
@@ -39,17 +48,17 @@ android {
 
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
-    implementation 'androidx.appcompat:appcompat:1.1.0'
+    implementation 'androidx.appcompat:appcompat:1.2.0'
     implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
     testImplementation 'junit:junit:4.12'
-    androidTestImplementation 'androidx.test:runner:1.3.0-alpha05'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0-alpha05'
+    androidTestImplementation 'androidx.test:runner:1.3.0-rc03'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0-rc03'
     implementation 'com.squareup.okhttp3:okhttp:3.11.0'
     implementation files('libs/BaiduLBS_Android.jar')
 
 //    使用Snackbar要添加的依赖
     implementation 'com.android.support:design:23.4.0'
-    implementation 'com.google.android.material:material:1.1.0'
+    implementation 'com.google.android.material:material:1.2.0'
 
 //    butterknife注入:8.1.1的不能用，需要更新到10.0.0
     implementation 'com.jakewharton:butterknife:10.2.0'
@@ -83,8 +92,8 @@ dependencies {
 
 //    文本对齐依赖
     implementation 'com.text:alginlib:1.0.1'
-    implementation 'androidx.swiperefreshlayout:swiperefreshlayout:1.0.0'
-    implementation "androidx.core:core-ktx:+"
+    implementation 'androidx.swiperefreshlayout:swiperefreshlayout:1.1.0'
+    implementation "androidx.core:core-ktx:1.3.1"
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
 
     // 解析html的jsoup
@@ -93,6 +102,8 @@ dependencies {
     //Square出品的图片加载库之一
     implementation 'com.squareup.picasso:picasso:2.5.2'
 
+    //搭建Server需要用到的库
+    implementation 'com.koushikdutta.async:androidasync:2.2.1'
 }
 repositories {
     mavenCentral()
