@@ -19,6 +19,7 @@ import com.ryd.gyy.guolinstudy.View.ButtonSubclass;
 import com.ryd.gyy.guolinstudy.View.CollapseView;
 import com.ryd.gyy.guolinstudy.View.FlowLayout;
 import com.ryd.gyy.guolinstudy.testjava.Singleton;
+import com.tencent.bugly.crashreport.CrashReport;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -92,6 +93,22 @@ public class MainActivity extends AppCompatActivity {
 
         studyDesignModule();
         studyBitmap();
+
+//        crash();
+//        studyException();
+    }
+
+    private void studyException() {
+        try {
+            //注意：已经加了catch的异常是不会执行到UncaughtExceptionHandler的，所以这里的报错是不会保存的
+            throw new RuntimeException("自定义异常");
+        } catch (RuntimeException e) {
+            Log.e(TAG, "onCreate: 开始报错------");
+            e.printStackTrace();
+        }
+
+        //这种没加catch捕获的才能被UncaughtExceptionHandler保存下来
+        throw new RuntimeException("自定义异常");
     }
 
     /***
@@ -154,6 +171,9 @@ public class MainActivity extends AppCompatActivity {
 
 
     public void switchImage(View view) {
+//        模拟腾讯的bugly抛出异常
+//        CrashReport.testJavaCrash();
+
         poolImage.setImageBitmap(getBitmap());
     }
 
@@ -288,6 +308,8 @@ public class MainActivity extends AppCompatActivity {
      * which is packaged with this application.
      */
     public native String stringFromJNI();
+
+    public native void crash();
 
     public void test() {
         //                Toast toast = Toast.makeText(MainActivity.this, "提示用户，Toast一下", Toast.LENGTH_SHORT);
