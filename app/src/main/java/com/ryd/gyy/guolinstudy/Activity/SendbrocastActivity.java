@@ -60,7 +60,7 @@ public class SendbrocastActivity extends AppCompatActivity implements View.OnCli
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        localBroadcastManager.unregisterReceiver(localReceiver);
+//        localBroadcastManager.unregisterReceiver(localReceiver);
     }
 
     @SuppressLint("WrongConstant")

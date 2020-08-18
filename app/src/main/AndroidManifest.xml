@@ -41,13 +41,13 @@
         android:usesCleartextTraffic="true">
         <!--        <activity android:name=".Activity.ServerActivity"></activity>-->
         <!-- android:name必须填写这个，value是API Key（百度） -->
-        <meta-data
-            android:name="com.baidu.lbsapi.API_KEY"
-            android:value="0ntqYn8yFYNhOYwnXKzzXOEvyewNhcup" /> <!-- 使用百度定位的SDK必须要添加的 -->
-        <service
-            android:name="com.baidu.location.f"
-            android:enabled="true"
-            android:process=":remote" />
+<!--        <meta-data-->
+<!--            android:name="com.baidu.lbsapi.API_KEY"-->
+<!--            android:value="0ntqYn8yFYNhOYwnXKzzXOEvyewNhcup" /> &lt;!&ndash; 使用百度定位的SDK必须要添加的 &ndash;&gt;-->
+<!--        <service-->
+<!--            android:name="com.baidu.location.f"-->
+<!--            android:enabled="true"-->
+<!--            android:process=":remote" />-->
 
         <activity
             android:name=".Activity.MainActivity"
@@ -85,9 +85,9 @@
                 android:resource="@xml/file_paths" />
         </provider> <!-- 内容管理器共享拍照得到的图片 -->
         <!-- android:theme="@style/AppTheme.NoActionBar" -->
-        <meta-data
-            android:name="com.baidu.lbsapi.API_KEY"
-            android:value="0ntqYn8yFYNhOYwnXKzzXOEvyewNhcup" /> <!-- android:name必须填写这个，value是API Key -->
+<!--        <meta-data-->
+<!--            android:name="com.baidu.lbsapi.API_KEY"-->
+<!--            android:value="0ntqYn8yFYNhOYwnXKzzXOEvyewNhcup" /> &lt;!&ndash; android:name必须填写这个，value是API Key &ndash;&gt;-->
         <activity android:name=".Activity.NotificationActivity" />
         <activity android:name=".Activity.PermissionsActivity" />
         <activity android:name=".Activity.DataSaveActivity" />
@@ -95,7 +95,7 @@
         <activity android:name=".Activity.MyActivity" />
         <activity android:name=".Activity.BaseActivity" />
         <activity android:name=".Activity.PerContactsActivity" />
-        <activity android:name=".Activity.SendbrocastActivity" />
+<!--        <activity android:name=".Activity.SendbrocastActivity" />-->
         <activity android:name=".Activity.DisplayCutoutActivity" /> <!-- <activity android:name=".Activity.MaterialActivity" /> -->
         <!-- <activity android:name=".Activity.MainActivity" /> -->
         <activity android:name=".Activity.FruitActivity" />
@@ -104,10 +104,10 @@
             android:name=".Service.DownloadService"
             android:enabled="true"
             android:exported="true" />
-        <service
-            android:name="com.baidu.location.f"
-            android:enabled="true"
-            android:process=":remote" /> <!-- 使用百度定位的SDK必须要添加的 -->
+<!--        <service-->
+<!--            android:name="com.baidu.location.f"-->
+<!--            android:enabled="true"-->
+<!--            android:process=":remote" /> &lt;!&ndash; 使用百度定位的SDK必须要添加的 &ndash;&gt;-->
         <receiver
             android:name=".Broadcast.BootUpReceiver"
             android:enabled="true"

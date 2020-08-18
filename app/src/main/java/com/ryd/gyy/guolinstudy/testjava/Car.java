@@ -35,7 +35,7 @@ public class Car implements Cloneable {
         return null;
     }
 
-    public static void main(String arg[]) {
+    public static void main(String[] arg) {
         Car car = new Car("大众", "辉腾");
         Car cloneCar = car.cloneCar();
         //显示两个对象的 hashCode 和 wheelList 的大小;

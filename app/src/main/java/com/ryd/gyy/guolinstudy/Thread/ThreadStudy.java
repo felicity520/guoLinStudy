@@ -152,6 +152,8 @@ public class ThreadStudy extends AppCompatActivity implements View.OnClickListen
                     }
                 });
                 break;
+            default:
+                break;
         }
     }
 
@@ -264,6 +266,7 @@ public class ThreadStudy extends AppCompatActivity implements View.OnClickListen
     private long exitTime = 0;
 
     //只在当前的activity
+    @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if (keyCode == KeyEvent.KEYCODE_BACK) {
             if ((System.currentTimeMillis() - exitTime) > 2000) {

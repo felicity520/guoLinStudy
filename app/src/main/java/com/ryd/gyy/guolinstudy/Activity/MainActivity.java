@@ -1,9 +1,12 @@
 package com.ryd.gyy.guolinstudy.Activity;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.SystemClock;
 import android.util.Log;
 import android.util.LruCache;
 import android.view.View;
@@ -15,6 +18,7 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.ryd.gyy.guolinstudy.R;
+import com.ryd.gyy.guolinstudy.Util.MainApplication;
 import com.ryd.gyy.guolinstudy.View.ButtonSubclass;
 import com.ryd.gyy.guolinstudy.View.CollapseView;
 import com.ryd.gyy.guolinstudy.View.FlowLayout;
@@ -46,7 +50,7 @@ import android.view.MotionEvent;
  * 　　　　　┗┻┛　┗┻┛
  * add by GYY
  */
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
     private static final String TAG = "MainActivity";
 
@@ -59,6 +63,7 @@ public class MainActivity extends AppCompatActivity {
     Bitmap reuseBitmap;
     private LruCache<String, Bitmap> bitmapCache;
 
+    private Button btn_test;
 
     private Button btn_demo;
     private TextView tv;
@@ -94,9 +99,26 @@ public class MainActivity extends AppCompatActivity {
         studyDesignModule();
         studyBitmap();
 
+        startLeak();
+
+        //这样就可以检测任意的对象
+        ((MainApplication) getApplication()).getRefWatcher().watch(this);
+
 //        crash();
 //        studyException();
     }
+
+    private void startLeak() {
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                while (true) {
+                    Log.e(TAG, "=================");
+                }
+            }
+        }).start();
+    }
+
 
     private void studyException() {
         try {
@@ -301,6 +323,8 @@ public class MainActivity extends AppCompatActivity {
 //        mFlowLayout.addView(tv, tv.getLayoutParams());
 
 
+        btn_test = (Button) findViewById(R.id.btn_test);
+        btn_test.setOnClickListener(this);
     }
 
     /**
@@ -360,5 +384,13 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
+    @Override
+    public void onClick(View v) {
+        if (v.getId() == R.id.btn_test) {
+            Intent intent = new Intent(MainActivity.this, NotificationTest.class);
+            startActivity(intent);
+            finish();
+        }
+    }
 }
 

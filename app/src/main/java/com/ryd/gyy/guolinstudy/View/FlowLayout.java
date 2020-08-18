@@ -164,6 +164,7 @@ public class FlowLayout extends ViewGroup {
                 //判断是否选中
                 if (lableSelects.contains(lable)) {
                     tv.setSelected(true);
+                    //getColor已经过时了
                     tv.setTextColor(getResources().getColor(R.color.blue));
                 } else {
                     tv.setSelected(false);

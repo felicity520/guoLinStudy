@@ -58,7 +58,7 @@ public class CrashHandler implements Thread.UncaughtExceptionHandler {
         try {
             Log.e("", "onCreate: 开始报错1111111111------");
             //保存到本地
-            exportExceptionToSDCard(e);
+            exportExceptionToSdcard(e);
             //下面也可以写上传的服务器的代码
         } catch (Exception e1) {
             e1.printStackTrace();
@@ -77,7 +77,7 @@ public class CrashHandler implements Thread.UncaughtExceptionHandler {
      *
      * @param e
      */
-    private void exportExceptionToSDCard(@NonNull Throwable e) {
+    private void exportExceptionToSdcard(@NonNull Throwable e) {
         //判断SD卡是否存在
         if (!Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED)) {
             return;

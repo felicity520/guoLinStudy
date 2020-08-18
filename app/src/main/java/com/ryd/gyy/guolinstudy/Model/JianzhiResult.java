@@ -9,50 +9,51 @@ public class JianzhiResult {
      * company : 点创网络
      */
 
-    private static String name;
-    private static String salary;
-    private static String location;
-    private static String company;
+    private static String mName;
+    private static String mSalary;
+    private static String mLocation;
+    private static String mCompany;
 
     public String getName() {
-        return name;
+        return mName;
     }
 
     public void setName(String name) {
-        this.name = name;
+        mName = name;
     }
 
     public String getSalary() {
-        return salary;
+        return mSalary;
     }
 
     public void setSalary(String salary) {
-        this.salary = salary;
+        mSalary = salary;
     }
 
     public String getLocation() {
-        return location;
+        return mLocation;
     }
 
     public void setLocation(String location) {
-        this.location = location;
+        mLocation = location;
     }
 
     public String getCompany() {
-        return company;
+        return mCompany;
     }
 
     public void setCompany(String company) {
-        this.company = company;
+        mCompany = company;
     }
 
 
+    @Override
     public String toString() {
         return "JianzhiResult{" +
-                ", name='" + name + '\'' +
-                ", salary='" + salary + '\'' +
-                ", location=" + location +
-                ", company=" + company +
+                ", name='" + mName + '\'' +
+                ", salary='" + mSalary + '\'' +
+                ", location=" + mLocation +
+                ", company=" + mCompany +
                 '}';
     }
 }

@@ -78,8 +78,8 @@ public class CollapseView extends LinearLayout {
         }
     }
 
-    public void setContent(int resID) {
-        View view = LayoutInflater.from(mContext).inflate(resID, null);
+    public void setContent(int resId) {
+        View view = LayoutInflater.from(mContext).inflate(resId, null);
         RelativeLayout.LayoutParams layoutParams =
                 new RelativeLayout.LayoutParams(LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
         view.setLayoutParams(layoutParams);

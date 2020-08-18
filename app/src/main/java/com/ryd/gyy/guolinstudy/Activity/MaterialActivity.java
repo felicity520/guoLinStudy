@@ -175,6 +175,7 @@ public class MaterialActivity extends AppCompatActivity {
 
     }
 
+    @Override
     public boolean onCreateOptionsMenu(Menu menu) {
 //        加载toolbar.xml这个菜单文件
         getMenuInflater().inflate(R.menu.toolbar, menu);

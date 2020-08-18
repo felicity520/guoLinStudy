@@ -396,7 +396,10 @@ public class DataSaveActivity extends BaseActivity {
                 String account = accountEdit.getText().toString();
                 String password = passwordEdit.getText().toString();
                 // 如果账号是admin且密码是123456，就认为登录成功
-                if (account.equals("admin") && password.equals("123456")) {
+                //account.equals("admin")这样更容易抛出异常
+                //Object的equals方法容易抛空指针异常，应使用常量或确定有值的对象来调用,应该使用如下的方法
+                if ("admin".equals(account) && "123456".equals(password)) {
+//                if (account.equals("admin") && password.equals("123456")) {
                     editor = pref.edit();
                     if (rememberPass.isChecked()) { // 检查复选框是否被选中
                         editor.putBoolean("remember_password", true);

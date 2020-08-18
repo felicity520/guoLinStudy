@@ -6,6 +6,7 @@ import android.os.Message;
 import android.util.Log;
 
 import com.ryd.gyy.guolinstudy.Model.JianzhiResult;
+import com.ryd.gyy.guolinstudy.Thread.ThreadStudy;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -13,6 +14,7 @@ import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
 import java.io.IOException;
+import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -33,29 +35,53 @@ public class JsoupTool {
 
     private static JsoupTool sInstance;
 
+    //非静态 Handler 导致 Activity 泄漏
     private Handler mHandler = new Handler() {
         @SuppressWarnings("unchecked")
         @Override
         public void handleMessage(Message msg) {
             switch (msg.what) {
                 case GET_DATA_SUCC:
-                    if (mListener != null)
+                    if (mListener != null) {
                         mListener.onSuccess((ArrayList<JianzhiResult>) msg.obj);
+                    }
                     break;
                 case GET_DATA_FAIL:
-                    if (mListener != null)
+                    if (mListener != null) {
                         mListener.onFail(null);
+                    }
+                    break;
+                default:
                     break;
             }
         }
     };
 
 
+    //上面的Handler也会造成Activity内存泄漏，一般需要将其置为static，然后内部持有一个Activity的弱引用来避免内存泄漏。如下所示：
+    private static class MyHandler extends Handler {
+
+        private final WeakReference<ThreadStudy> mActivity;
+
+        public MyHandler(ThreadStudy activity) {
+            mActivity = new WeakReference<ThreadStudy>(activity);
+        }
+
+        @SuppressWarnings("unchecked")
+        @Override
+
+        public void handleMessage(Message msg) {
+            ThreadStudy activity = mActivity.get();
+        }
+    }
+
     /**
      * @return 返回实例
      */
     public static JsoupTool getInstance() {
-        if (sInstance == null) sInstance = new JsoupTool();
+        if (sInstance == null) {
+            sInstance = new JsoupTool();
+        }
         return sInstance;
     }
 
@@ -108,7 +134,9 @@ public class JsoupTool {
         // 从 URL 直接加载 HTML 文档
         Document doc = null;
         try {
-            if (url == null) return null;
+            if (url == null) {
+                return null;
+            }
             doc = Jsoup.connect(url).timeout(60 * 1000).get();
             ArrayList<JianzhiResult> JzResults = new ArrayList<JianzhiResult>();
             Elements elements1 = doc.select("div.single");
