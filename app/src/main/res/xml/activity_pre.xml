@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    android:title="PreferenceScreen">
+
+    <PreferenceCategory
+        android:key="key_prerence"
+        android:summary="Preference Categories Summary"
+        android:title="Preference Categories">
+
+        <CheckBoxPreference
+            android:icon="@mipmap/ic_launcher"
+            android:key="key_checkbox_preference"
+            android:summary="CheckboxPreference summary"
+            android:title="CheckboxPreference title" />
+
+        <Preference
+            android:icon="@mipmap/ic_launcher"
+            android:key="key_pre"
+            android:layout="@layout/activity_main"
+            android:title="Preference" />
+
+        <EditTextPreference
+            android:icon="@mipmap/ic_launcher_foreground"
+            android:key="EditTextPreference key"
+            android:summary="EditTextPreference summary"
+            android:title="EditPreference title" />
+    </PreferenceCategory>
+
+    <Preference
+        android:key="legal_container"
+        android:order="15"
+        android:title="legal_information" />
+
+</PreferenceScreen>

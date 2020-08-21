@@ -99,7 +99,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         studyDesignModule();
         studyBitmap();
 
-        startLeak();
+//        startLeak();
 
         //这样就可以检测任意的对象
         ((MainApplication) getApplication()).getRefWatcher().watch(this);
@@ -324,8 +324,25 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
 
         btn_test = (Button) findViewById(R.id.btn_test);
-        btn_test.setOnClickListener(this);
+        btn_test.setOnClickListener(listener);
+//        btn_test.setOnClickListener(this);
+
+
     }
+
+    Button.OnClickListener listener = new Button.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            Log.e(TAG, "onClick: ---------------");
+            testButton();
+        }
+        //调用方法写在这里或者整个类里都可以
+    };
+
+    public void testButton() {
+        Log.e(TAG, "test111: ---------------");
+    }
+
 
     /**
      * A native method that is implemented by the 'native-lib' native library,
