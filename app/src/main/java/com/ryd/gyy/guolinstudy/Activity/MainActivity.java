@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.SystemClock;
 import android.util.Log;
@@ -106,6 +107,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
 //        crash();
 //        studyException();
+
+        testCode();
+
+    }
+
+    private void testCode() {
+        String testStr = getResources().getString(R.string.model_summary, "gyy");
+        btn_test.setText(testStr);
     }
 
     private void startLeak() {

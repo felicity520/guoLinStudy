@@ -5,11 +5,16 @@ import android.preference.CheckBoxPreference;
 import android.preference.Preference;
 import android.preference.PreferenceActivity;
 import android.preference.PreferenceScreen;
+import android.util.Log;
 import android.widget.Toast;
 
 import com.ryd.gyy.guolinstudy.R;
 
+import java.lang.reflect.Method;
+
 public class MyPreferenceActivity extends PreferenceActivity implements Preference.OnPreferenceChangeListener, Preference.OnPreferenceClickListener {
+
+    private static final String TAG = "MyPreferenceActivity";
 
     private Preference checkboxPreference;
 
@@ -19,10 +24,32 @@ public class MyPreferenceActivity extends PreferenceActivity implements Preferen
 //        setContentView(R.layout.activity_main);
 
         //静态加载xml布局
-        addPreferencesFromResource(R.xml.activity_pre);
+//        addPreferencesFromResource(R.xml.activity_pre);
 
 //        initView();
 //        createPreference();
+
+
+//        验证动态隐藏某一个Preference:有效
+//        PreferenceScreen root = getPreferenceScreen();
+//        if (root != null) {
+//            root.removeAll();
+//        }
+//        addPreferencesFromResource(R.xml.activity_pre);
+//        root = getPreferenceScreen();
+//        root.removePreference(root.findPreference("legal_container"));
+
+        addPreferencesFromResource(R.xml.activity_pre);
+        PreferenceScreen screen = getPreferenceScreen();
+        Preference mPreference = screen.findPreference("legal_container");
+        Log.e(TAG, "onCreate  属性值: " + getProperty("persist.customer.name", ""));
+        if (("xiahua".equals(getProperty("persist.customer.name", "")))) {
+            screen.removePreference(mPreference);
+            Log.e(TAG, "onCreate: ");
+        } else {
+            Log.e(TAG, "onCreate: ---------");
+        }
+
     }
 
     private void initView() {
@@ -58,4 +85,32 @@ public class MyPreferenceActivity extends PreferenceActivity implements Preferen
         Toast.makeText(this, "Preference Clicked", Toast.LENGTH_LONG).show();
         return true;
     }
+
+    public String setProperty(String key, String defaultValue) {
+        String value = defaultValue;
+        try {
+            Class<?> c = Class.forName("android.os.SystemProperties");
+            Method get = c.getMethod("set", String.class, String.class);
+            value = (String) (get.invoke(c, key, defaultValue));
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            return value;
+        }
+    }
+
+
+    public String getProperty(String key, String defaultValue) {
+        String value = defaultValue;
+        try {
+            Class<?> c = Class.forName("android.os.SystemProperties");
+            Method get = c.getMethod("get", String.class, String.class);
+            value = (String) (get.invoke(c, key, defaultValue));
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            return value;
+        }
+    }
+
 }

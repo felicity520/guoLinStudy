@@ -6,4 +6,6 @@
     <string name="permission_camera_denied">拒绝权限后部分功能将不可用</string>
     <string name="button_allow">允许</string>
     <string name="button_deny">拒绝</string>
+    <!--常见的转义字符  &#38;表示的是& &#58;表示:-->
+    <string name="model_summary">Model&#38; %1$s</string>
 </resources>
