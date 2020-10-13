@@ -6,12 +6,12 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Properties;
+import java.util.ArrayList;
 
 import static java.sql.DriverManager.println;
 
 /***
  * 通过反射运行配置文件内容
- *
  * 原型模式：https://www.jianshu.com/p/465c25491eaf
  * 浅拷贝的时候String等基本类型数据是不会改变的，ArrayList<String>这样的引用类型来说，原始的数据也会改变。
  */
@@ -121,6 +121,7 @@ public class Car implements Cloneable {
         in.close();
         return pro.getProperty(key);//返回根据key获取的value值
     }
+
 
 }
 
