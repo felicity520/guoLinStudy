@@ -1,6 +1,10 @@
 package com.ryd.gyy.guolinstudy.testjava;
 
+import java.lang.annotation.ElementType;
+import java.lang.annotation.Target;
+import java.lang.reflect.Field;
 import java.lang.reflect.Method;
+import java.lang.annotation.*;
 
 /**
  * 获取Student类的main方法、不要与当前的main方法搞混了
@@ -25,13 +29,74 @@ public class Main {
             e.printStackTrace();
         }
 
-
+//测试volatile
 //        new Thread1().start();
 //        new Thread2().start();
-        new Thread3().start();
-        new Thread4().start();
+//        new Thread3().start();
+//        new Thread4().start();
 
+
+        AnnoationTest annotation = new AnnoationTest();
+        annotation.setName("abcefg");
+        annotation.setPassword("12345678901111");
+        try {
+            valid(annotation);
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        }
     }
+
+    /**
+     * Java通过反射机制获取类、方法、属性上的注解，
+     * 因此java.lang.reflect提供AnnotationElement支持注解，主要方法如下：
+     * (1)
+     * 格式：<T extends Annotation> T getAnnotation(Class<T> annotationClass)
+     * 说明：获取该元素上annotationClass类型的注解，如果没有返回null
+     *
+     * @param obj
+     * @throws IllegalAccessException
+     */
+    public static void valid(Object obj) throws IllegalAccessException {
+        Class<?> clazz = obj.getClass();
+        System.out.println("clazz-----" + clazz.getName());
+        Field[] fields = clazz.getDeclaredFields();
+        for (Field field : fields) {
+            System.out.println("field-----" + field.getName());
+            Test test = field.getAnnotation(Test.class);//获取属性上的@Test注解
+            if (test != null) {
+                field.setAccessible(true);//设置属性可访问
+                System.out.println("field.getGenericType()-----" + field.getGenericType().toString());
+                if ("class java.lang.String".equals(field.getGenericType().toString())) {//字符串类型的才判断长度
+                    //field.get(类)：获取属性的值
+                    String value = (String) field.get(obj);
+                    if (value != null && ((value.length() > test.max()) || value.length() < test.min())) {
+                        System.out.println(test.description());
+                    }
+                }
+            }
+        }
+    }
+
+
+    /**
+     * 定义一个注解
+     */
+    @Target({ElementType.FIELD})
+    @Retention(RetentionPolicy.RUNTIME)
+    public @interface Test {
+
+        /**
+         * max()也叫注解中的参数类型,min()和description()同理
+         *
+         * @return
+         */
+        int max() default 0;
+
+        int min() default 0;
+
+        String description() default "";
+    }
+
 
     // volatile学习参考郭神的文章：https://mp.weixin.qq.com/s/WtMeB-4sXOYQtvYKUx6c5Q
     //主要用在多线程编程
