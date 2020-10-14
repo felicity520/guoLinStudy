@@ -50,7 +50,7 @@
         <!--            android:process=":remote" />-->
 
         <activity
-            android:name=".Activity.MyPreferenceActivity"
+            android:name=".Activity.MainActivity"
             android:label="@string/toolbar_name"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>

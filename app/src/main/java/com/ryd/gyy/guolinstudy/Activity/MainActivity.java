@@ -10,8 +10,10 @@ import android.os.Bundle;
 import android.os.SystemClock;
 import android.util.Log;
 import android.util.LruCache;
+import android.view.KeyEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -111,6 +113,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         testCode();
 
     }
+
 
     private void testCode() {
         String testStr = getResources().getString(R.string.model_summary, "gyy");

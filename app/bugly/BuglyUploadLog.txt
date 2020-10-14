@@ -18,3 +18,7 @@ file=E:\androidpro\androidwork\demo\guoLinStudy\app\bugly\buglySymbol_libnative-
 sha1=2f273fed9486306448a14bb4115e8e596905242c
 appId=34141d8fcf
 
+file=C:\AndroidStudio\androidpro\androidwork\demo\guoLinStudy\app\bugly\buglySymbol_libnative-lib_arm64-v8a-17f26.zip
+sha1=2f641e4a49b543d96a5cc4dd55d498e95cfe517d
+appId=34141d8fcf
+
