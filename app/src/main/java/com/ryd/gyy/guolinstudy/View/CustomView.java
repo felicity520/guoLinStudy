@@ -192,5 +192,34 @@ public class CustomView extends View {
 //        canvas.drawPath(path, paint);
 
 
+        //初始化Paint
+        Paint paint = new Paint();
+        paint.setColor(Color.RED);
+        paint.setStyle(Paint.Style.STROKE);
+        paint.setStrokeWidth(10f);
+//初始化Path
+        Path path = new Path();
+
+//        绘制曲线
+        path.moveTo(200, 200);
+        //二阶贝赛尔:其中x1和y1是指控制点的坐标，x2和y2是终点的坐标
+//        path.quadTo(300, 300, 400, 200);
+//        path.quadTo(500, 100, 600, 200);
+//        等同于
+        path.rQuadTo(100, 100, 200, 0);
+        //rQuadTo的参数的值是以上一个曲线的终点作为参照的相对值
+        //dx1和dy1作为当前曲线的控制点相对于上一个终点增加或减少的相对值，可正可负。dx2和dy2则作为当前曲线终点的相对值
+        path.rQuadTo(100, -100, 200, 0);
+        path.rQuadTo(100, 100, 200, 0);
+        path.rQuadTo(100, -100, 200, 0);
+
+
+//        path.quadTo(300,300,400,200);
+//        path.quadTo(500,100,600,200);
+
+//        path.close();
+        canvas.drawPath(path, paint);
+
+
     }
 }

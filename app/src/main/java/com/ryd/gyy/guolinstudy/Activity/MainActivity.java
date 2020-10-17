@@ -1,5 +1,6 @@
 package com.ryd.gyy.guolinstudy.Activity;
 
+import android.animation.ValueAnimator;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -111,7 +112,37 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 //        studyException();
 
         testCode();
+        initAnimator();
 
+    }
+
+    /**
+     * 一个数组变化的属性动画
+     */
+    private void initAnimator() {
+        //指定动画的初始值和结束值，使用默认的估值器IntEvalutor
+        //ofInt方法会帮我们创建ValueAnimator对象并将值设置进去
+        ValueAnimator valueAnimator = ValueAnimator.ofInt(0, 1000);
+        //开始延时时长
+        valueAnimator.setStartDelay(1000);
+        //动画时长
+        valueAnimator.setDuration(2000);
+        //重复次数
+        valueAnimator.setRepeatCount(0);
+        //设置重复模式 ValueAnimator.RESTART正序重新开始  ValueAnimator.REVERSE逆序重新开始
+        valueAnimator.setRepeatMode(ValueAnimator.RESTART);
+        valueAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+            @Override
+            public void onAnimationUpdate(ValueAnimator animation) {
+                //获取当前值
+                int number = (int) animation.getAnimatedValue();
+                btn_test.setText(number + "");
+                //重新绘制布局，实现显示效果的改变,本例并不需要调用requestLayout()
+                btn_test.requestLayout();
+            }
+        });
+        //开启动画
+        valueAnimator.start();
     }
 
 
