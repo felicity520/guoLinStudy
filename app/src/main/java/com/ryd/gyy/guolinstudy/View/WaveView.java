@@ -58,7 +58,7 @@ public class WaveView extends View {
         mPaint.setStyle(Paint.Style.FILL_AND_STROKE);
         boat = BitmapFactory.decodeResource(getResources(), R.drawable.ic_boat);
         random = new Random();
-        for (int i = 0; i < mWaveNumber + 10; i++) {
+        for (int i = 0; i < 20; i++) {
             heightList.add(Float.valueOf(String.valueOf(random.nextInt(500))));
         }
     }
@@ -68,8 +68,10 @@ public class WaveView extends View {
         super.onDraw(canvas);
         mPath.reset();
         int halfWaveLen = mItemWaveLength / 2; //半个波长，即一个贝塞尔曲线长度
+//        这里需要多绘制一个波浪，也就是起点多画一个波浪
         mPath.moveTo(-mItemWaveLength + dx, mStartY); //波浪的开始位置
 
+//        测试代码----保留
         //每一次for循环添加一个波浪的长度到path中，根据view的宽度来计算一共可以添加多少个波浪长度
 //        for (int i = 0; i <= getWidth() + mItemWaveLength; i += mItemWaveLength) {
 //            //波浪先上后下
@@ -91,34 +93,6 @@ public class WaveView extends View {
         mPath.close(); //封闭path路径
 
         canvas.drawPath(mPath, mPaint);
-
-//        var x = width.toFloat() / 2
-//        var region = Region()
-//        var region2 = Region()
-//        var clip = Region((x - 0.1).toInt(), 0, x.toInt(), height)
-//        var clip2 = Region((x - 10).toInt(), 0, (x - 9).toInt(), height)
-//        region.setPath(mPath!!, clip)
-//        region2.setPath(mPath!!, clip2)
-//
-//        var rect = region.getBounds()
-//        var rect2 = region2.getBounds()
-//
-//        val fl =
-//                -atan2(-rect.top.toFloat() + rect2.top.toFloat(), 9.5f) * 180 / Math.PI.toFloat()
-//
-//        canvas.save()
-//
-//        canvas.rotate(
-//                fl, rect.right.toFloat(),
-//                rect.top.toFloat()
-//        )
-//        canvas.drawBitmap(
-//                boat,
-//                rect.right.toFloat() - boat.width / 2,
-//                rect.top.toFloat() - boat.height / 4 * 3,
-//                mPaint
-//        )
-//        canvas.restore()
 
         int x = getWidth() / 2;
         Region region = new Region();
@@ -158,7 +132,7 @@ public class WaveView extends View {
         //根据一个动画不断得到0~mItemWaveLength的值dx，通过dx的增加不断去改变波浪开始的位置，dx的变化范围刚好是一个波浪的长度，
         //所以可以形成一个完整的波浪动画，假如dx最大小于mItemWaveLength的话， 就会不会画出一个完整的波浪形状
         ValueAnimator animator = ValueAnimator.ofInt(0, mItemWaveLength);
-        animator.setDuration(2000);
+        animator.setDuration(1500);
         animator.setRepeatCount(ValueAnimator.INFINITE);
         animator.setInterpolator(new LinearInterpolator());
         animator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
@@ -173,13 +147,23 @@ public class WaveView extends View {
             public void onAnimationEnd(Animator animation) {
                 super.onAnimationEnd(animation);
 
-                getHandler().post(new Runnable() {
-                    @Override
-                    public void run() {
-                        heightList.addFirst(Float.valueOf(String.valueOf(random.nextInt(500))));
-                        heightList.remove(10);
-                    }
-                });
+
+            }
+
+            @Override
+            public void onAnimationRepeat(Animator animation) {
+                super.onAnimationRepeat(animation);
+                Log.e(TAG, "onAnimationRepeat: -------------------");
+                heightList.addFirst(Float.valueOf(String.valueOf(random.nextInt(500))));
+                heightList.remove(10);
+//                getHandler().post(new Runnable() {
+//                    @Override
+//                    public void run() {
+//                        heightList.addFirst(Float.valueOf(String.valueOf(random.nextInt(500))));
+//                        heightList.remove(10);
+//                    }
+//                });
+
             }
         });
         animator.start();
