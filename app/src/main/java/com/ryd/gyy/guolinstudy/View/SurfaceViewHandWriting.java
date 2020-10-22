@@ -15,13 +15,16 @@ import android.view.SurfaceView;
 
 /**
  * 学习SurfaceView,可用触屏在屏幕上画线,手指抬起是清空画线
+ * 当前写的有很多不标准的地方，应该参考下面这篇
+ * https://tech.youzan.com/surfaceview-sourcecode/
+ * 讲源码的文章：https://www.jianshu.com/p/197c19ac6c1f
  */
 public class SurfaceViewHandWriting extends SurfaceView implements SurfaceHolder.Callback, Runnable {
     private SurfaceHolder mSurfaceHolder;
     //绘图的Canvas
     private Canvas mCanvas;
     //子线程标志位
-    private boolean mIsDrawing;
+    private volatile boolean mIsDrawing;
     //画笔
     private Paint mPaint;
     //路径

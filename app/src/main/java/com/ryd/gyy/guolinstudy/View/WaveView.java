@@ -23,6 +23,10 @@ import com.ryd.gyy.guolinstudy.R;
 import java.util.LinkedList;
 import java.util.Random;
 
+/**
+ * 参考文章
+ * https://juejin.im/post/6872242995710820365
+ */
 public class WaveView extends View {
 
     private static final String TAG = "WaveView";
