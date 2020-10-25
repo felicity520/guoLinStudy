@@ -129,6 +129,9 @@ dependencies {
     debugImplementation 'com.squareup.leakcanary:leakcanary-android:1.5'
     releaseImplementation 'com.squareup.leakcanary:leakcanary-android-no-op:1.5'
     testImplementation 'com.squareup.leakcanary:leakcanary-android-no-op:1.5'
+
+//    加载svg的动画
+    implementation 'com.eftimoff:android-pathview:1.0.8@aar'
 }
 
 repositories {

@@ -11,11 +11,9 @@
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" /> <!-- 这个权限用于获取wifi的获取权限，wifi信息会用来进行网络定位 -->
     <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" /> <!-- 用于访问网络，网络定位需要上网 -->
     <uses-permission android:name="android.permission.INTERNET" /> <!-- 用于读取手机当前的状态 -->
-
-    <!--存储权限-->
+    <!-- 存储权限 -->
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" /> <!-- 用于申请调用A-GPS模块 -->
-
     <uses-permission android:name="android.permission.ACCESS_LOCATION_EXTRA_COMMANDS" /> <!-- 用于申请获取蓝牙信息进行室内定位 -->
     <uses-permission android:name="android.permission.BLUETOOTH" />
     <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
@@ -25,9 +23,7 @@
     <uses-permission android:name="android.permission.RECORD_AUDIO" />
     <uses-permission android:name="android.permission.CALL_PHONE" /> <!-- 打电话权限 -->
     <uses-permission android:name="android.permission.READ_CONTACTS" />
-    <uses-permission android:name="android.permission.VIBRATE" />
-
-    <!--com.tencent.bugly需要的权限-->
+    <uses-permission android:name="android.permission.VIBRATE" /> <!-- com.tencent.bugly需要的权限 -->
     <uses-permission android:name="android.permission.READ_LOGS" />
 
     <application
@@ -39,18 +35,18 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme.NoActionBar"
         android:usesCleartextTraffic="true">
-        <!--        <activity android:name=".Activity.ServerActivity"></activity>-->
+        <activity android:name=".Activity.AnimationActivity"></activity>
+        <!-- <activity android:name=".Activity.ServerActivity"></activity> -->
         <!-- android:name必须填写这个，value是API Key（百度） -->
-        <!--        <meta-data-->
-        <!--            android:name="com.baidu.lbsapi.API_KEY"-->
-        <!--            android:value="0ntqYn8yFYNhOYwnXKzzXOEvyewNhcup" /> &lt;!&ndash; 使用百度定位的SDK必须要添加的 &ndash;&gt;-->
-        <!--        <service-->
-        <!--            android:name="com.baidu.location.f"-->
-        <!--            android:enabled="true"-->
-        <!--            android:process=":remote" />-->
-
+        <!-- <meta-data -->
+        <!-- android:name="com.baidu.lbsapi.API_KEY" -->
+        <!-- android:value="0ntqYn8yFYNhOYwnXKzzXOEvyewNhcup" /> &lt;!&ndash; 使用百度定位的SDK必须要添加的 &ndash;&gt; -->
+        <!-- <service -->
+        <!-- android:name="com.baidu.location.f" -->
+        <!-- android:enabled="true" -->
+        <!-- android:process=":remote" /> -->
         <activity
-            android:name=".Activity.MainActivity"
+            android:name=".Activity.MyActivity"
             android:label="@string/toolbar_name"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
@@ -59,13 +55,13 @@
                 <!-- <category android:name="android.intent.category.DEFAULT" /> -->
                 <!-- <category android:name="android.intent.category.HOME" /> -->
 
-                <!--去掉这句，app下拉选择的lunch选择Nothing-->
+
+                <!-- 去掉这句，app下拉选择的lunch选择Nothing -->
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-        </activity>
-        <!--        <activity android:name=".Activity.MyPreferenceActivity" />-->
+        </activity> <!-- <activity android:name=".Activity.MyPreferenceActivity" /> -->
         <activity android:name=".Activity.ServerActivity" />
         <activity android:name=".Activity.LocationActivity" />
         <activity android:name=".Activity.DownLoadActivity" />
@@ -87,29 +83,27 @@
                 android:resource="@xml/file_paths" />
         </provider> <!-- 内容管理器共享拍照得到的图片 -->
         <!-- android:theme="@style/AppTheme.NoActionBar" -->
-        <!--        <meta-data-->
-        <!--            android:name="com.baidu.lbsapi.API_KEY"-->
-        <!--            android:value="0ntqYn8yFYNhOYwnXKzzXOEvyewNhcup" /> &lt;!&ndash; android:name必须填写这个，value是API Key &ndash;&gt;-->
+        <!-- <meta-data -->
+        <!-- android:name="com.baidu.lbsapi.API_KEY" -->
+        <!-- android:value="0ntqYn8yFYNhOYwnXKzzXOEvyewNhcup" /> &lt;!&ndash; android:name必须填写这个，value是API Key &ndash;&gt; -->
         <activity android:name=".Activity.NotificationActivity" />
         <activity android:name=".Activity.PermissionsActivity" />
         <activity android:name=".Activity.DataSaveActivity" />
-        <activity android:name=".Activity.GlideActivity" />
-        <activity android:name=".Activity.MyActivity" />
+        <activity android:name=".Activity.GlideActivity" /> <!-- <activity android:name=".Activity.MyActivity" /> -->
         <activity android:name=".Activity.BaseActivity" />
-        <activity android:name=".Activity.PerContactsActivity" />
-        <!--        <activity android:name=".Activity.SendbrocastActivity" />-->
-        <activity android:name=".Activity.DisplayCutoutActivity" /> <!-- <activity android:name=".Activity.MaterialActivity" /> -->
-        <!-- <activity android:name=".Activity.MainActivity" /> -->
+        <activity android:name=".Activity.PerContactsActivity" /> <!-- <activity android:name=".Activity.SendbrocastActivity" /> -->
+        <activity android:name=".Activity.DisplayCutoutActivity" />
+        <activity android:name=".Activity.MaterialActivity" />
+        <activity android:name=".Activity.MainActivity" />
         <activity android:name=".Activity.FruitActivity" />
         <activity android:name=".Thread.AsyncTaskStudy" /> <!-- <activity android:name=".Activity.DownLoadActivity" /> -->
         <service
             android:name=".Service.DownloadService"
             android:enabled="true"
-            android:exported="true" />
-        <!--        <service-->
-        <!--            android:name="com.baidu.location.f"-->
-        <!--            android:enabled="true"-->
-        <!--            android:process=":remote" /> &lt;!&ndash; 使用百度定位的SDK必须要添加的 &ndash;&gt;-->
+            android:exported="true" /> <!-- <service -->
+        <!-- android:name="com.baidu.location.f" -->
+        <!-- android:enabled="true" -->
+        <!-- android:process=":remote" /> &lt;!&ndash; 使用百度定位的SDK必须要添加的 &ndash;&gt; -->
         <receiver
             android:name=".Broadcast.BootUpReceiver"
             android:enabled="true"

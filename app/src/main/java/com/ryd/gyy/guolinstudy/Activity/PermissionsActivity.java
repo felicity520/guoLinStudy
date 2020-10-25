@@ -46,14 +46,20 @@ public class PermissionsActivity extends BaseActivity {
     }
 
     @Override
+    void initDataBeforeView() {
+
+    }
+
+    @Override
+    void initDataAfterView() {
+
+    }
+
+    @Override
     int getLayoutId() {
         return R.layout.activity_permissions;
     }
 
-    @Override
-    void initData() {
-
-    }
 
     @Override
     void initView() {

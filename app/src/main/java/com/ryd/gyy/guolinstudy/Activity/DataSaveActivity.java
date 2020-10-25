@@ -108,6 +108,16 @@ public class DataSaveActivity extends BaseActivity {
         aggregateMethod();
     }
 
+    @Override
+    void initDataBeforeView() {
+
+    }
+
+    @Override
+    void initDataAfterView() {
+
+    }
+
     /**
      * 插入数据的方法汇总
      * SQlite插入数据的几种方式：
@@ -420,11 +430,6 @@ public class DataSaveActivity extends BaseActivity {
             default:
                 break;
         }
-    }
-
-    @Override
-    void initData() {
-
     }
 
     @Override

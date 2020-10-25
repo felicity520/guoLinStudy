@@ -23,6 +23,10 @@ import com.ryd.gyy.guolinstudy.R;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
+/**
+ * Butter Knife 框架 参考：
+ * https://www.jianshu.com/p/9ad21e548b69
+ */
 public abstract class BaseActivity extends AppCompatActivity {
 
     private static final String TAG = "yyy";
@@ -37,7 +41,6 @@ public abstract class BaseActivity extends AppCompatActivity {
     @BindView(R.id.content)
     FrameLayout content;
 
-
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -50,8 +53,9 @@ public abstract class BaseActivity extends AppCompatActivity {
         setContentView(rootView);
         ButterKnife.bind(this);
         initLocalView();
+        initDataBeforeView();
         initView();
-        initData();
+        initDataAfterView();
     }
 
 
@@ -156,7 +160,9 @@ public abstract class BaseActivity extends AppCompatActivity {
      * 1.抽象方法不能有方法主体。也就是不能是 abstract void initData(){}。不能有{}
      * 2.一旦类中包含了abstract方法，那类该类必须声明为abstract类。所以BaseActivity必须也声明为abstract
      */
-    abstract void initData();
+    abstract void initDataBeforeView();
+
+    abstract void initDataAfterView();
 
 
     /**
