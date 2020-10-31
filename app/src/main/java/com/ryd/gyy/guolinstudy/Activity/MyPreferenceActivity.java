@@ -39,6 +39,10 @@ public class MyPreferenceActivity extends PreferenceActivity implements Preferen
 //        root = getPreferenceScreen();
 //        root.removePreference(root.findPreference("legal_container"));
 
+//        动态隐藏的另外一种写法
+//        getPreferenceScreen().removePreference(getPreferenceScreen().findPreference("legal_container"));
+
+
         addPreferencesFromResource(R.xml.activity_pre);
         PreferenceScreen screen = getPreferenceScreen();
         Preference mPreference = screen.findPreference("legal_container");
