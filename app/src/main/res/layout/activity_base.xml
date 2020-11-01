@@ -9,7 +9,7 @@
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="40dp"
-        android:background="#FFB300">
+        android:background="@color/yellow">
 
         <TextView
             android:id="@+id/commom_title"

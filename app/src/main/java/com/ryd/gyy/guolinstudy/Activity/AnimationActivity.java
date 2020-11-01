@@ -2,7 +2,9 @@ package com.ryd.gyy.guolinstudy.Activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.graphics.drawable.AnimationDrawable;
 import android.os.Bundle;
+import android.widget.ImageView;
 
 import com.ryd.gyy.guolinstudy.R;
 import com.ryd.gyy.guolinstudy.View.AnimatedSvgView;
@@ -34,6 +36,17 @@ public class AnimationActivity extends BaseActivity {
     @Override
     void initDataBeforeView() {
         initSvgAnimated();
+        initFrameAnimated();
+    }
+
+    /**
+     * 帧动画
+     */
+    private void initFrameAnimated() {
+        ImageView animationImg1 = (ImageView) findViewById(R.id.animation1);
+        animationImg1.setImageResource(R.drawable.frame_anim1);
+        AnimationDrawable animationDrawable1 = (AnimationDrawable) animationImg1.getDrawable();
+        animationDrawable1.start();
     }
 
     @Override

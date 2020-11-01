@@ -191,7 +191,7 @@ public class CustomView extends View {
 //        path.close();
 //        canvas.drawPath(path, paint);
 
-
+//学习quadTo和rQuadTo-----------------------
         //初始化Paint
         Paint paint = new Paint();
         paint.setColor(Color.RED);

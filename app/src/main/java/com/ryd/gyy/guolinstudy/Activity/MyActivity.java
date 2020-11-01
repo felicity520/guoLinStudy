@@ -48,8 +48,8 @@ public class MyActivity extends BaseActivity {
     private DemoBean[] demoFruits = {
             new DemoBean("乘风破浪的小船", R.drawable.ic_svg1, MainActivity.class),
             new DemoBean("动画", R.drawable.ic_svg2, AnimationActivity.class),
-            new DemoBean("Orange", R.drawable.ic_svg3, MaterialActivity.class),
-            new DemoBean("Orange", R.drawable.ic_svg4, MaterialActivity.class),
+            new DemoBean("补间动画(xml+java)", R.drawable.ic_svg3, TweenedAnimationActivity.class),
+            new DemoBean("Orange", R.drawable.ic_svg4, ValueAnimationActivity.class),
             new DemoBean("Orange", R.drawable.ic_svg5, MaterialActivity.class),
             new DemoBean("Orange", R.drawable.ic_svg6, MaterialActivity.class),
             new DemoBean("Orange", R.drawable.ic_svg7, MaterialActivity.class),

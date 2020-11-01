@@ -35,8 +35,9 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme.NoActionBar"
         android:usesCleartextTraffic="true">
-        <activity android:name=".Activity.AnimationActivity"></activity>
-        <!-- <activity android:name=".Activity.ServerActivity"></activity> -->
+        <activity android:name=".Activity.ValueAnimationActivity"></activity>
+        <activity android:name=".Activity.TweenedAnimationActivity" />
+        <activity android:name=".Activity.AnimationActivity" /> <!-- <activity android:name=".Activity.ServerActivity"></activity> -->
         <!-- android:name必须填写这个，value是API Key（百度） -->
         <!-- <meta-data -->
         <!-- android:name="com.baidu.lbsapi.API_KEY" -->

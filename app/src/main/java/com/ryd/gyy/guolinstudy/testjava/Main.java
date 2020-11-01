@@ -35,7 +35,6 @@ public class Main {
 //        new Thread3().start();
 //        new Thread4().start();
 
-
         AnnoationTest annotation = new AnnoationTest();
         annotation.setName("abcefg");
         annotation.setPassword("12345678901111");

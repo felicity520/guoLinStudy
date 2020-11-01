@@ -75,6 +75,15 @@ public class Student {
         System.out.println("is show()");
     }
 
+    public String myShow(String str) {
+        System.out.println("myShow is show()------------");
+        return str;
+    }
+
+    public <T> T myShow2(T str) {
+        System.out.println("myShow2 is show()------------");
+        return str;
+    }
 
     public static void main(String[] args) {
         System.out.println("main方法执行了。。。");

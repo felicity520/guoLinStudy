@@ -79,6 +79,28 @@ public class Car implements Cloneable {
         }
 
 
+        //通过反射获取返回类型
+        try {
+            //1、获取Student对象的字节码
+            Class clazz = Class.forName("com.ryd.gyy.guolinstudy.testjava.Student");
+            //2、获取myShow方法
+            Method methodMain = clazz.getMethod("myShow", String.class);//第一个参数：方法名称，第二个参数：方法形参的类型，
+            Method myShow2Method = clazz.getMethod("myShow2", Object.class);//第一个参数：方法名称，第二个参数：方法形参的类型，
+            //实例化一个Student对象
+            Object obj = clazz.getConstructor().newInstance();
+            //3、调用myShow方法
+            Object my_obj = methodMain.invoke(obj, "12334");//方式一
+            Object my_obj_show2 = myShow2Method.invoke(obj, 123456);//方式一
+            System.out.println("my_obj-----" + my_obj);
+            //获取返回值的类型：getReturnType
+            System.out.println("methodMain-----" + methodMain.getReturnType());
+            System.out.println("my_obj_show2-----" + my_obj_show2);
+            System.out.println("myShow2Method-----" + myShow2Method.getReturnType());
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
 
         /*
          * 通过反射越过泛型检查

@@ -7,5 +7,19 @@
     <color name="black">#000000</color>
     <color name="blue">#1E88E5</color>
     <color name="gray">#D3CCCC</color>
+    <color name="white">#ffffff</color>
+    <color name="background">#E5E5E5</color>
+    <color name="yellow">#FFB300</color>
+    <color name="cpb_grey">#ffdedede</color>
+    <color name="cpb_blue">#0288D1</color>
+    <color name="cpb_blue_dark">#ff00719b</color>
+    <color name="cpb_red">#ff4444</color>
+    <color name="cpb_red_dark">#ffcd3a3a</color>
+    <color name="cpb_green">#ff99cc00</color>
+    <color name="cpb_green_dark">#ff6d9b00</color>
+    <color name="cpb_white">@android:color/white</color>
+    <color name="lucensy">#00000001</color>
+    <color name="translucency">#e0000000</color>
+    <color name="orange">#ffa500</color>
 </resources>
 
