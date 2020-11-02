@@ -1,5 +1,7 @@
 package com.ryd.gyy.guolinstudy.View;
 
+import android.animation.Animator;
+import android.animation.AnimatorListenerAdapter;
 import android.animation.AnimatorSet;
 import android.animation.ArgbEvaluator;
 import android.animation.ObjectAnimator;
@@ -157,9 +159,11 @@ public class PointAnimView extends View {
         animColor.setRepeatCount(-1);
         animColor.setRepeatMode(ValueAnimator.REVERSE);
 
-       //半径大小的过渡变化的属性动画
+        //半径大小的过渡变化的属性动画
+        //ofObject  ofFloat  ofInt
         ValueAnimator animScale = ValueAnimator.ofFloat(20f, 80f, 60f, 10f, 35f, 55f, 10f);
         animScale.setRepeatCount(-1);
+        //循环模式包括RESTART和REVERSE两种，分别表示重新播放和倒序播放的意思
         animScale.setRepeatMode(ValueAnimator.REVERSE);
         animScale.setDuration(5000);
         animScale.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
@@ -171,9 +175,19 @@ public class PointAnimView extends View {
 
         //同时播放3个动画
         animSet = new AnimatorSet();
+        //after(Animator anim)   将现有动画插入到传入的动画之后执行
+        //after(long delay)   将现有动画延迟指定毫秒后执行
+        //before(Animator anim)   将现有动画插入到传入的动画之前执行
+        //with(Animator anim)   将现有动画和传入的动画同时执行
         animSet.play(valueAnimator).with(animColor).with(animScale);
         animSet.setDuration(5000);
         animSet.setInterpolator(interpolatorType);
+        //动画监听接口AnimatorListenerAdapter
+        animSet.addListener(new AnimatorListenerAdapter() {
+            @Override
+            public void onAnimationEnd(Animator animation) {
+            }
+        });
     }
 
     private void drawCircle(Canvas canvas) {
