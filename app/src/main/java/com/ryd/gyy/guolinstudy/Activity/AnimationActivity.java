@@ -6,6 +6,7 @@ import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
 import android.graphics.drawable.AnimationDrawable;
 import android.os.Bundle;
+import android.view.animation.BounceInterpolator;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -91,6 +92,10 @@ public class AnimationActivity extends BaseActivity {
 //        ObjectAnimator animator = ObjectAnimator.ofFloat(text_info, "translationX", curTranslationX, -500f, curTranslationX);
 //        animator.setDuration(5000);
 //        animator.start();
+
+        //animate()返回一个ViewPropertyAnimator：针对View设计的
+        text_info.animate().x(400).y(400).setDuration(5000)
+                .setInterpolator(new BounceInterpolator());
     }
 
     @Override

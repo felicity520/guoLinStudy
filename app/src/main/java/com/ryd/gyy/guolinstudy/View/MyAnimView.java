@@ -9,7 +9,13 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.util.AttributeSet;
 import android.view.View;
+import android.view.animation.AccelerateInterpolator;
+import android.view.animation.BounceInterpolator;
 
+/**
+ * Android属性动画完全解析(中)，ValueAnimator和ObjectAnimator的高级用法
+ * https://blog.csdn.net/guolin_blog/article/details/43816093
+ */
 public class MyAnimView extends View {
 
     public static final float RADIUS = 50f;
@@ -55,9 +61,15 @@ public class MyAnimView extends View {
     }
 
     private void startAnimation() {
-        Point startPoint = new Point(RADIUS, RADIUS);
-        Point endPoint = new Point(getWidth() - RADIUS, getHeight() - RADIUS);
+//        Point startPoint = new Point(RADIUS, RADIUS);
+//        Point endPoint = new Point(getWidth() - RADIUS, getHeight() - RADIUS);
+        Point startPoint = new Point(getWidth() / 2, RADIUS);
+        Point endPoint = new Point(getWidth() / 2, getHeight() - RADIUS);
         ValueAnimator anim = ValueAnimator.ofObject(new PointEvaluator(), startPoint, endPoint);
+//        anim.setInterpolator(new AccelerateInterpolator(2f));
+        //弹跳的，模拟真实运动的Interpolator
+        anim.setInterpolator(new BounceInterpolator());
+        anim.setInterpolator(new DecelerateAccelerateInterpolator());
         anim.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
             @Override
             public void onAnimationUpdate(ValueAnimator animation) {
