@@ -21,6 +21,10 @@
             android:text="SVG"
             android:textSize="40dp" />
 
+        <com.ryd.gyy.guolinstudy.View.MyAnimView
+            android:layout_width="match_parent"
+            android:layout_height="400dp" />
+
         <com.ryd.gyy.guolinstudy.View.AnimatedSvgView
             android:id="@+id/animated_svg_view"
             android:layout_width="match_parent"
@@ -48,9 +52,7 @@
         <ImageView
             android:id="@+id/animation1"
             android:layout_width="match_parent"
-            android:layout_height="200dp">
-
-        </ImageView>
+            android:layout_height="200dp"/>
 
     </LinearLayout>
 

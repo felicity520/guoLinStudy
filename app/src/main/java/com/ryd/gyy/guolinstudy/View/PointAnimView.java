@@ -142,6 +142,7 @@ public class PointAnimView extends View {
             public void onAnimationUpdate(ValueAnimator animation) {
                 currentPoint = (Point) animation.getAnimatedValue();
                 postInvalidate();
+                //调用invalidate方法后，onDraw()方法就会自动调用
             }
         });
 
@@ -160,7 +161,7 @@ public class PointAnimView extends View {
         animColor.setRepeatMode(ValueAnimator.REVERSE);
 
         //半径大小的过渡变化的属性动画
-        //ofObject  ofFloat  ofInt
+        //ofObject：自己实现过渡  ofFloat  ofInt
         ValueAnimator animScale = ValueAnimator.ofFloat(20f, 80f, 60f, 10f, 35f, 55f, 10f);
         animScale.setRepeatCount(-1);
         //循环模式包括RESTART和REVERSE两种，分别表示重新播放和倒序播放的意思
