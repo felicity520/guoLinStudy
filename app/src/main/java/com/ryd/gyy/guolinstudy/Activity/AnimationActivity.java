@@ -4,9 +4,18 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
+import android.app.ActivityOptions;
+import android.content.Intent;
 import android.graphics.drawable.AnimationDrawable;
 import android.os.Bundle;
+import android.transition.Explode;
+import android.transition.Fade;
+import android.transition.Slide;
+import android.transition.Transition;
+import android.transition.TransitionInflater;
+import android.view.View;
 import android.view.animation.BounceInterpolator;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -16,11 +25,13 @@ import com.ryd.gyy.guolinstudy.View.AnimatedSvgView;
 /**
  * Android属性动画完全解析(上)，初识属性动画的基本用法
  * https://blog.csdn.net/guolin_blog/article/details/43536355
+ * 转场动画
  */
 public class AnimationActivity extends BaseActivity {
 
     AnimatedSvgView svgView;
     TextView text_info;
+    Button btn_start;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,6 +72,51 @@ public class AnimationActivity extends BaseActivity {
     @Override
     void initDataAfterView() {
         initValueAnimation();
+        initStart();
+    }
+
+    /**
+     * 跳转的动作
+     */
+    private void initStart() {
+        btn_start = (Button) findViewById(R.id.btn_start);
+        btn_start.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //第一种：通过overridePendingTransition实现转场动画---------------------------------
+//                Intent intent = new Intent(AnimationActivity.this, GlideActivity.class);
+//                startActivity(intent);
+//                overridePendingTransition(0, 0);//无动画
+//                overridePendingTransition(R.anim.pageup_enter, R.anim.pageup_exit);
+
+
+                //第二种：通过setEnterTransition实现转场动画:----------------------------------------
+                //有三种动画可选，可使用xml设置也可通过代码动态设定
+                //1、Explode：从屏幕的中间进入或退出。
+                //2、Slide：从屏幕的一边向另一边进入或退出。
+                //3、Fade：通过改变透明度来出现或消失。
+
+                //Window.setEnterTransition() 设置进场动画
+                //Window.setExitTransition() 设置出场动画
+                //Window().setReturnTransition() 设置返回activity时动画
+                //Window().setReenterTransition() 设置重新进入时动画
+
+                //例如：activityA进入到activityB,activity执行出场的setExitTransition，activityB执行setEnterTransition
+
+                //通过代码======
+//                getWindow().setEnterTransition(new Explode().setDuration(2000));
+//                getWindow().setExitTransition(new Explode().setDuration(2000));
+//                startActivity(new Intent(AnimationActivity.this, GlideActivity.class), ActivityOptions.makeSceneTransitionAnimation(AnimationActivity.this).toBundle());
+
+                //通过xml======
+//                Transition explode = TransitionInflater.from(AnimationActivity.this).inflateTransition(R.transition.explode);
+//                getWindow().setExitTransition(explode);
+//                startActivity(new Intent(AnimationActivity.this, GlideActivity.class), ActivityOptions.makeSceneTransitionAnimation(AnimationActivity.this).toBundle());
+
+                //第三种：通过共享元素实现转场动画:----------------------------------------
+                startActivity(new Intent(AnimationActivity.this, GlideActivity.class), ActivityOptions.makeSceneTransitionAnimation(AnimationActivity.this, btn_start, "shareBtn").toBundle());
+            }
+        });
     }
 
     /**
