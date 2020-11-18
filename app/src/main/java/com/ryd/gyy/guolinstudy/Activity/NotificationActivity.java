@@ -14,6 +14,7 @@ public class NotificationActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_notification2);
+//        setContentView(R.layout.activity_notification2);
+        setContentView(R.layout.activity_test);//学习ConstraintLayout的布局
     }
 }

@@ -4,6 +4,32 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <TextView
+        android:id="@+id/test_demo"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:background="@mipmap/message_left_original"
+        android:ellipsize="end"
+        android:maxLines="1"
+        android:singleLine="true"
+        android:text="这是一个测试文案一sgfgsdgdsgsdadffGSDGGASDGDSADGSGSDDDDDDDDDDDD"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintWidth_max="wrap" />
+
+    <TextView
+        android:id="@+id/notification"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:text="This is notification layout"
+        android:textSize="24sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/test_demo" />
+
+
     <!--注意：所有的特性都要先确认约束条件之后才可以使用-->
     <!--参考文档：
     google中文开发者网站：https://developer.android.google.cn/reference/androidx/constraintlayout/widget/Guideline?hl=en
@@ -88,17 +114,21 @@
         app:layout_constraintDimensionRatio="H,8:4"
         app:layout_constraintLeft_toRightOf="@+id/barrier" />
 
-    <TextView
-        android:id="@+id/TextView4"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:background="@color/colorPrimary"
-        android:text="TextView4"
-        app:layout_constraintBaseline_toBaselineOf="@+id/TextView5"
-        app:layout_constraintHorizontal_chainStyle="packed"
-        app:layout_constraintHorizontal_weight="1"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toLeftOf="@+id/TextView5" />
+    <!--    <TextView-->
+    <!--        app:layout_constraintTop_toBottomOf="@+id/notification"-->
+    <!--        android:id="@+id/TextView4"-->
+    <!--        android:layout_width="0dp"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:background="@color/colorPrimary"-->
+    <!--        android:text="TextView4"-->
+    <!--        app:layout_constraintBaseline_toBaselineOf="@+id/TextView5"-->
+    <!--        app:layout_constraintHorizontal_chainStyle="packed"-->
+    <!--        app:layout_constraintHorizontal_weight="1"-->
+    <!--        app:layout_constraintLeft_toLeftOf="parent"-->
+    <!--        app:layout_constraintRight_toLeftOf="@+id/TextView5" />-->
+
+
+    <!--    app:layout_constraintLeft_toRightOf="@+id/TextView4"-->
 
     <TextView
         android:id="@+id/TextView5"
@@ -108,9 +138,11 @@
         android:text="TextView5"
         app:layout_constraintBaseline_toBaselineOf="@+id/TextView6"
         app:layout_constraintHorizontal_weight="2"
-        app:layout_constraintLeft_toRightOf="@+id/TextView4"
         app:layout_constraintRight_toLeftOf="@+id/TextView6"
         app:layout_constraintRight_toRightOf="parent" />
+
+
+    <!--    app:layout_constraintBaseline_toBaselineOf="@+id/TextView4"-->
 
     <TextView
         android:id="@+id/TextView6"
@@ -118,7 +150,6 @@
         android:layout_height="wrap_content"
         android:background="@color/green"
         android:text="TextView6"
-        app:layout_constraintBaseline_toBaselineOf="@+id/TextView4"
         app:layout_constraintHorizontal_weight="3"
         app:layout_constraintLeft_toRightOf="@+id/TextView5"
         app:layout_constraintRight_toRightOf="parent" />
@@ -137,8 +168,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:content="@+id/textview"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent" />
 
     <TextView
         android:id="@+id/textview"
@@ -149,7 +180,8 @@
         android:text="TextView"
         android:textColor="#000000"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintRight_toRightOf="parent" />
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/notification" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline1"
