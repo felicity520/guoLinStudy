@@ -35,7 +35,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme.NoActionBar"
         android:usesCleartextTraffic="true">
-        <activity android:name=".Activity.MotionLayoutActivity"></activity>
+        <activity android:name=".Activity.ViewPagerActivity"/>
+        <activity android:name=".Activity.MotionLayoutActivity" />
         <activity android:name=".Activity.ValueAnimationActivity" />
         <activity android:name=".Activity.TweenedAnimationActivity" />
         <activity android:name=".Activity.AnimationActivity" /> <!-- <activity android:name=".Activity.ServerActivity"></activity> -->
