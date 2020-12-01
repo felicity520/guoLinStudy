@@ -1,6 +1,7 @@
 package com.ryd.gyy.guolinstudy.Activity;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.viewpager.widget.PagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
 import android.os.Bundle;
@@ -8,19 +9,24 @@ import android.view.View;
 import android.widget.ImageView;
 
 import com.ryd.gyy.guolinstudy.R;
-import com.ryd.gyy.guolinstudy.RecyclerClass.DemoPageAdapter;
+import com.ryd.gyy.guolinstudy.RecyclerClass.DepthPageTransformer;
+import com.ryd.gyy.guolinstudy.RecyclerClass.ViewAdapter;
 
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
 
 /**
- * 类似于LinearLayout，ViewPager类直接继承了ViewGroup类，是一个容器，需要在里面添加我们想要显示的内容。
+ * 加载View的ViewPager
+ * 参考：https://www.jianshu.com/p/73187304ffd7
  */
-public class ViewAdapter extends AppCompatActivity {
+public class ViewPagerActivity extends AppCompatActivity {
+
+    private static final String TAG = "ViewPagerActivity";
 
     private List<View> pages;
     private ViewPager viewPager;
+    private PagerAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,29 +34,19 @@ public class ViewAdapter extends AppCompatActivity {
         setContentView(R.layout.activity_view_pager);
 
         pages = getPages();
-        ViewPager viewPager = findViewById(R.id.pager);
-        viewPager.setAdapter(new DemoPageAdapter(this));
+        initPager();
 
-        PagerAdapter adapter = new ViewAdapter(pages);
-        pager.setAdapter(adapter);
 
     }
 
+    /**
+     * 初始化ViewPager
+     */
     private void initPager() {
-        viewPager = (ViewPager) findViewById(R.id.view_pager);
-        PagerAdapter adapter = new ViewAdapter(pages);
+        viewPager = (ViewPager) findViewById(R.id.pager);
+        adapter = new ViewAdapter(pages);
         viewPager.setAdapter(adapter);
-
-        switch (getIntent().getIntExtra(TransformerType.TYPE, TransformerType.NORMAL)) {
-            case TransformerType.SCALE:
-                pager.setPageTransformer(true, new ScalePageTransformer());
-                break;
-            case TransformerType.ROTATE:
-                pager.setPageTransformer(true, new RotatePageTransformer());
-                break;
-            default:
-                break;
-        }
+        viewPager.setPageTransformer(true, new DepthPageTransformer());
     }
 
     /**
@@ -75,4 +71,5 @@ public class ViewAdapter extends AppCompatActivity {
         }
         return pages;
     }
+
 }

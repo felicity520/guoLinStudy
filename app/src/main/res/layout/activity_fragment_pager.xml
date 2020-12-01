@@ -4,6 +4,11 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Activity.FragmentPagerActivity">
+    tools:context=".Activity.ViewPagerActivity">
+
+    <androidx.viewpager.widget.ViewPager
+        android:id="@+id/frag_pager"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
