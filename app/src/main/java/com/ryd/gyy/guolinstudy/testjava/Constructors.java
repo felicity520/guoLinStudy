@@ -51,7 +51,7 @@ public class Constructors {
         //	Student stu = (Student)obj;
 
         System.out.println("******************获取特定传参的构造方法，并调用*******************************");
-        Constructor con1  = clazz.getDeclaredConstructor(String.class, int.class);
+        Constructor con1 = clazz.getDeclaredConstructor(String.class, int.class);
         System.out.println(con1);
         //调用构造方法
         con1.setAccessible(true);//暴力访问(忽略掉访问修饰符)

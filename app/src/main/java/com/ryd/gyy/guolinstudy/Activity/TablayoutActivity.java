@@ -1,25 +1,22 @@
 package com.ryd.gyy.guolinstudy.Activity;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 import androidx.viewpager.widget.ViewPager;
-
 import android.os.Bundle;
-
+import android.view.View;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 import com.google.android.material.tabs.TabLayout;
 import com.ryd.gyy.guolinstudy.R;
 import com.ryd.gyy.guolinstudy.RecyclerClass.MyFragmentPagerAdapter;
 
+/**
+ * 参考：
+ * https://blog.csdn.net/csdnxia/article/details/105947804
+ * https://blog.csdn.net/qq_41873558/article/details/85160867
+ */
 public class TablayoutActivity extends AppCompatActivity {
-
-    private TabLayout mTabLayout;
-    private ViewPager mViewPager;
-
-    private MyFragmentPagerAdapter myFragmentPagerAdapter;
-
-    private TabLayout.Tab one;
-    private TabLayout.Tab two;
-    private TabLayout.Tab three;
-    private TabLayout.Tab four;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,28 +29,57 @@ public class TablayoutActivity extends AppCompatActivity {
     }
 
     private void initViews() {
-
         //使用适配器将ViewPager与Fragment绑定在一起
-        mViewPager = (ViewPager) findViewById(R.id.viewPager);
-        myFragmentPagerAdapter = new MyFragmentPagerAdapter(getSupportFragmentManager());
+        ViewPager mViewPager = (ViewPager) findViewById(R.id.viewPager);
+        MyFragmentPagerAdapter myFragmentPagerAdapter = new MyFragmentPagerAdapter(getSupportFragmentManager());
         mViewPager.setAdapter(myFragmentPagerAdapter);
 
         //将TabLayout与ViewPager绑定在一起
-        mTabLayout = (TabLayout) findViewById(R.id.tabLayout);
+        TabLayout mTabLayout = (TabLayout) findViewById(R.id.tabLayout);
         mTabLayout.setupWithViewPager(mViewPager);
+        mTabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+            @Override
+            public void onTabSelected(TabLayout.Tab tab) {
+                View customView = tab.getCustomView();
+                if (customView == null) {
+                    tab.setCustomView(R.layout.activity_tablayout_icon);
+                }
+                TextView textView = tab.getCustomView().findViewById(android.R.id.text1);
+                textView.setTextAppearance(TablayoutActivity.this, R.style.TabLayoutTextSelected);
+            }
 
-        //指定Tab的位置
-        one = mTabLayout.getTabAt(0);
-        two = mTabLayout.getTabAt(1);
-        three = mTabLayout.getTabAt(2);
-        four = mTabLayout.getTabAt(3);
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) {
+                View customView = tab.getCustomView();
+                if (customView == null) {
+                    tab.setCustomView(R.layout.activity_tablayout_icon);
+                }
+//              这里需要注意的是textView的id必须是android.R.id.text1
+                TextView textView = tab.getCustomView().findViewById(android.R.id.text1);
+                textView.setTextAppearance(TablayoutActivity.this, R.style.TabLayoutTextUnSelected);
+            }
 
-        //设置Tab的图标
-        one.setIcon(R.mipmap.ic_launcher);
-        two.setIcon(R.mipmap.ic_launcher);
-        three.setIcon(R.mipmap.ic_launcher);
-        four.setIcon(R.mipmap.ic_launcher);
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {
 
+            }
+        });
 
+        //获取Tab的位置，setCustomView可以自定义显示的view
+//        TabLayout.Tab one = mTabLayout.getTabAt(0).setCustomView();
+//        TabLayout.Tab two = mTabLayout.getTabAt(1);
+//        TabLayout.Tab three = mTabLayout.getTabAt(2);
+//        TabLayout.Tab four = mTabLayout.getTabAt(3);
+//        mTabLayout.getTabCount();
+
+        LinearLayout linearLayout = (LinearLayout) mTabLayout.getChildAt(0);
+        linearLayout.setShowDividers(LinearLayout.SHOW_DIVIDER_MIDDLE);
+        linearLayout.setDividerDrawable(ContextCompat.getDrawable(this,
+                R.drawable.layout_divider_vertical));
+        linearLayout.setDividerPadding(10);
     }
+
+
+
+
 }
