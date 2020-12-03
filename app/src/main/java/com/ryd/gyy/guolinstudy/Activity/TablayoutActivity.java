@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 import androidx.viewpager.widget.ViewPager;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -17,6 +18,8 @@ import com.ryd.gyy.guolinstudy.RecyclerClass.MyFragmentPagerAdapter;
  * https://blog.csdn.net/qq_41873558/article/details/85160867
  */
 public class TablayoutActivity extends AppCompatActivity {
+
+    private static final String TAG = "TablayoutActivity";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,9 +40,19 @@ public class TablayoutActivity extends AppCompatActivity {
         //将TabLayout与ViewPager绑定在一起
         TabLayout mTabLayout = (TabLayout) findViewById(R.id.tabLayout);
         mTabLayout.setupWithViewPager(mViewPager);
+        //获取默认选中的首页，手动设置显示风格，也就是手动让字体放大
+        TabLayout.Tab tab0 = mTabLayout.getTabAt(0);
+        View customView = mTabLayout.getTabAt(0).getCustomView();
+        if (customView == null) {
+            tab0.setCustomView(R.layout.activity_tablayout_icon);
+        }
+        TextView textView = tab0.getCustomView().findViewById(android.R.id.text1);
+        textView.setTextAppearance(TablayoutActivity.this, R.style.TabLayoutTextSelected);
+        //设置监听F
         mTabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
+                Log.e(TAG, "onTabSelected: ----------");
                 View customView = tab.getCustomView();
                 if (customView == null) {
                     tab.setCustomView(R.layout.activity_tablayout_icon);
@@ -50,6 +63,7 @@ public class TablayoutActivity extends AppCompatActivity {
 
             @Override
             public void onTabUnselected(TabLayout.Tab tab) {
+                Log.e(TAG, "onTabUnselected: ----------");
                 View customView = tab.getCustomView();
                 if (customView == null) {
                     tab.setCustomView(R.layout.activity_tablayout_icon);
@@ -72,6 +86,7 @@ public class TablayoutActivity extends AppCompatActivity {
 //        TabLayout.Tab four = mTabLayout.getTabAt(3);
 //        mTabLayout.getTabCount();
 
+        //设置分割线
         LinearLayout linearLayout = (LinearLayout) mTabLayout.getChildAt(0);
         linearLayout.setShowDividers(LinearLayout.SHOW_DIVIDER_MIDDLE);
         linearLayout.setDividerDrawable(ContextCompat.getDrawable(this,
