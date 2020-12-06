@@ -25,9 +25,7 @@ public class MyFragmentPagerAdapter extends FragmentPagerAdapter {
     @NotNull
     @Override
     public Fragment getItem(int position) {
-        if (position == 1) {
-            return new Fragment2();
-        } else if (position == 2) {
+        if (position == 2) {
             return new Fragment3();
         } else if (position == 3) {
             return new Fragment4();

@@ -47,6 +47,7 @@ public class MyActivity extends BaseActivity {
     private List<DemoBean> demoList = new ArrayList<>();
     private DemoBean[] demoFruits = {
             new DemoBean("ScrollWindow", R.drawable.ic_svg9, ScrollWindowActivity.class),
+            new DemoBean("Orange", R.drawable.ic_svg10, NotificationActivity.class),
             new DemoBean("乘风破浪的小船", R.drawable.ic_svg1, MainActivity.class),
             new DemoBean("动画", R.drawable.ic_svg2, AnimationActivity.class),
             new DemoBean("补间动画(xml+java)", R.drawable.ic_svg3, TweenedAnimationActivity.class),
@@ -55,7 +56,6 @@ public class MyActivity extends BaseActivity {
             new DemoBean("FragmentPager", R.drawable.ic_svg6, FragmentPagerActivity.class),
             new DemoBean("MotionLayout", R.drawable.ic_svg7, MotionLayoutActivity.class),
             new DemoBean("Tablayout", R.drawable.ic_svg8, TablayoutActivity.class),
-            new DemoBean("Orange", R.drawable.ic_svg10, MaterialActivity.class),
             new DemoBean("Orange", R.drawable.ic_svg11, MaterialActivity.class),
             new DemoBean("Orange", R.drawable.ic_svg12, MaterialActivity.class),
             new DemoBean("Orange", R.drawable.ic_svg13, MaterialActivity.class),
