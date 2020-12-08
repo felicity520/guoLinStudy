@@ -1,8 +1,12 @@
 package com.ryd.gyy.guolinstudy.Util;
 
+import android.app.ActivityManager;
 import android.app.Application;
 import android.content.Context;
 import android.text.TextUtils;
+import android.util.Log;
+
+import androidx.annotation.NonNull;
 
 import com.baidu.mapapi.SDKInitializer;
 import com.ryd.gyy.guolinstudy.Thread.CrashHandler;
@@ -15,8 +19,11 @@ import org.litepal.LitePal;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.List;
 
 public class MainApplication extends Application {
+
+    private static final String TAG = "MainApplication";
 
     public static Context mContext;
 
@@ -47,7 +54,29 @@ public class MainApplication extends Application {
         }
         refWatcher = LeakCanary.install(this);
 
+        //获取当前的进程名
+        String ProcessName = getCurrentProcessNameByActivityManager(mContext);
+        int pid = android.os.Process.myPid();
+        Log.e(TAG, "onCreate ProcessName: " + ProcessName + "-----pid:" + pid);
+    }
 
+    /**
+     * 通过ActivityManager 获取进程名，需要IPC通信
+     */
+    public static String getCurrentProcessNameByActivityManager(@NonNull Context context) {
+        int pid = android.os.Process.myPid();
+        ActivityManager am = (ActivityManager) context.getSystemService(Context.ACTIVITY_SERVICE);
+        if (am != null) {
+            List<ActivityManager.RunningAppProcessInfo> runningAppList = am.getRunningAppProcesses();
+            if (runningAppList != null) {
+                for (ActivityManager.RunningAppProcessInfo processInfo : runningAppList) {
+                    if (processInfo.pid == pid) {
+                        return processInfo.processName;
+                    }
+                }
+            }
+        }
+        return null;
     }
 
     public RefWatcher getRefWatcher() {

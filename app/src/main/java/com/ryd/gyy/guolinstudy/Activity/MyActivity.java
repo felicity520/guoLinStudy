@@ -1,5 +1,7 @@
 package com.ryd.gyy.guolinstudy.Activity;
 
+import android.content.Context;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -20,6 +22,8 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 
+import javax.security.auth.login.LoginException;
+
 import butterknife.BindView;
 import butterknife.OnClick;
 
@@ -33,6 +37,7 @@ import butterknife.OnClick;
  */
 public class MyActivity extends BaseActivity {
 
+    public static int TEST_ID = 1;
     private static final String TAG = "MyActivity";
 
     @BindView(R.id.btn_start)
@@ -75,6 +80,24 @@ public class MyActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setTitle("主界面");
+
+//        testProcess();
+    }
+
+    /**
+     * 测试多进程的代码
+     */
+    private void testProcess() {
+        TEST_ID = 2;
+        Log.e(TAG, "MyActivity onCreate TEST_ID: " + TEST_ID);
+        //app1中获取app2的上下文：
+        try {
+            Context mContext = this.createPackageContext("ryd.gyy.anative", Context.CONTEXT_IGNORE_SECURITY);
+            //com.ryd.gyy.guolinstudy E/MyActivity: onCreate mContext: ryd.gyy.anative
+            Log.e(TAG, "onCreate mContext: " + mContext.getPackageName());
+        } catch (PackageManager.NameNotFoundException e) {
+            e.printStackTrace();
+        }
     }
 
     /**

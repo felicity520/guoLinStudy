@@ -1,20 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout  xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:orientation="vertical"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:orientation="vertical">
 
     <!--静态加载-->
-<!--    <fragment-->
-<!--        android:id="@+id/container"-->
-<!--        android:name="com.ryd.gyy.guolinstudy.Fragment.Fragment2"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="match_parent" />-->
+    <!--    <fragment-->
+    <!--        android:id="@+id/container"-->
+    <!--        android:name="com.ryd.gyy.guolinstudy.Fragment.Fragment2"-->
+    <!--        android:layout_width="match_parent"-->
+    <!--        android:layout_height="match_parent" />-->
 
     <Button
         android:id="@+id/btn_switch"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content"
+        android:text="切换" />
+
+    <Button
+        android:id="@+id/btn_start_process"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="启动进程1" />
+
+    <Button
+        android:id="@+id/btn_start_process2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="启动进程2" />
 
     <FrameLayout
         android:id="@+id/fragment_container"

@@ -1,7 +1,9 @@
 package com.ryd.gyy.guolinstudy.Activity;
 
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
@@ -20,6 +22,8 @@ import com.ryd.gyy.guolinstudy.R;
  */
 public class NotificationActivity extends FragmentActivity {
 
+    private static final String TAG = "NotificationActivity";
+
     FragmentManager fragmentManager;
 
     FragmentTransaction fragmentTransaction;
@@ -36,7 +40,43 @@ public class NotificationActivity extends FragmentActivity {
 
         addFragByDynamic();
         initView();
+//        testProcess();
 
+        Log.i(TAG, "onCreate currentThread: " + Thread.currentThread().getId());
+
+    }
+
+    /**
+     * 测试多进程的代码
+     */
+    private void testProcess() {
+        Button btn_start_process = findViewById(R.id.btn_start_process);
+        btn_start_process.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+//                Intent intent = new Intent(NotificationActivity.this, ProcessActivity.class);
+//                startActivity(intent);
+
+                new Thread() {
+                    public void run() {
+                        //在子线程启动后的service线程还是在主线程
+                        //就跟在子线程里面启动activity一样，新启动的activity肯定是在主线程，
+                        // 跟启动流程有关，可以去研究下，好像是handler切换了下
+                        Log.i(TAG, "btn_start_process currentThread: " + Thread.currentThread().getId());
+                        Intent intent = new Intent(NotificationActivity.this, MaterialActivity.class);
+                        startActivity(intent);
+                    }
+                }.start();
+            }
+        });
+        Button btn_start_process2 = findViewById(R.id.btn_start_process2);
+        btn_start_process2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(NotificationActivity.this, ProcessActivity2.class);
+                startActivity(intent);
+            }
+        });
     }
 
     private void initView() {
