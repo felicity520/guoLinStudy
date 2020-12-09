@@ -1,6 +1,7 @@
 package com.ryd.gyy.guolinstudy.Activity;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.util.Log;
@@ -17,6 +18,10 @@ import com.ryd.gyy.guolinstudy.RecyclerClass.DemoBean;
 import com.ryd.gyy.guolinstudy.RecyclerClass.Fruit;
 import com.ryd.gyy.guolinstudy.RecyclerClass.FruitAdapter;
 
+import java.io.BufferedReader;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -81,7 +86,7 @@ public class MyActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setTitle("主界面");
 
-//        testProcess();
+        testProcess();
     }
 
     /**
@@ -93,8 +98,16 @@ public class MyActivity extends BaseActivity {
         //app1中获取app2的上下文：
         try {
             Context mContext = this.createPackageContext("ryd.gyy.anative", Context.CONTEXT_IGNORE_SECURITY);
-            //com.ryd.gyy.guolinstudy E/MyActivity: onCreate mContext: ryd.gyy.anative
-            Log.e(TAG, "onCreate mContext: " + mContext.getPackageName());
+            //获取Context有效com.ryd.gyy.guolinstudy E/MyActivity: onCreate mContext: ryd.gyy.anative
+
+            //获取sp数据有效：onCreate mContext: ryd.gyy.anative------app_name:account
+            SharedPreferences sp = mContext.getSharedPreferences("appInfo", MODE_PRIVATE);
+            String str2 = sp.getString("appname", "service");
+
+            //获取String资源无效
+            String str = mContext.getString(R.string.test_name);
+            Log.e(TAG, "onCreate mContext: " + mContext.getPackageName() + "------app_name:" + str2
+             + "---str:" + str);
         } catch (PackageManager.NameNotFoundException e) {
             e.printStackTrace();
         }
