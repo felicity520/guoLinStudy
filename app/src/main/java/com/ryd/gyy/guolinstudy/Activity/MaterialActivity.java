@@ -32,7 +32,7 @@ import java.util.Random;
  * NavigationView：滑动的菜单栏（就是通过左滑右滑出来的）
  * FloatingActionButton：悬浮按钮
  * Snackbar：和用户交互的提示工具
- * CoordinatorLayout：加强版的FrameLayout
+ * CoordinatorLayout：加强版的FrameLayout:可以监听其所有子控件的各种行为
  * AppBarLayout:垂直方向的LinearLayout,可以监听可滑动view(RecyclerView)的滑动变化,从而让子view(toolbar)做出变化
  * SwipeRefreshLayout：支持下拉刷新的控件
  * CollapsingToolbarLayout:可折叠式的标题栏

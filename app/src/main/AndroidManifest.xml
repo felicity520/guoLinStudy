@@ -72,7 +72,9 @@
         <activity android:name=".Activity.SendbrocastActivity" />
         <activity android:name=".Activity.DisplayCutoutActivity" />
         <activity android:name=".Activity.MainActivity" />
-        <activity android:name=".Activity.FruitActivity" />
+        <activity
+            android:name=".Activity.FruitActivity"
+            android:theme="@style/FruitActivityTheme" />
         <activity android:name=".Thread.ThreadStudy" />
         <activity android:name=".Thread.AsyncTaskStudy" /> <!-- <activity android:name=".Activity.DownLoadActivity" /> -->
         <service

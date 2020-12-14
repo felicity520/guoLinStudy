@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--values-v21表示：之后21之后的系统才会读取这个文件-->
+    <style name="FruitActivityTheme" parent="AppTheme">
+        <!--statusBarColor：将状态栏颜色设置成透明。这个属性21之后才有-->
+        <item name="android:statusBarColor">@android:color/transparent</item>
+        <!--报错原因：FruitActivity有自定义的主题样式，在setSupportActionBar又指定了一种样式，所以冲突了，这里把自定义的title和actionbar关掉-->
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+</resources>

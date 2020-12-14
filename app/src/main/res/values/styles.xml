@@ -12,4 +12,7 @@
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
     </style>
+
+    <!--为了兼容21之前的内容，这里要将FruitActivityTheme也在values/styles.xml-->
+    <style name="FruitActivityTheme" parent="AppTheme"></style>
 </resources>
