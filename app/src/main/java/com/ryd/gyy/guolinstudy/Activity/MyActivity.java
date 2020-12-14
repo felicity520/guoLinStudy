@@ -104,10 +104,13 @@ public class MyActivity extends BaseActivity {
             SharedPreferences sp = mContext.getSharedPreferences("appInfo", MODE_PRIVATE);
             String str2 = sp.getString("appname", "service");
 
-            //获取String资源无效
-            String str = mContext.getString(R.string.test_name);
+            //先获取资源id
+            int appNameId = mContext.getResources().getIdentifier("app_name", "string", "ryd.gyy.anative");
+            //再用资源id去获取实际的值,亲测有效
+            String appName = mContext.getResources().getString(appNameId);
+            //E/MyActivity: onCreate mContext: ryd.gyy.anative------app_name:account--appName:native
             Log.e(TAG, "onCreate mContext: " + mContext.getPackageName() + "------app_name:" + str2
-             + "---str:" + str);
+                    + "--appName:" + appName);
         } catch (PackageManager.NameNotFoundException e) {
             e.printStackTrace();
         }

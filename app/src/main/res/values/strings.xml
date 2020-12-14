@@ -1,6 +1,14 @@
 <resources>
     <string name="app_name">guoLinStudy</string>
-    <string name="test_name">test_name111</string>
+
+    <string name="hello">Hello MyBundleTest!</string>
+    <string name="app_01">Bundle_01</string>
+    <string name="app_02">Bundle_02</string>
+    <string name="text_basic">Bundle Basic Data</string>
+    <string name="text_par">Bundle Parcelable Data</string>
+    <string name="text_ser">Bundle Seriable Data</string>
+    <string name="text_jump_back">Jump Back to Bundler01</string>
+
     <string name="first_fragment">fragment 0</string>
     <string name="second_fragment">fragment 1</string>
     <string name="third_fragment">fragment 2</string>

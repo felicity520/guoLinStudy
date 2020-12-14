@@ -14,6 +14,8 @@ import androidx.fragment.app.FragmentTransaction;
 
 import com.ryd.gyy.guolinstudy.Fragment.Fragment2;
 import com.ryd.gyy.guolinstudy.Fragment.Fragment4;
+import com.ryd.gyy.guolinstudy.Model.Book;
+import com.ryd.gyy.guolinstudy.Model.Person;
 import com.ryd.gyy.guolinstudy.R;
 
 /**
@@ -30,6 +32,10 @@ public class NotificationActivity extends FragmentActivity {
 
     Fragment2 fragment;
 
+    private Button mBtnBasic = null;
+    private Button mBtnPar = null;
+    private Button mBtnSer = null;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -40,7 +46,7 @@ public class NotificationActivity extends FragmentActivity {
 
         addFragByDynamic();
         initView();
-//        testProcess();
+        testProcess();
 
         Log.i(TAG, "onCreate currentThread: " + Thread.currentThread().getId());
 
@@ -74,10 +80,83 @@ public class NotificationActivity extends FragmentActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(NotificationActivity.this, ProcessActivity2.class);
+                Bundle bundle = new Bundle();
+                bundle.putString("name", "skywang");
+                bundle.putInt("height", 175);
+                intent.putExtras(bundle);
                 startActivity(intent);
             }
         });
+
+        //学习序列化
+        mBtnBasic = (Button) findViewById(R.id.btnBasic);
+        mBtnBasic.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                sendBasicDataThroughBundle();
+            }
+        });
+
+        mBtnPar = (Button) findViewById(R.id.btnPar);
+        mBtnPar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                sendParcelableDataThroughBundle();
+            }
+        });
+
+        mBtnSer = (Button) findViewById(R.id.btnSer);
+        mBtnSer.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                sendSeriableDataThroughBundle();
+            }
+        });
     }
+
+    // sent object through Pacelable
+    private void sendParcelableDataThroughBundle() {
+        Intent intent = new Intent(NotificationActivity.this, ProcessActivity2.class);
+
+        Book mBook = new Book();
+        mBook.setBookName("Android");
+        mBook.setAuthor("skywang");
+        mBook.setPublishTime(2013);
+
+        Bundle mBundle = new Bundle();
+        mBundle.putParcelable("ParcelableValue", mBook);
+        intent.putExtras(mBundle);
+
+        startActivity(intent);
+    }
+
+    // sent object through seriable
+    private void sendSeriableDataThroughBundle() {
+        Intent intent = new Intent(NotificationActivity.this, ProcessActivity2.class);
+
+        Person mPerson = new Person();
+        mPerson.setName("skywang");
+        mPerson.setAge(24);
+
+        Bundle mBundle = new Bundle();
+        mBundle.putSerializable("SeriableValue", mPerson);
+        intent.putExtras(mBundle);
+
+        startActivity(intent);
+    }
+
+
+    private void sendBasicDataThroughBundle() {
+        Intent intent = new Intent(NotificationActivity.this, ProcessActivity2.class);
+
+        Bundle bundle = new Bundle();
+        bundle.putString("name", "skywang");
+        bundle.putInt("height", 175);
+        intent.putExtras(bundle);
+
+        startActivity(intent);
+    }
+
 
     private void initView() {
         Button btn_switch = findViewById(R.id.btn_switch);
