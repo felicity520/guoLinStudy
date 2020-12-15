@@ -61,6 +61,8 @@ public class FruitActivity extends AppCompatActivity {
             case android.R.id.home:
                 finish();
                 return true;
+            default:
+                break;
         }
         return super.onOptionsItemSelected(item);
     }

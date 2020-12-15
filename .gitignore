@@ -5,9 +5,14 @@
 /.idea/libraries
 /.idea/modules.xml
 /.idea/workspace.xml
+/.idea/gradle.xml
+/.idea/misc.xml
 /.idea/navEditor.xml
 /.idea/assetWizardSettings.xml
 .DS_Store
 /build
 /captures
 .externalNativeBuild
+/.idea/dbnavigator.xml
+/.idea/codeStyles/Project.xml
+app/bugly/*

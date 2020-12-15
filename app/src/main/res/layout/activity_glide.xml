@@ -7,6 +7,7 @@
     tools:context=".Activity.GlideActivity">
 
     <Button
+        android:transitionName="shareBtn"
         android:id="@+id/button3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

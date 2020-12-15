@@ -1,10 +1,20 @@
 apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-android'
+apply plugin: 'bugly'
 
+bugly {
+    appId = '34141d8fcf' // 注册时分配的App ID
+    appKey = '3dc570a4-b171-41b5-8030-552b25725daa' // 注册时分配的App Key
+    appPackage = "com.ryd.gyy.guolinstudy"
+    appVersion = "1.0"
+    debug = false
+}
 android {
     compileSdkVersion 28
     defaultConfig {
         applicationId "com.ryd.gyy.guolinstudy"
-        minSdkVersion 26
+        minSdkVersion 22
         targetSdkVersion 28
         versionCode 1
         versionName "1.0"
@@ -15,11 +25,26 @@ android {
                 cppFlags ""
             }
         }
+        ndk {
+            // 设置支持的SO库架构，不支持'armeabi'
+            abiFilters 'x86', 'armeabi-v7a', 'x86_64', 'arm64-v8a'
+        }
     }
     buildTypes {
         release {
+            //开启混淆
             minifyEnabled false
+            //加载默认的混淆文件
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+        debug {
+//            minifyEnabled是否开启混淆
+//            shrinkResources删除无效的Resource
+//            shrinkResources依赖于minifyEnabled,必须一起用
+//            指定使用哪个语言，会将其他的语言的给去除
+            minifyEnabled false
+            shrinkResources false
+//            resConfigs "zh"
         }
     }
     externalNativeBuild {
@@ -32,19 +57,21 @@ android {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
+    ndkVersion '21.0.6113669'
 }
 
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
-    implementation 'androidx.appcompat:appcompat:1.1.0'
-    implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
+    implementation 'androidx.appcompat:appcompat:1.2.0'
+    implementation 'androidx.constraintlayout:constraintlayout:2.0.4'
     testImplementation 'junit:junit:4.12'
-    androidTestImplementation 'androidx.test:runner:1.3.0-alpha02'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0-alpha02'
-    implementation 'com.squareup.okhttp3:okhttp:3.11.0'
+    androidTestImplementation 'androidx.test:runner:1.3.0-rc03'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0-rc03'
+    implementation 'com.squareup.okhttp3:okhttp:3.14.9'
     implementation files('libs/BaiduLBS_Android.jar')
+
 //    使用Snackbar要添加的依赖
-    implementation 'com.android.support:design:23.4.0'
+    implementation 'com.android.support:design:28.0.0'
 
 //    butterknife注入:8.1.1的不能用，需要更新到10.0.0
     implementation 'com.jakewharton:butterknife:10.2.0'
@@ -54,15 +81,15 @@ dependencies {
     //implementation 'com.android.support:percent:28.0.0'
 
     //注入Glide
-    implementation 'com.github.bumptech.glide:glide:4.9.0'
-    annotationProcessor 'com.github.bumptech.glide:compiler:4.9.0'
+    implementation 'com.github.bumptech.glide:glide:4.11.0'
+    annotationProcessor 'com.github.bumptech.glide:compiler:4.11.0'
 
     //导入permissionsdispatcher框架，最新的是4.6.0
     implementation "org.permissionsdispatcher:permissionsdispatcher:4.6.0"
     annotationProcessor "org.permissionsdispatcher:permissionsdispatcher-processor:4.6.0"
 
 //    导入litepal依赖
-    implementation 'org.litepal.android:java:3.0.0'
+    implementation 'org.litepal.guolindev:core:3.1.1'
 
 //    调试数据库的工具Android-Debug-Database
     debugImplementation 'com.amitshekhar.android:debug-db:1.0.3'
@@ -78,4 +105,40 @@ dependencies {
 //    卡片化布局
     implementation 'androidx.cardview:cardview:1.0.0'
 
+//    文本对齐依赖
+    implementation 'com.text:alginlib:1.0.1'
+    implementation 'androidx.swiperefreshlayout:swiperefreshlayout:1.1.0'
+    implementation "androidx.core:core-ktx:1.3.1"
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+
+    // 解析html的jsoup
+    implementation 'org.jsoup:jsoup:1.12.2'
+
+    //Square出品的图片加载库之一
+    implementation 'com.squareup.picasso:picasso:2.5.2'
+
+    //搭建Server需要用到的库
+    implementation 'com.koushikdutta.async:androidasync:2.2.1'
+
+    //其中latest.release指代最新Bugly SDK版本号，也可以指定明确的版本号，例如2.2.0
+    implementation 'com.tencent.bugly:crashreport:2.2.0'
+
+    //其中latest.release指代最新Bugly NDK版本号，也可以指定明确的版本号，例如3.0
+    implementation 'com.tencent.bugly:nativecrashreport:3.0'
+
+    // LeakCanary
+    debugImplementation 'com.squareup.leakcanary:leakcanary-android:1.5'
+    releaseImplementation 'com.squareup.leakcanary:leakcanary-android-no-op:1.5'
+    testImplementation 'com.squareup.leakcanary:leakcanary-android-no-op:1.5'
+
+//    加载svg的动画
+    implementation 'com.eftimoff:android-pathview:1.0.8@aar'
+
+    //MotionLayout
+    implementation 'com.android.support.constraint:constraint-layout:2.0.4'
 }
+
+repositories {
+    mavenCentral()
+}
+

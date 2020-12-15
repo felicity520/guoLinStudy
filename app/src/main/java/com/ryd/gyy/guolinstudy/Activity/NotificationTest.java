@@ -62,7 +62,7 @@ public class NotificationTest extends AppCompatActivity implements View.OnClickL
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_notification);
 
-        test();
+//        test();
         initView();
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {

@@ -4,6 +4,10 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
+import android.transition.Fade;
+import android.transition.Slide;
+import android.transition.Transition;
+import android.transition.TransitionInflater;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
@@ -30,6 +34,15 @@ public class GlideActivity extends AppCompatActivity {
         setContentView(R.layout.activity_glide);
         initView();
         initData();
+        initAnimation();
+    }
+
+    /**
+     * 转场动画
+     */
+    private void initAnimation() {
+        Transition slide = TransitionInflater.from(GlideActivity.this).inflateTransition(R.transition.slide);
+        getWindow().setEnterTransition(slide);
     }
 
     private void initData() {
@@ -98,6 +111,16 @@ public class GlideActivity extends AppCompatActivity {
                 .placeholder(R.drawable.loading)
                 .diskCacheStrategy(DiskCacheStrategy.NONE)
                 .into(imageView);
+    }
+
+
+    @Override
+    protected void onPause() {
+        //通过overridePendingTransition实现转场动画-------------
+//        overridePendingTransition(R.anim.pagedown_enter, R.anim.pagedown_exit);
+        //0 0表示无动画
+        overridePendingTransition(0, 0);
+        super.onPause();
     }
 
 

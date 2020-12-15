@@ -77,6 +77,8 @@ public class AsyncTaskStudy extends AppCompatActivity implements View.OnClickLis
                 // 取消一个正在执行的任务,调用cancel之后onCancelled方法将会被调用
                 mTask.cancel(true);
                 break;
+            default:
+                break;
         }
     }
 

@@ -76,6 +76,8 @@ public class MyContentProvider extends ContentProvider {
                 return "vnd.android.cursor.dir/vnd.com.ryd.gyy.guolinstudy.category";
             case CATEGORY_ITEM:
                 return "vnd.android.cursor.item/vnd.com.ryd.gyy.guolinstudy.category";
+            default:
+                break;
         }
         return null;
     }

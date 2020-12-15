@@ -76,4 +76,5 @@
         android:src="@drawable/ic_comment"
         app:layout_anchor="@id/appBar"
         app:layout_anchorGravity="bottom|end" />
+
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
