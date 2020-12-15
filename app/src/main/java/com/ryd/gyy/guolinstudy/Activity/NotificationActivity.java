@@ -4,10 +4,10 @@ package com.ryd.gyy.guolinstudy.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 
-import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
@@ -44,12 +44,41 @@ public class NotificationActivity extends FragmentActivity {
 
         setContentView(R.layout.activity_fragment_test);
 
+        testMouse();
         addFragByDynamic();
         initView();
         testProcess();
 
         Log.i(TAG, "onCreate currentThread: " + Thread.currentThread().getId());
 
+    }
+
+    private void testMouse() {
+        //测试结果就是：当鼠标的光标停留在Button所在的View时，会触发ACTION_HOVER_ENTER
+        //鼠标在View上滑动时触发ACTION_HOVER_MOVE
+        //鼠标离开View触发ACTION_HOVER_EXIT
+        Button btn_shubiao = (Button) findViewById(R.id.btn_shubiao);
+        btn_shubiao.setOnHoverListener(new View.OnHoverListener() {
+            @Override
+            public boolean onHover(View v, MotionEvent event) {
+                int what = event.getAction();
+                switch (what) {
+                    case MotionEvent.ACTION_HOVER_ENTER:  //鼠标进入view
+                        System.out.println("bottom ACTION_HOVER_ENTER");
+                        break;
+                    case MotionEvent.ACTION_HOVER_MOVE:  //鼠标在view上
+                        System.out.println("bottom ACTION_HOVER_MOVE");
+                        break;
+                    case MotionEvent.ACTION_HOVER_EXIT:  //鼠标离开view
+                        System.out.println("bottom ACTION_HOVER_EXIT");
+                        break;
+                    case MotionEvent.ACTION_BUTTON_PRESS:
+                        System.out.println("bottom ACTION_BUTTON_PRESS");
+                        break;
+                }
+                return false;
+            }
+        });
     }
 
     /**

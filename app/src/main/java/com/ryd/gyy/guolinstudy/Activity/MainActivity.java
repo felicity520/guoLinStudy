@@ -5,16 +5,13 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.os.AsyncTask;
-import android.os.Build;
 import android.os.Bundle;
-import android.os.SystemClock;
 import android.util.Log;
 import android.util.LruCache;
-import android.view.KeyEvent;
+import android.view.InputDevice;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.Window;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -27,12 +24,9 @@ import com.ryd.gyy.guolinstudy.View.ButtonSubclass;
 import com.ryd.gyy.guolinstudy.View.CollapseView;
 import com.ryd.gyy.guolinstudy.View.FlowLayout;
 import com.ryd.gyy.guolinstudy.testjava.Singleton;
-import com.tencent.bugly.crashreport.CrashReport;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import android.view.MotionEvent;
 
 /**
  * 　　　┏┓　　　┏┓
@@ -428,6 +422,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     @Override
     public boolean onTouchEvent(MotionEvent ev) {
+        //判断是否是鼠标点击来源：如果是返回true，否则返回false
+        //还可以判断其他输入来源，比如键盘，游戏手柄
+        boolean isMouseTouch = ev.isFromSource(InputDevice.SOURCE_MOUSE);
+        Log.i("ggg", "gyy--------onTouchEvent------------isMouseTouch:" + isMouseTouch);
         switch (ev.getAction()) {
             case MotionEvent.ACTION_DOWN:
                 System.out.println("---> MainActivity中调用onTouchEvent()--->ACTION_DOWN");
