@@ -1,5 +1,6 @@
 package com.ryd.gyy.guolinstudy.testjava;
 
+import android.provider.Settings;
 import android.util.Log;
 
 import java.util.ArrayList;
@@ -118,6 +119,24 @@ public class testMain {
         if (42 == 42.0) { // true
             System.out.println("true");
         }
+
+        //学习java类加载
+        System.out.println("java AppClassLoader ---------"+ "\n");
+        System.out.println(System.getProperty("java.class.path"));
+        System.out.println("java ExtClassLoader  ---------"+ "\n");
+        System.out.println(System.getProperty("java.ext.dirs"));
+        System.out.println("java BootstrapClassLoader   ---------"+ "\n");
+        System.out.println(System.getProperty("sun.boot.class.path") + "\n");
+
+
+        ClassLoader C1 = Student.class.getClassLoader();
+        System.out.println("C1 is " + C1);
+        assert C1 != null;
+        ClassLoader parent1 = C1.getParent();
+        System.out.println("parent1 is " + parent1);
+        ClassLoader parent2 = parent1.getParent();
+        System.out.println("parent2 is " + parent2);
+
 
     }
 
