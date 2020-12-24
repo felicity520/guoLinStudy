@@ -1,36 +1,79 @@
 package com.ryd.gyy.guolinstudy.testjava;
 
-import android.os.Build;
-
-import androidx.annotation.RequiresApi;
-
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
-import java.net.URI;
-import java.net.URISyntaxException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
+import java.io.InputStream;
 
+/**
+ * 参考：http://liuwangshu.cn/application/classloader/1-java-classloader-.html
+ */
 public class DiskClassLoader extends ClassLoader {
-    private String filePath;
+    private String path;
 
     public DiskClassLoader(String path) {
-        filePath = path;
+        this.path = path;
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     protected Class<?> findClass(String name) throws ClassNotFoundException {
-        String newPath = filePath + name + ".class";
-        System.out.println("newPath----------:" + newPath);
-        byte[] classBytes = null;
-        Path path = null;
-        try {
-            path = Paths.get(new URI(newPath));
-            classBytes = Files.readAllBytes(path);
-        } catch (URISyntaxException | IOException e) {
-            e.printStackTrace();
+        System.out.println("findClass--------:");
+        Class clazz = null;
+        byte[] classData = loadClassData(name);//1
+        if (classData == null) {
+            throw new ClassNotFoundException();
+        } else {
+            clazz = defineClass(name, classData, 0, classData.length);//2
         }
-        return defineClass(name, classBytes, 0, classBytes.length);
+        return clazz;
+    }
+
+    private byte[] loadClassData(String name) {
+        String fileName = getFileName(name);
+        //fileName:Jobs.class
+        System.out.println("fileName:" + fileName);
+        File file = new File(path, fileName);
+        InputStream in = null;
+        ByteArrayOutputStream out = null;
+        try {
+            in = new FileInputStream(file);
+            out = new ByteArrayOutputStream();
+            byte[] buffer = new byte[1024];
+            int length = 0;
+            while ((length = in.read(buffer)) != -1) {
+                out.write(buffer, 0, length);
+            }
+            return out.toByteArray();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (in != null) {
+                    in.close();
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            try {
+                if (out != null) {
+                    out.close();
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        return null;
+    }
+
+    private String getFileName(String name) {
+        //name:com.ryd.gyy.guolinstudy.testjava.Jobs
+        System.out.println("name:" + name);
+        int index = name.lastIndexOf('.');
+        if (index == -1) {//如果没有找到'.'则直接在末尾添加.class
+            return name + ".class";
+        } else {
+            return name.substring(index + 1) + ".class";
+        }
     }
 }

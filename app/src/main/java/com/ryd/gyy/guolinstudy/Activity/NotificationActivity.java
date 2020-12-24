@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.ServiceConnection;
 import android.os.Bundle;
+import android.os.Environment;
 import android.os.Handler;
 import android.os.IBinder;
 import android.os.Message;
@@ -15,6 +16,7 @@ import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 
 import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentManager;
@@ -27,6 +29,12 @@ import com.ryd.gyy.guolinstudy.Model.Book;
 import com.ryd.gyy.guolinstudy.Model.Person;
 import com.ryd.gyy.guolinstudy.R;
 import com.ryd.gyy.guolinstudy.Service.MyService;
+import com.ryd.gyy.guolinstudy.testjava.ISay;
+import com.ryd.gyy.guolinstudy.testjava.SayException;
+
+import java.io.File;
+
+import dalvik.system.DexClassLoader;
 
 /**
  * 用于通知下拉的Activity
@@ -59,6 +67,40 @@ public class NotificationActivity extends FragmentActivity {
 
         Log.i(TAG, "onCreate currentThread: " + Thread.currentThread().getId());
 
+
+        studyClassLoader();
+    }
+
+    ISay say;
+
+    private void studyClassLoader() {
+        Button btnSay = findViewById(R.id.btn_say);
+        btnSay.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // 获取hotfix的jar包文件
+                final File jarFile = new File(Environment.getExternalStorageDirectory().getPath()
+                        + File.separator + "say_something_hotfix.jar");
+
+                if (!jarFile.exists()) {
+                    say = new SayException();
+                    Toast.makeText(NotificationActivity.this, say.saySomething(), Toast.LENGTH_SHORT).show();
+                } else {
+                    // 只要有读写权限的路径均可
+                    DexClassLoader dexClassLoader = new DexClassLoader(jarFile.getAbsolutePath(),
+                            getExternalCacheDir().getAbsolutePath(), null, getClassLoader());
+                    try {
+                        // 加载 SayHotFix 类
+                        Class clazz = dexClassLoader.loadClass("material.danny_jiang.com.dexclassloaderhotfix.SayHotFix");
+                        // 强转成 ISay, 注意 ISay 的包名需要和hotfix jar包中的一致
+                        ISay iSay = (ISay) clazz.newInstance();
+                        Toast.makeText(NotificationActivity.this, iSay.saySomething(), Toast.LENGTH_SHORT).show();
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        });
     }
 
     private void testMouse() {
