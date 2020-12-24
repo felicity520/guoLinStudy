@@ -36,6 +36,12 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme.NoActionBar"
         android:usesCleartextTraffic="true">
+        <service
+            android:name=".Service.MyService"
+            android:enabled="true"
+            android:exported="true"
+            android:process="com.gyy.remote" />
+
         <activity
             android:name=".Activity.ProcessActivity2"
             android:process="com.example.test" />
