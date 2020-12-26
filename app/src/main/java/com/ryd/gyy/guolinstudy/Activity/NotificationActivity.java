@@ -74,6 +74,11 @@ public class NotificationActivity extends FragmentActivity {
     ISay say;
 
     private void studyClassLoader() {
+        //当一个 App 被安装到手机后，apk 里面的 class.dex 中的 class 均是通过 PathClassLoader 来加载的，可以通过如下代码验证：
+        //onCreate currentThread: dalvik.system.PathClassLoader[DexPathList[[zip file "/data/app/com.ryd.gyy.guolinstudy-d1NMxc1vkvKfGtyp_LzZ5w==/base.apk"],nativeLibraryDirectories=[/data/app/com.ryd.gyy.guolinstudy-d1NMxc1vkvKfGtyp_LzZ5w==/lib/arm64, /data/app/com.ryd.gyy.guolinstudy-d1NMxc1vkvKfGtyp_LzZ5w==/base.apk!/lib/arm64-v8a, /system/lib64, /system/product/lib64]]]
+        ClassLoader classLoader = NotificationActivity.class.getClassLoader();
+        Log.i(TAG, "onCreate currentThread: " + classLoader.toString());
+
         Button btnSay = findViewById(R.id.btn_say);
         btnSay.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -83,9 +88,11 @@ public class NotificationActivity extends FragmentActivity {
                         + File.separator + "say_something_hotfix.jar");
 
                 if (!jarFile.exists()) {
+                    //如果补丁包不存在，就加载之前的异常
                     say = new SayException();
                     Toast.makeText(NotificationActivity.this, say.saySomething(), Toast.LENGTH_SHORT).show();
                 } else {
+                    //加载补丁生成的jar包，jar就是修复后的代码
                     // 只要有读写权限的路径均可
                     DexClassLoader dexClassLoader = new DexClassLoader(jarFile.getAbsolutePath(),
                             getExternalCacheDir().getAbsolutePath(), null, getClassLoader());
