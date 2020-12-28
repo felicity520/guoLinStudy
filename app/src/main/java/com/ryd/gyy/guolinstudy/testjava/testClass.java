@@ -73,6 +73,12 @@ public class testClass {
         System.out.println(userb.getAge() + "");
         //输出userb的爱好，还是蓝色
         System.out.println(userb.getFavorite().getColor() + "");
+
+
+        //描述new一个对象的过程
+        new MyStudent();
+        System.out.println("分割线-------------");
+        new Person2();
     }
 
     public static class Father {
