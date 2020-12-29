@@ -20,7 +20,7 @@ public class testClass {
         //(8)
         //(7)
 //        Son s1 = new Son();
-        System.out.println("gyy----");
+//        System.out.println("gyy----");
 //        Son s2 = new Son();
 
 
@@ -60,25 +60,29 @@ public class testClass {
 //        System.out.println(userb.getFavorite().getColor() + "");
 
         //3、深拷贝--------
-        User4 usera = new User4();
-        Favorite2 favorite = new Favorite2();
-        favorite.setColor("蓝色");
-        usera.setAge(20);
-        usera.setFavorite(favorite);
-        User4 userb = (User4) usera.clone();
-        //修改usera的年龄和爱好颜色
-        usera.setAge(22);
-        usera.getFavorite().setColor("红色");
-        //输出userb的年龄，还是11
-        System.out.println(userb.getAge() + "");
-        //输出userb的爱好，还是蓝色
-        System.out.println(userb.getFavorite().getColor() + "");
+//        User4 usera = new User4();
+//        Favorite2 favorite = new Favorite2();
+//        favorite.setColor("蓝色");
+//        usera.setAge(20);
+//        usera.setFavorite(favorite);
+//        User4 userb = (User4) usera.clone();
+//        //修改usera的年龄和爱好颜色
+//        usera.setAge(22);
+//        usera.getFavorite().setColor("红色");
+//        //输出userb的年龄，还是11
+//        System.out.println(userb.getAge() + "");
+//        //输出userb的爱好，还是蓝色
+//        System.out.println(userb.getFavorite().getColor() + "");
 
 
         //描述new一个对象的过程
-        new MyStudent();
-        System.out.println("分割线-------------");
-        new Person2();
+//        new MyStudent();
+//        System.out.println("分割线-------------");
+//        new Person2();
+
+//        System.out.println("分割线------222-------");
+        //被动引用：子类中调用父类的静态变量。
+        MyStudent.value1 = 2;
     }
 
     public static class Father {
