@@ -35,6 +35,18 @@
         android:layout_height="wrap_content"
         android:text="启动进程2" />
 
+    <Button
+        android:id="@+id/btn_start_services_process"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="启动services进程" />
+
+    <Button
+        android:id="@+id/btn_say"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="btn_say" />
+
     <FrameLayout
         android:id="@+id/fragment_container"
         android:layout_width="match_parent"

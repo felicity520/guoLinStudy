@@ -41,8 +41,9 @@ public class CrashHandler implements Thread.UncaughtExceptionHandler {
     }
 
     public void init(@NonNull Context context) {
-        //所有线程的默认未捕获异常处理程序
+        //所有线程的默认未捕获异常处理程序，app默认的异常捕获的handler
         mDefaultCrashHandler = Thread.getDefaultUncaughtExceptionHandler();
+        //this表示用户设置的捕获方法，Thread.UncaughtExceptionHandler必须实现uncaughtException方法
         Thread.setDefaultUncaughtExceptionHandler(this);
         mContext = context.getApplicationContext();
     }

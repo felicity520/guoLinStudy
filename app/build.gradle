@@ -75,6 +75,7 @@ dependencies {
 
 //    butterknife注入:8.1.1的不能用，需要更新到10.0.0
     implementation 'com.jakewharton:butterknife:10.2.0'
+    androidTestImplementation 'org.testng:testng:6.9.6'
     annotationProcessor 'com.jakewharton:butterknife-compiler:10.2.0'
 
 //    PercentFrameLayout用到的闭包:google已经弃用了PercentFrameLayout
