@@ -83,6 +83,16 @@ public class testClass {
 //        System.out.println("分割线------222-------");
         //被动引用：子类中调用父类的静态变量。
         MyStudent.value1 = 2;
+
+
+    }
+
+    public int add(int k) {
+        int i = 0;
+        //Variable 'j' might not have been initialized
+        //局部变量必须要初始化。实例变量和类变量都会被赋予初始值
+        int j = 1;
+        return i + j + k;
     }
 
     public static class Father {
