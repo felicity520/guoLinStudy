@@ -115,6 +115,14 @@ public class NotificationActivity extends FragmentActivity {
         //鼠标在View上滑动时触发ACTION_HOVER_MOVE
         //鼠标离开View触发ACTION_HOVER_EXIT
         Button btn_shubiao = (Button) findViewById(R.id.btn_shubiao);
+        btn_shubiao.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(NotificationActivity.this, AnimationActivity.class);
+                NotificationActivity.this.startActivity(intent);
+            }
+        });
+
         btn_shubiao.setOnHoverListener(new View.OnHoverListener() {
             @Override
             public boolean onHover(View v, MotionEvent event) {

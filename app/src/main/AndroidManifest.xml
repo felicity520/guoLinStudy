@@ -55,7 +55,10 @@
         <activity android:name=".Activity.MotionLayoutActivity" />
         <activity android:name=".Activity.ValueAnimationActivity" />
         <activity android:name=".Activity.TweenedAnimationActivity" />
-        <activity android:name=".Activity.AnimationActivity" /> <!-- <activity android:name=".Activity.ServerActivity"></activity> -->
+        <activity
+            android:name=".Activity.AnimationActivity"
+            android:allowTaskReparenting="true"
+            android:taskAffinity="gyy.test" /> <!-- <activity android:name=".Activity.ServerActivity"></activity> -->
         <!-- android:name必须填写这个，value是API Key（百度） -->
         <!-- <meta-data -->
         <!-- android:name="com.baidu.lbsapi.API_KEY" -->
