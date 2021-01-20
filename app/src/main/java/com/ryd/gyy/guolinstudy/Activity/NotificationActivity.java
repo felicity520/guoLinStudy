@@ -22,6 +22,7 @@ import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
+import com.google.gson.Gson;
 import com.ryd.gyy.guolinstudy.Fragment.Fragment2;
 import com.ryd.gyy.guolinstudy.Fragment.Fragment4;
 import com.ryd.gyy.guolinstudy.IMyInterface;
@@ -33,6 +34,7 @@ import com.ryd.gyy.guolinstudy.testjava.ISay;
 import com.ryd.gyy.guolinstudy.testjava.SayException;
 
 import java.io.File;
+import java.io.Serializable;
 
 import dalvik.system.DexClassLoader;
 
@@ -110,6 +112,12 @@ public class NotificationActivity extends FragmentActivity {
         });
     }
 
+    static class Bean implements Serializable {
+        //transient
+        private byte[] data = new byte[2 * 1024 * 1024];
+        String str = "data string";
+    }
+
     private void testMouse() {
         //测试结果就是：当鼠标的光标停留在Button所在的View时，会触发ACTION_HOVER_ENTER
         //鼠标在View上滑动时触发ACTION_HOVER_MOVE
@@ -119,6 +127,8 @@ public class NotificationActivity extends FragmentActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(NotificationActivity.this, AnimationActivity.class);
+//                intent.putExtra("data", new Bean());//  2097880
+                intent.putExtra("data", new Gson().toJson(new Bean()));
                 NotificationActivity.this.startActivity(intent);
             }
         });
