@@ -3,7 +3,7 @@ package com.ryd.gyy.guolinstudy.testjava;
 /**
  * 注解的使用
  * 理解：其实就是一种特殊的接口，注解的属性其实就是接口的方法，所以max()后面有括号
- * 参考：https://www.jianshu.com/p/9471d6bcf4cf
+ *  * 参考：https://www.jianshu.com/p/9471d6bcf4cf
  * https://blog.csdn.net/heyrian/article/details/80764783
  */
 public class AnnoationTest {

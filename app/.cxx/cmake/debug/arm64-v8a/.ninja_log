@@ -1,0 +1,9 @@
+# ninja log v5
+1	1634	624727934	CMakeFiles/native-lib.dir/native-lib.cpp.o	1623a632ff73a73a
+1636	2613	624727935	D:/Android/Projects/demo/guoLinStudy/app/build/intermediates/cmake/debug/obj/arm64-v8a/libnative-lib.so	259288900e9e3e15
+0	75	0	clean	21d1354076d053c9
+52	2673	625253249	CMakeFiles/native-lib.dir/native-lib.cpp.o	1623a632ff73a73a
+2674	3502	625253250	D:/Android/Projects/demo/guoLinStudy/app/build/intermediates/cmake/debug/obj/arm64-v8a/libnative-lib.so	259288900e9e3e15
+0	41	0	clean	21d1354076d053c9
+21	2076	629742408	CMakeFiles/native-lib.dir/native-lib.cpp.o	1623a632ff73a73a
+2078	2776	629742409	D:/Android/Projects/demo/guoLinStudy/app/build/intermediates/cmake/debug/obj/arm64-v8a/libnative-lib.so	259288900e9e3e15

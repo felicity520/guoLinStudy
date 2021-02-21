@@ -110,6 +110,9 @@ public class testClass {
         }.start();
 
 
+        //学习上下通配符
+        Fruit f1 = new Apple();
+        Plate<? extends Fruit> p1 = new Plate<Apple>();
     }
 
     public int add(int k) {

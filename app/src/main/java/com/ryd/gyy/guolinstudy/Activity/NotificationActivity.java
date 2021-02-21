@@ -27,11 +27,16 @@ import com.ryd.gyy.guolinstudy.Fragment.Fragment2;
 import com.ryd.gyy.guolinstudy.Fragment.Fragment4;
 import com.ryd.gyy.guolinstudy.IMyInterface;
 import com.ryd.gyy.guolinstudy.Model.Book;
+import com.ryd.gyy.guolinstudy.Model.MessageEvent;
 import com.ryd.gyy.guolinstudy.Model.Person;
 import com.ryd.gyy.guolinstudy.R;
 import com.ryd.gyy.guolinstudy.Service.MyService;
 import com.ryd.gyy.guolinstudy.testjava.ISay;
 import com.ryd.gyy.guolinstudy.testjava.SayException;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import java.io.File;
 import java.io.Serializable;
@@ -71,6 +76,33 @@ public class NotificationActivity extends FragmentActivity {
 
 
         studyClassLoader();
+        studyEventbus();
+    }
+
+    private void studyEventbus() {
+        //在需要订阅事件的地方注册事件
+        EventBus.getDefault().register(this);
+        Button btn_event_bus = (Button) findViewById(R.id.btn_event_bus);
+        btn_event_bus.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //发布订阅事件
+                EventBus.getDefault().post(new MessageEvent("我是发送的消息"));
+            }
+        });
+
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void getEventMessage(MessageEvent messageEvent) {
+        Toast.makeText(this, messageEvent.getMessage().toString(), Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        //取消事件订阅
+        EventBus.getDefault().unregister(this);
     }
 
     ISay say;
