@@ -16,3 +16,5 @@
 /.idea/dbnavigator.xml
 /.idea/codeStyles/Project.xml
 app/bugly/*
+app/.cxx
+/.idea/*
