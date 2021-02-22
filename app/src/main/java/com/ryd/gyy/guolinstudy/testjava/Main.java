@@ -5,6 +5,7 @@ import java.lang.annotation.Target;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.lang.annotation.*;
+import java.lang.reflect.Modifier;
 
 /**
  * 获取Student类的main方法、不要与当前的main方法搞混了
@@ -12,6 +13,77 @@ import java.lang.annotation.*;
 public class Main {
 
     public static void main(String[] args) {
+        long startTime = System.currentTimeMillis();
+        Class clz1 = null;
+        try {
+            clz1 = Class.forName("com.ryd.gyy.guolinstudy.testjava.UserJiMu");
+            UserJiMu user;
+            int i = 0;
+            while (i < 1000000) {
+                i++;
+                //方法1，直接实例化 耗时：16
+//                user = new UserJiMu();
+                //方法2，每次都通过反射获取class，然后实例化  耗时：553
+//                user = (UserJiMu) Class.forName("com.ryd.gyy.guolinstudy.testjava.UserJiMu").newInstance();
+                //方法3，通过之前反射得到的class进行实例化    耗时：20
+                user = (UserJiMu) clz1.newInstance();
+            }
+
+            System.out.println("耗时：" + (System.currentTimeMillis() - startTime));
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        } catch (InstantiationException e) {
+            e.printStackTrace();
+        }
+
+
+//        反射学习------
+        UserJiMu user = new UserJiMu();
+        Class clz = UserJiMu.class;
+        Field field1 = null;
+        try {
+            field1 = clz.getDeclaredField("name");
+            field1.setAccessible(true);
+            field1.set(user, "xixi");
+            System.out.println("user.getName():" + user.getName());
+        } catch (NoSuchFieldException e) {
+            e.printStackTrace();
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        }
+
+        try {
+            field1 = clz.getDeclaredField("student");
+            field1.setAccessible(true);
+            field1.set(user, new Student());
+            Student student = (Student) field1.get(user);
+            System.out.println("student.toString():" + student.getClass().toString());
+        } catch (NoSuchFieldException | IllegalAccessException e) {
+            e.printStackTrace();
+        }
+
+
+//        修改static final
+        Field field = null;
+        try {
+            field = UserJiMu.class.getDeclaredField("nameStatic");
+            //将字段的访问权限设为true：即去除private修饰符的影响
+            field.setAccessible(true);
+            /*去除final修饰符的影响，将字段设为可修改的*/
+            Field modifiersField = Field.class.getDeclaredField("modifiers");
+            modifiersField.setAccessible(true);
+            modifiersField.setInt(field, field.getModifiers() & ~Modifier.FINAL);//fianl标志位置0
+//修改把字段值
+            field.set(null, "2南方，NVFL00");
+            System.out.println("修改后---field.get(user):" + field.get(user));
+        } catch (NoSuchFieldException | IllegalAccessException e) {
+            e.printStackTrace();
+        }
+
+
+
         try {
             //1、获取Student对象的字节码
             Class clazz = Class.forName("com.ryd.gyy.guolinstudy.testjava.Student");

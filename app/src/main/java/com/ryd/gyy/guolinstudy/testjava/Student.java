@@ -14,7 +14,7 @@ public class Student {
 
     //无参构造方法
     public Student() {
-        System.out.println("调用了公有、无参构造方法执行了。。。");
+//        System.out.println("调用了公有、无参构造方法执行了。。。");
     }
 
     //有一个参数的构造方法
