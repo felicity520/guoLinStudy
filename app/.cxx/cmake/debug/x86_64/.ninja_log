@@ -1,0 +1,7 @@
+# ninja log v5
+0	70	0	clean	21d1354076d053c9
+2	1345	625509033	CMakeFiles/native-lib.dir/native-lib.cpp.o	31eaacfbeb95962c
+1348	1959	625509033	D:/Android/Projects/demo/guoLinStudy/app/build/intermediates/cmake/debug/obj/x86_64/libnative-lib.so	7e5c114c0d15396c
+1	44	0	clean	21d1354076d053c9
+7	1413	630343505	CMakeFiles/native-lib.dir/native-lib.cpp.o	31eaacfbeb95962c
+1413	2019	630343505	D:/Android/Projects/demo/guoLinStudy/app/build/intermediates/cmake/debug/obj/x86_64/libnative-lib.so	7e5c114c0d15396c

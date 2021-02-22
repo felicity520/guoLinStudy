@@ -137,6 +137,9 @@ dependencies {
 
     //MotionLayout
     implementation 'com.android.support.constraint:constraint-layout:2.0.4'
+
+//   学习eventbus
+    implementation 'org.greenrobot:eventbus:3.2.0'
 }
 
 repositories {

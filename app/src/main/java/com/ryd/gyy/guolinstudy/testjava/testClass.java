@@ -2,6 +2,8 @@ package com.ryd.gyy.guolinstudy.testjava;
 
 public class testClass {
 
+    public static ThreadLocal<Boolean> sThreadLocal = new ThreadLocal<Boolean>();
+
     public static void main(String[] args) {
         //代码执行顺序：
         //先初始化父类（静态方法，代码块）：5，1
@@ -82,9 +84,35 @@ public class testClass {
 
 //        System.out.println("分割线------222-------");
         //被动引用：子类中调用父类的静态变量。
-        MyStudent.value1 = 2;
+//        MyStudent.value1 = 2;
+
+//学习ThreadLocal
+        sThreadLocal.set(true);
+        System.out.println("currentThreadName:" + Thread.currentThread().getName() + "--1--" + sThreadLocal.get());
+
+        new Thread("Thread2"){
+            @Override
+            public void run() {
+                super.run();
+                sThreadLocal.set(false);
+                System.out.println("currentThreadName:" + Thread.currentThread().getName() + "--2--" + sThreadLocal.get());
+
+            }
+        }.start();
+
+        new Thread("Thread3"){
+            @Override
+            public void run() {
+                super.run();
+                System.out.println("currentThreadName:" + Thread.currentThread().getName() + "--3---" + sThreadLocal.get());
+
+            }
+        }.start();
 
 
+        //学习上下通配符
+        Fruit f1 = new Apple();
+        Plate<? extends Fruit> p1 = new Plate<Apple>();
     }
 
     public int add(int k) {
