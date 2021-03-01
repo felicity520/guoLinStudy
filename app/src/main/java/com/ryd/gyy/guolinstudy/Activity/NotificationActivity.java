@@ -29,6 +29,7 @@ import com.ryd.gyy.guolinstudy.IMyInterface;
 import com.ryd.gyy.guolinstudy.Model.Book;
 import com.ryd.gyy.guolinstudy.Model.MessageEvent;
 import com.ryd.gyy.guolinstudy.Model.Person;
+import com.ryd.gyy.guolinstudy.Model.WsListener;
 import com.ryd.gyy.guolinstudy.R;
 import com.ryd.gyy.guolinstudy.Service.MyService;
 import com.ryd.gyy.guolinstudy.testjava.ISay;
@@ -40,8 +41,13 @@ import org.greenrobot.eventbus.ThreadMode;
 
 import java.io.File;
 import java.io.Serializable;
+import java.util.concurrent.TimeUnit;
 
 import dalvik.system.DexClassLoader;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.WebSocket;
+import okio.ByteString;
 
 /**
  * 用于通知下拉的Activity
@@ -77,6 +83,55 @@ public class NotificationActivity extends FragmentActivity {
 
         studyClassLoader();
         studyEventbus();
+        initWebSocket();
+    }
+
+    String mWbSocketUrl;
+    OkHttpClient mClient;
+    WebSocket mWebSocket;
+
+    /**
+     * 服务端在另外一个工程里
+     * websocket学习连接：
+     * https://mp.weixin.qq.com/s/c1qgZbFuf98VI-2cgrhXtQ
+     */
+    private void initWebSocket() {
+        mWbSocketUrl = "ws://localhost:47823/";
+        mClient = new OkHttpClient.Builder()
+                .pingInterval(10, TimeUnit.SECONDS)
+                .build();
+        Request request = new Request.Builder()
+                .url(mWbSocketUrl)
+                .build();
+        mWebSocket = mClient.newWebSocket(request, new WsListener());
+
+        //获取连接url，初始化websocket客户端
+        send("gyy");
+    }
+
+
+    //发送String消息
+    public void send(final String message) {
+        if (mWebSocket != null) {
+            mWebSocket.send(message);
+        }
+    }
+
+    /**
+     * 发送byte消息
+     *
+     * @param message
+     */
+    public void send(final ByteString message) {
+        if (mWebSocket != null) {
+            mWebSocket.send(message);
+        }
+    }
+
+    //主动断开连接
+    public void disconnect(int code, String reason) {
+        if (mWebSocket != null)
+            mWebSocket.close(code, reason);
     }
 
     private void studyEventbus() {
