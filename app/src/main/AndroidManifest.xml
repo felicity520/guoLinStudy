@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.ryd.gyy.guolinstudy">
-    <!--    android:sharedUserId="com.test.jimu"-->
-
+    <!-- android:sharedUserId="com.test.jimu" -->
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE" /> <!-- 9.0之后申请前台服务需要静态注册权限 -->
     <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS" />
     <uses-permission android:name="android.permission.WAKE_LOCK" /> <!-- 用于进行网络定位 -->
@@ -36,6 +35,12 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme.NoActionBar"
         android:usesCleartextTraffic="true">
+
+        <!--        android:theme="@style/activity_styles"-->
+        <activity
+            android:name=".Activity.AddPeopleActivity"
+            android:theme="@style/activity_styles" />
+
         <service
             android:name=".Service.MyService"
             android:enabled="true"

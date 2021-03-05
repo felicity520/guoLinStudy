@@ -2,6 +2,7 @@ apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-android'
 apply plugin: 'bugly'
+apply plugin: 'org.greenrobot.greendao'
 
 bugly {
     appId = '34141d8fcf' // 注册时分配的App ID
@@ -140,9 +141,19 @@ dependencies {
 
 //   学习eventbus
     implementation 'org.greenrobot:eventbus:3.2.0'
+
+    //GreenDao依赖添加
+    implementation 'org.greenrobot:greendao:3.3.0'
 }
 
 repositories {
     mavenCentral()
 }
-
+greendao {
+    // 数据库版本号
+    schemaVersion 1
+    // 生成数据库文件的目录
+    targetGenDir 'src/main/java'
+    // 生成的数据库相关文件的包名
+    daoPackage 'com.ryd.gyy.guolinstudy'
+}

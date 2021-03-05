@@ -55,7 +55,7 @@ import okio.ByteString;
  */
 public class NotificationActivity extends FragmentActivity {
 
-    private static final String TAG = "NotificationActivity";
+    private static final String TAG = "NotificationActivity_A";
 
     private IMyInterface myInterface;
 
@@ -84,7 +84,43 @@ public class NotificationActivity extends FragmentActivity {
         studyClassLoader();
         studyEventbus();
         initWebSocket();
+        startActivity();
     }
+
+    private void startActivity() {
+        Button btn_test_activity = (Button) findViewById(R.id.btn_test_activity);
+        btn_test_activity.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(NotificationActivity.this, AddPeopleActivity.class));
+            }
+        });
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        Log.e(TAG, TAG + " onStart: ---------");
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        Log.e(TAG, TAG + " onResume: ---------");
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        Log.e(TAG, TAG + " onPause: ---------");
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        Log.e(TAG, TAG + " onStop: ---------");
+    }
+
 
     String mWbSocketUrl;
     OkHttpClient mClient;
