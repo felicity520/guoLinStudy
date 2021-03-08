@@ -58,6 +58,7 @@ public class MyActivity extends BaseActivity {
     private DemoBean[] demoFruits = {
             new DemoBean("数据库", R.drawable.ic_svg11, DataSaveActivity.class),
             new DemoBean("ScrollWindow", R.drawable.ic_svg9, ScrollWindowActivity.class),
+            new DemoBean("View", R.drawable.ic_svg12, ViewActivity.class),
             new DemoBean("Orange", R.drawable.ic_svg10, NotificationActivity.class),
             new DemoBean("乘风破浪的小船", R.drawable.ic_svg1, MainActivity.class),
             new DemoBean("动画", R.drawable.ic_svg2, AnimationActivity.class),
@@ -68,7 +69,6 @@ public class MyActivity extends BaseActivity {
             new DemoBean("MotionLayout", R.drawable.ic_svg7, MotionLayoutActivity.class),
             new DemoBean("Tablayout", R.drawable.ic_svg8, TablayoutActivity.class),
             new DemoBean("Orange", R.drawable.ic_svg11, PerContactsActivity.class),
-            new DemoBean("Orange", R.drawable.ic_svg12, MaterialActivity.class),
             new DemoBean("Orange", R.drawable.ic_svg13, MaterialActivity.class),
             new DemoBean("Orange", R.drawable.ic_svg14, MaterialActivity.class),
             new DemoBean("Orange", R.drawable.ic_svg15, MaterialActivity.class),
