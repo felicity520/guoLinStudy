@@ -11,7 +11,8 @@ public class ViewActivity extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_virwgroup_test);
+//        setContentView(R.layout.activity_virwgroup_test);
+        setContentView(R.layout.activity_virwgroup_test1);
     }
 
 }
