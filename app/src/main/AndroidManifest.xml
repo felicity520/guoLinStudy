@@ -92,7 +92,8 @@
         <activity android:name=".Activity.ServerActivity" />
         <activity android:name=".Activity.LocationActivity" />
         <activity android:name=".Activity.DownLoadActivity" />
-        <activity android:name=".Activity.NotificationTest" /> <!-- <activity android:name=".Thread.ThreadStudy" /> -->
+        <activity android:name=".Activity.NotificationTest" />
+        <activity android:name=".Thread.ThreadStudy" />
         <!-- 修改标题栏上显示的文字(这样就可以和app的名称不一样)：android:label="@string/toolbar_name" -->
         <!-- 内容管理者必须要注册:创建完之后共享给别人调用 -->
         <provider

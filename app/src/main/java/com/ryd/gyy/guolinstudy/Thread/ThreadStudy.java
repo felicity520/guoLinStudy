@@ -255,9 +255,27 @@ public class ThreadStudy extends AppCompatActivity implements View.OnClickListen
         @Override
         public void run() {
             // do something
-            Log.i(TAG, "onCreate4: " + Thread.currentThread().getId());//当前线程ID
-            Log.i(TAG, "onCreate5: " + getMainLooper().getThread().getId());//主线程ID
+            Log.i(TAG, "onCreate4: " + Thread.currentThread().getId());//当前线程ID:子线程
+            Log.i(TAG, "onCreate5: " + getMainLooper().getThread().getId());//主线程ID：2
             Log.e(TAG, "run: -------------");
+
+//在子线程更新UI：view.post()
+            threadStart.post(new Runnable() {
+                @Override
+                public void run() {
+                    threadStart.setText("我被修改了");
+                }
+            });
+//在子线程更新UI：view.postDelay()
+            threadStart.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    threadStart.setText("我被修改了嘤嘤嘤");
+
+                }
+            }, 1000);
+
+
         }
     }
 

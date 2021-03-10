@@ -17,6 +17,7 @@ import com.ryd.gyy.guolinstudy.RecyclerClass.DemoAdapter;
 import com.ryd.gyy.guolinstudy.RecyclerClass.DemoBean;
 import com.ryd.gyy.guolinstudy.RecyclerClass.Fruit;
 import com.ryd.gyy.guolinstudy.RecyclerClass.FruitAdapter;
+import com.ryd.gyy.guolinstudy.Thread.ThreadStudy;
 
 import java.io.BufferedReader;
 import java.io.FileInputStream;
@@ -57,6 +58,7 @@ public class MyActivity extends BaseActivity {
     private List<DemoBean> demoList = new ArrayList<>();
     private DemoBean[] demoFruits = {
             new DemoBean("数据库", R.drawable.ic_svg11, DataSaveActivity.class),
+            new DemoBean("Thread", R.drawable.ic_svg9, ThreadStudy.class),
             new DemoBean("ScrollWindow", R.drawable.ic_svg9, ScrollWindowActivity.class),
             new DemoBean("View", R.drawable.ic_svg12, ViewActivity.class),
             new DemoBean("Orange", R.drawable.ic_svg10, NotificationActivity.class),
