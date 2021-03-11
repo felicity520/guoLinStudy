@@ -5,6 +5,36 @@
     android:orientation="vertical">
 
     <Button
+        android:id="@+id/btnbind"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="开始Bind" />
+
+    <Button
+        android:id="@+id/btncancel"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="取消" />
+
+    <Button
+        android:id="@+id/btnstatus"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="获取状态" />
+
+    <Button
+        android:id="@+id/btnstart"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="开始" />
+
+    <Button
+        android:id="@+id/btnstop"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="停止" />
+
+    <Button
         android:id="@+id/threadStart"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

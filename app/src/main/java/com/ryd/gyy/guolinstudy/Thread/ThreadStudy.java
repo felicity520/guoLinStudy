@@ -1,9 +1,13 @@
 package com.ryd.gyy.guolinstudy.Thread;
 
+import android.app.Service;
+import android.content.ComponentName;
 import android.content.Intent;
+import android.content.ServiceConnection;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.os.IBinder;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
@@ -15,6 +19,8 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.ryd.gyy.guolinstudy.Model.JianzhiResult;
 import com.ryd.gyy.guolinstudy.R;
+import com.ryd.gyy.guolinstudy.Service.TestService1;
+import com.ryd.gyy.guolinstudy.Service.TestService2;
 import com.ryd.gyy.guolinstudy.Util.JsoupTool;
 
 import java.text.SimpleDateFormat;
@@ -54,6 +60,76 @@ public class ThreadStudy extends AppCompatActivity implements View.OnClickListen
         initData();
         Log.i(TAG, "onCreate----------: " + getMainLooper().getThread().getId());//获取主线程id
 //        thirdKinds();
+        studyService();
+        initBindService();
+    }
+
+    //保持所启动的Service的IBinder对象,同时定义一个ServiceConnection对象
+    TestService2.MyBinder binder;
+    private ServiceConnection conn = new ServiceConnection() {
+
+        //Activity与Service断开连接时回调该方法
+        @Override
+        public void onServiceDisconnected(ComponentName name) {
+            System.out.println("------Service DisConnected-------");
+        }
+
+        //Activity与Service连接成功时回调该方法
+        @Override
+        public void onServiceConnected(ComponentName name, IBinder service) {
+            System.out.println("------Service Connected-------");
+            binder = (TestService2.MyBinder) service;
+        }
+    };
+
+    private void initBindService() {
+        Button btnbind = (Button) findViewById(R.id.btnbind);
+        Button btncancel = (Button) findViewById(R.id.btncancel);
+        Button btnstatus = (Button) findViewById(R.id.btnstatus);
+        final Intent intent = new Intent(this, TestService2.class);
+        btnbind.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //绑定service
+                bindService(intent, conn, Service.BIND_AUTO_CREATE);
+            }
+        });
+
+        btncancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //解除service绑定
+                unbindService(conn);
+            }
+        });
+
+        btnstatus.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(getApplicationContext(), "Service的count的值为:"
+                        + binder.getCount(), Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    private void studyService() {
+        Button start = (Button) findViewById(R.id.btnstart);
+        Button stop = (Button) findViewById(R.id.btnstop);
+        final Intent intent = new Intent(this, TestService1.class);
+        start.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startService(intent);
+            }
+        });
+
+        stop.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                stopService(intent);
+
+            }
+        });
     }
 
     private void initData() {

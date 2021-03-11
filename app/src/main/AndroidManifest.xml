@@ -154,6 +154,15 @@
                 <action android:name="com.gyy.broadcast.customize" />
             </intent-filter>
         </receiver>
+        <!-- 配置Service组件,同时配置一个action -->
+        <service
+            android:name=".Service.TestService1"
+            android:enabled="true"
+            android:exported="true" />
+        <service
+            android:name=".Service.TestService2"
+            android:enabled="true"
+            android:exported="false" />
     </application>
 
 </manifest>
