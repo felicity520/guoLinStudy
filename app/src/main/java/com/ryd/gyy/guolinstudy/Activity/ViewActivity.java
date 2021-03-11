@@ -9,22 +9,21 @@ import android.os.Message;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.ryd.gyy.guolinstudy.R;
-import com.ryd.gyy.guolinstudy.Thread.ThreadStudy;
-
 import java.lang.ref.WeakReference;
+
+
+//import com.ryd.gyy.guolinstudy.R;
+
+//import java.lang.ref.WeakReference;
 
 public class ViewActivity extends AppCompatActivity {
 
-
-    @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-//        setContentView(R.layout.activity_virwgroup_test);
-        setContentView(R.layout.activity_virwgroup_test1);
-
-
-    }
+//    private class MyHandler extends Handler {
+//
+//        @Override
+//        public void handleMessage(Message msg) {
+//        }
+//    }
 
     /**
      * 防止内存泄漏
@@ -43,6 +42,19 @@ public class ViewActivity extends AppCompatActivity {
             ViewActivity activity = mActivity.get();
         }
     }
+
+
+
+    @Override
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+//        setContentView(R.layout.activity_virwgroup_test);
+//        setContentView(R.layout.activity_virwgroup_test1);
+
+
+    }
+
+
 
 
 }
