@@ -163,6 +163,14 @@
             android:name=".Service.TestService2"
             android:enabled="true"
             android:exported="false" />
+
+        <service
+            android:name=".Service.TestService3"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="com.test.intentservice" />
+            </intent-filter>
+        </service>
     </application>
 
 </manifest>

@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.IBinder;
 import android.os.Message;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
@@ -20,6 +21,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.ryd.gyy.guolinstudy.R;
 import com.ryd.gyy.guolinstudy.Service.TestService1;
 import com.ryd.gyy.guolinstudy.Service.TestService2;
+import com.ryd.gyy.guolinstudy.Service.TestService3;
 
 import java.lang.ref.WeakReference;
 
@@ -30,15 +32,20 @@ import java.lang.ref.WeakReference;
 
 public class ViewActivity extends AppCompatActivity {
 
-//    private class MyHandler extends Handler {
-//
-//        @Override
-//        public void handleMessage(Message msg) {
-//        }
-//    }
+    private static final String TAG = "TestService2";
+
+    /*
+    错误的写法
+    private class MyHandler extends Handler {
+
+        @Override
+        public void handleMessage(Message msg) {
+        }
+    }
+    */
 
     /**
-     * 防止内存泄漏
+     * 正确的写法：防止内存泄漏
      */
     private static class MyHandler extends Handler {
 
@@ -66,6 +73,7 @@ public class ViewActivity extends AppCompatActivity {
 
         initService();
         initBindService();
+        initIntentService();
 
 //        setContentView(R.layout.activity_virwgroup_test);
 //        setContentView(R.layout.activity_virwgroup_test1);
@@ -73,8 +81,32 @@ public class ViewActivity extends AppCompatActivity {
 
     }
 
+    private void initIntentService() {
+        Intent it1 = new Intent(this, TestService3.class);
+        Bundle b1 = new Bundle();
+        b1.putString("param", "s1");
+        it1.putExtras(b1);
+
+        Intent it2 = new Intent(this, TestService3.class);
+        Bundle b2 = new Bundle();
+        b2.putString("param", "s2");
+        it2.putExtras(b2);
+
+        Intent it3 = new Intent(this, TestService3.class);
+        Bundle b3 = new Bundle();
+        b3.putString("param", "s3");
+        it3.putExtras(b3);
+
+        //接着启动多次IntentService,每次启动,都会新建一个工作线程
+        //但始终只有一个IntentService实例
+        startService(it1);
+        startService(it2);
+        startService(it3);
+    }
+
     private void initBindService() {
         Button btnbind = (Button) findViewById(R.id.btnbind);
+        Button btnrebind = (Button) findViewById(R.id.btnrebind);
         Button btncancel = (Button) findViewById(R.id.btncancel);
         Button btnstatus = (Button) findViewById(R.id.btnstatus);
         final Intent intent = new Intent(this, TestService2.class);
@@ -85,7 +117,6 @@ public class ViewActivity extends AppCompatActivity {
                 bindService(intent, conn, Service.BIND_AUTO_CREATE);
             }
         });
-
         btncancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -94,6 +125,22 @@ public class ViewActivity extends AppCompatActivity {
             }
         });
 
+        final Intent intentRe = new Intent(this, TestService1.class);
+        btnrebind.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //重新绑定service
+                bindService(intentRe, connRe, Service.BIND_AUTO_CREATE);
+            }
+        });
+        Button btncancelrebind = (Button) findViewById(R.id.btncancelrebind);
+        btncancelrebind.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //解除service绑定
+                unbindService(connRe);
+            }
+        });
         btnstatus.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -110,14 +157,31 @@ public class ViewActivity extends AppCompatActivity {
         //Activity与Service断开连接时回调该方法
         @Override
         public void onServiceDisconnected(ComponentName name) {
-            System.out.println("------Service DisConnected-------");
+            Log.d(TAG, "------Service DisConnected------- ");
         }
 
         //Activity与Service连接成功时回调该方法
         @Override
         public void onServiceConnected(ComponentName name, IBinder service) {
-            System.out.println("------Service Connected-------");
+            Log.d(TAG, "------Service Connected-------");
             binder = (TestService2.MyBinder) service;
+        }
+    };
+
+
+    TestService1.MyBinder binderRe;
+    private ServiceConnection connRe = new ServiceConnection() {
+
+        @Override
+        public void onServiceDisconnected(ComponentName name) {
+//            异常断开时回调
+            Log.d(TAG, "------TestService1 Service DisConnected------- ");
+        }
+
+        @Override
+        public void onServiceConnected(ComponentName name, IBinder service) {
+            Log.d(TAG, "------TestService1 Service Connected-------");
+            binderRe = (TestService1.MyBinder) service;
         }
     };
 

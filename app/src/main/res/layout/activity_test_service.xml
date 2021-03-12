@@ -34,5 +34,18 @@
         android:layout_height="wrap_content"
         android:text="获取状态" />
 
+    <Button
+        android:id="@+id/btnrebind"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="开始ReBind" />
+
+    <Button
+        android:id="@+id/btncancelrebind"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="取消ReBind" />
+
+
 
 </LinearLayout>

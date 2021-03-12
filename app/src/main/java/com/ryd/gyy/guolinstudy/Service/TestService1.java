@@ -2,17 +2,37 @@ package com.ryd.gyy.guolinstudy.Service;
 
 import android.app.Service;
 import android.content.Intent;
+import android.os.Binder;
 import android.os.IBinder;
 import android.util.Log;
 
 public class TestService1 extends Service {
     private final String TAG = "TestService1";
 
+    //定义onBinder方法所返回的对象
+    private TestService1.MyBinder binder = new MyBinder();
+
+    public static class MyBinder extends Binder {
+
+    }
+
     //必须要实现的方法
     @Override
     public IBinder onBind(Intent intent) {
         Log.i(TAG, "onBind方法被调用!");
         return null;
+    }
+
+    @Override
+    public void onRebind(Intent intent) {
+        Log.i(TAG, "onRebind方法被调用!");
+        super.onRebind(intent);
+    }
+
+    @Override
+    public boolean onUnbind(Intent intent) {
+        Log.i(TAG, "onUnbind方法被调用!");
+        return super.onUnbind(intent);
     }
 
     //Service被创建时调用
