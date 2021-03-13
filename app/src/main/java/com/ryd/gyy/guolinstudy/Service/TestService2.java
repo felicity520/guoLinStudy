@@ -20,6 +20,12 @@ public class TestService2 extends Service {
         }
     }
 
+    @Override
+    public int onStartCommand(Intent intent, int flags, int startId) {
+        Log.i(TAG, "onStartCommand方法被调用!");
+        return super.onStartCommand(intent, flags, startId);
+    }
+
     //必须实现的方法,绑定改Service时回调该方法
     @Override
     public IBinder onBind(Intent intent) {

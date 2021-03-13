@@ -117,6 +117,16 @@ public class ViewActivity extends AppCompatActivity {
                 bindService(intent, conn, Service.BIND_AUTO_CREATE);
             }
         });
+
+        Button btnbindstart = (Button) findViewById(R.id.btnbindstart);
+        Intent startIntent = new Intent(this, TestService2.class);
+        btnbindstart.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //bind之后再start
+                startService(startIntent);
+            }
+        });
         btncancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

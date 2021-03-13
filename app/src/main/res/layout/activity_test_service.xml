@@ -23,6 +23,12 @@
         android:text="开始Bind" />
 
     <Button
+        android:id="@+id/btnbindstart"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Bind之后再start" />
+
+    <Button
         android:id="@+id/btncancel"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
