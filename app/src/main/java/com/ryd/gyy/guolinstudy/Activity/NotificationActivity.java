@@ -389,6 +389,27 @@ public class NotificationActivity extends FragmentActivity {
             sMessenger = new Messenger(service);
 
             Message message = Message.obtain();
+//            演示的代码1---
+//            Message.obtain(new Handler(), new Runnable() {
+//                @Override
+//                public void run() {
+//
+//                }
+//            });
+//            演示的代码2---
+//            Message.obtain(new Handler(new Handler.Callback() {
+//                @Override
+//                public boolean handleMessage(Message msg) {
+//                    //这里返回true可以拦截后面默认的实现
+//                    return false;
+//                }
+//            }), new Runnable() {
+//                @Override
+//                public void run() {
+//
+//                }
+//            });
+
             message.arg1 = 0x0001;
             //注意这里，把`Activity`的`Messenger`赋值给了`message`中，当然可能你已经发现这个就是`Service`中我们调用的`msg.replyTo`了。
             message.replyTo = aMessenger;

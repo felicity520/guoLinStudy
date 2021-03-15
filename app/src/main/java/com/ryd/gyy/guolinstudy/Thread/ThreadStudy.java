@@ -1,13 +1,19 @@
 package com.ryd.gyy.guolinstudy.Thread;
 
+import android.app.AlertDialog;
 import android.app.Service;
 import android.content.ComponentName;
 import android.content.Intent;
 import android.content.ServiceConnection;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
+import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
 import android.os.IBinder;
+import android.os.Looper;
+import android.os.Message;
+import android.os.StrictMode;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
@@ -15,6 +21,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.ryd.gyy.guolinstudy.Model.JianzhiResult;
@@ -26,6 +33,7 @@ import com.ryd.gyy.guolinstudy.Util.JsoupTool;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Objects;
 
 import static android.widget.Toast.LENGTH_SHORT;
 
@@ -62,6 +70,81 @@ public class ThreadStudy extends AppCompatActivity implements View.OnClickListen
 //        thirdKinds();
         studyService();
         initBindService();
+        testThread();
+        initNet();
+
+    }
+
+    private void initNet() {
+//        ThreadPolicy（线程策略）和VmPolicy(VM策略)，这里把严苛模式的网络检测关了，就可以在主线程中执行网络操作了，一般是不建议这么做的。
+        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitNetwork().build();
+        StrictMode.setThreadPolicy(policy);
+
+        Message msg = new Message();
+        msg.obtain();
+//        Handler handler = new Handler();
+//        handler.removeCallbacksAndMessages(null);
+
+    }
+
+    private AlertDialog.Builder builder;
+    private AlertDialog alertDialog;
+
+    private void testThread() {
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                //创建Looper，MessageQueue
+                Looper.prepare();
+                new Handler().post(new Runnable() {
+                    @Override
+                    public void run() {
+                        Toast.makeText(ThreadStudy.this, "toast", Toast.LENGTH_LONG).show();
+                    }
+                });
+                //开始处理消息
+                Looper.loop();
+                Objects.requireNonNull(Looper.myLooper()).quit();
+            }
+        }).start();
+
+
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                //创建Looper，MessageQueue
+                Looper.prepare();
+                new Handler().post(new Runnable() {
+                    @Override
+                    public void run() {
+                        builder = new AlertDialog.Builder(ThreadStudy.this);
+                        builder.setTitle("jackie");
+                        alertDialog = builder.create();
+                        alertDialog.show();
+                        alertDialog.hide();
+                    }
+                });
+                //开始处理消息
+                Looper.loop();
+            }
+        }).start();
+
+
+        Button btn_thread_test = (Button) findViewById(R.id.btn_thread_test);
+        btn_thread_test.setOnClickListener(new View.OnClickListener() {
+            @RequiresApi(api = Build.VERSION_CODES.M)
+            @Override
+            public void onClick(View v) {
+                Log.e(TAG, "onClick: -------");
+//                只有创建他的线程才能够修改UI
+                // Only the original thread that created a view hierarchy can touch its views.
+//                alertDialog.show();//此行会报以上的错误
+
+//                Main thread not allowed to quit.
+//                Looper.getMainLooper().quit();//主线程不能主动退出，会报上面的错
+//                Looper.getMainLooper().quitSafely();//主线程不能主动退出，会报上面的错
+            }
+        });
     }
 
     //保持所启动的Service的IBinder对象,同时定义一个ServiceConnection对象

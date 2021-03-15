@@ -78,7 +78,6 @@ public class ViewActivity extends AppCompatActivity {
 //        setContentView(R.layout.activity_virwgroup_test);
 //        setContentView(R.layout.activity_virwgroup_test1);
 
-
     }
 
     private void initIntentService() {
