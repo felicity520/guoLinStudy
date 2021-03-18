@@ -11,6 +11,7 @@ import android.os.Handler;
 import android.os.IBinder;
 import android.os.Message;
 import android.util.Log;
+import android.view.Choreographer;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
@@ -66,18 +67,73 @@ public class ViewActivity extends AppCompatActivity {
     private Button start;
     private Button stop;
 
+
+    private MyFrameCallback mFrameCallback = new MyFrameCallback();
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        Choreographer.getInstance().postFrameCallback(mFrameCallback);
+
         setContentView(R.layout.activity_test_service);
 
         initService();
         initBindService();
         initIntentService();
+        initFrame();
 
 //        setContentView(R.layout.activity_virwgroup_test);
 //        setContentView(R.layout.activity_virwgroup_test1);
 
+    }
+
+    private void initFrame() {
+        Button btnframe = findViewById(R.id.btnframe);
+        btnframe.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                uiLongTimeWork();
+            }
+        });
+    }
+
+
+    public class MyFrameCallback implements Choreographer.FrameCallback {
+        private long lastTime = 0;
+
+        @Override
+        public void doFrame(long frameTimeNanos) {
+
+            long times = (frameTimeNanos - lastTime) / 1000000;
+            int frames = (int) (times / 16);
+
+            String TAG = "MyFrameCallback";
+            if (times > 16) {
+                Log.w(TAG, "UI线程超时(超过16ms):" + times + "ms" + " , 丢帧:" + frames);
+            } else {
+                Log.w(TAG, "UI线程刷新正常");
+            }
+
+            lastTime = frameTimeNanos;
+            //每一次订阅都只会接收一次 vsync 信号，而我们需要一直监听 doFrame 的回调，因此在方法最后需要递归的执行 postFrameCallback 方法。
+            Choreographer.getInstance().postFrameCallback(mFrameCallback);
+        }
+    }
+
+    private void uiLongTimeWork() {
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    protected void onDestroy() {
+//        注意及时移除，要不然会内存泄漏
+        Choreographer.getInstance().removeFrameCallback(mFrameCallback);
+        super.onDestroy();
     }
 
     private void initIntentService() {
