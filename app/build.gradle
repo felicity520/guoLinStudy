@@ -144,6 +144,11 @@ dependencies {
 
     //GreenDao依赖添加
     implementation 'org.greenrobot:greendao:3.3.0'
+
+    //1.0.5 为 1.0.4 与 1.1.0 的过度版，其中API改动过大，老用户升级需谨慎
+//    智能刷新框架
+    implementation 'com.scwang.smartrefresh:SmartRefreshLayout:1.0.5.1'
+    implementation 'com.scwang.smartrefresh:SmartRefreshHeader:1.0.5.1'//没有使用特殊Header，可以不加这行
 }
 
 repositories {

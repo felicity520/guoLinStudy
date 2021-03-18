@@ -18,6 +18,12 @@ import com.ryd.gyy.guolinstudy.RecyclerClass.DemoBean;
 import com.ryd.gyy.guolinstudy.RecyclerClass.Fruit;
 import com.ryd.gyy.guolinstudy.RecyclerClass.FruitAdapter;
 import com.ryd.gyy.guolinstudy.Thread.ThreadStudy;
+import com.scwang.smartrefresh.layout.api.RefreshLayout;
+import com.scwang.smartrefresh.layout.constant.SpinnerStyle;
+import com.scwang.smartrefresh.layout.footer.BallPulseFooter;
+import com.scwang.smartrefresh.layout.header.BezierRadarHeader;
+import com.scwang.smartrefresh.layout.listener.OnLoadMoreListener;
+import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 
 import java.io.BufferedReader;
 import java.io.FileInputStream;
@@ -140,6 +146,26 @@ public class MyActivity extends BaseActivity {
         recyclerView.setLayoutManager(layoutManager);
         adapter = new DemoAdapter(demoList);
         recyclerView.setAdapter(adapter);
+
+//        添加下拉刷新
+        RefreshLayout refreshLayout = (RefreshLayout) findViewById(R.id.refreshLayout);
+        refreshLayout.setOnRefreshListener(new OnRefreshListener() {
+            @Override
+            public void onRefresh(RefreshLayout refreshlayout) {
+                refreshlayout.finishRefresh(2000/*,false*/);//传入false表示刷新失败
+            }
+        });
+        refreshLayout.setOnLoadMoreListener(new OnLoadMoreListener() {
+            @Override
+            public void onLoadMore(RefreshLayout refreshlayout) {
+                refreshlayout.finishLoadMore(2000/*,false*/);//传入false表示加载失败
+            }
+        });
+
+//设置 Header 为 贝塞尔雷达 样式
+        refreshLayout.setRefreshHeader(new BezierRadarHeader(this).setEnableHorizontalDrag(true));
+//设置 Footer 为 球脉冲 样式
+        refreshLayout.setRefreshFooter(new BallPulseFooter(this).setSpinnerStyle(SpinnerStyle.Scale));
     }
 
     /**
