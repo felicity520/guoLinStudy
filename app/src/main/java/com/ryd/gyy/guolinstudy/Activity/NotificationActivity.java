@@ -172,28 +172,40 @@ public class NotificationActivity extends FragmentActivity {
 
     private void studyEventbus() {
         //在需要订阅事件的地方注册事件
-        EventBus.getDefault().register(this);
+//        EventBus.getDefault().register(this);
         Button btn_event_bus = (Button) findViewById(R.id.btn_event_bus);
         btn_event_bus.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 //发布订阅事件
-                EventBus.getDefault().post(new MessageEvent("我是发送的消息"));
+//                EventBus.getDefault().post(new MessageEvent("我是发送的消息"));
+
+                Intent intent = new Intent(NotificationActivity.this, AnimationActivity.class);
+                startActivity(intent);
+//                验证粘性事件在发送事件之后再注册是否能接收到
+                EventBus.getDefault().postSticky(new MessageEvent("我是粘性事件"));
             }
         });
 
     }
 
-    @Subscribe(threadMode = ThreadMode.MAIN)
-    public void getEventMessage(MessageEvent messageEvent) {
-        Toast.makeText(this, messageEvent.getMessage().toString(), Toast.LENGTH_SHORT).show();
-    }
+//    /**
+//     * 普通事件
+//     *
+//     * @param messageEvent
+//     */
+//    @Subscribe(threadMode = ThreadMode.MAIN)
+//    public void getEventMessage(MessageEvent messageEvent) {
+//        Toast.makeText(this, messageEvent.getMessage().toString(), Toast.LENGTH_SHORT).show();
+//    }
+
+
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
         //取消事件订阅
-        EventBus.getDefault().unregister(this);
+//        EventBus.getDefault().unregister(this);
     }
 
     ISay say;

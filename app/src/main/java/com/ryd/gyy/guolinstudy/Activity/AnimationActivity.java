@@ -18,9 +18,15 @@ import android.view.animation.BounceInterpolator;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.ryd.gyy.guolinstudy.Model.MessageEvent;
 import com.ryd.gyy.guolinstudy.R;
 import com.ryd.gyy.guolinstudy.View.AnimatedSvgView;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 /**
  * Android属性动画完全解析(上)，初识属性动画的基本用法
@@ -36,7 +42,26 @@ public class AnimationActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        EventBus.getDefault().register(this);
     }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        //取消事件订阅
+        EventBus.getDefault().unregister(this);
+    }
+
+    /**
+     * 粘性事件
+     *
+     * @param messageEvent
+     */
+    @Subscribe(threadMode = ThreadMode.MAIN, sticky = true, priority = 1)
+    public void onMessageEvent(MessageEvent messageEvent) {
+        Toast.makeText(this, "粘性事件：" + messageEvent.getMessage().toString(), Toast.LENGTH_SHORT).show();
+    }
+
 
     /**
      * 实现原理：将SVG xml中的Path转化为android中的path数据，再使用自定义View将其画出来，再加上动画
