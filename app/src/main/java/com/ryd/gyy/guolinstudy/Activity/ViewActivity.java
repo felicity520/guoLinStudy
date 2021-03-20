@@ -88,6 +88,19 @@ public class ViewActivity extends AppCompatActivity {
 
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+//        View还没有绘制，所以获取不到宽高
+        Log.e(TAG, "onResume 获取宽高 width: " + start.getWidth() + "height:" + start.getHeight());
+
+    }
+
+    @Override
+    protected void onPostResume() {
+        super.onPostResume();
+    }
+
     private void initFrame() {
         Button btnframe = findViewById(R.id.btnframe);
         btnframe.setOnClickListener(new View.OnClickListener() {
@@ -257,6 +270,9 @@ public class ViewActivity extends AppCompatActivity {
         start.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+//                View绘制完成，所以可以获取不到宽高：E/TestService2: initService 获取宽高 width: 1080height:126
+                Log.e(TAG, "initService 获取宽高 width: " + start.getWidth() + "height:" + start.getHeight());
+
                 startService(intent);
             }
         });
